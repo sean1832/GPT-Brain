@@ -90,15 +90,6 @@ with body:
                 else:
                     memory_data = note_data
 
-                # if st.button('📝Update Brain Memory') or util.read_json_at(brain_memo, 'save') == 'true':
-                #     util.update_json(brain_memo, 'save', 'true')
-                #     util.update_json(brain_memo, 'delimiter', delimiter)
-                #     note_data = util.read_files(note_dir, delimiter, force_delimiter)
-                #     if append_mode:
-                #         memory_data += note_data
-                #     else:
-                #         memory_data = note_data
-
             mod_text = st.text_area('Raw Memory Inputs', value=memory_data, height=500)
             save(mod_text, f'{user_dir}input.txt', '💽Brain Memory')
 
