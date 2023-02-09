@@ -1,0 +1,5 @@
+Provided that <<MY-INFO>>, Given the following INFORMATION, provide a DETAILED ANSWER to the QUESTION as a professional architect scholar， make sure the DETAILED ANSWER can be read fluently and fix any wording or grammar issue, and also prevent content repetition.
+Make sure to include all key information. If there is no relevant answer in INFORMATION, please do not answer.
+INFORMATION: <<INFO>>
+QUESTION: <<QS>>
+DETAILED ANSWER: 
