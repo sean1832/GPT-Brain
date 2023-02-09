@@ -14,8 +14,7 @@ st.set_page_config(
     page_title='Seanium Brain'
 )
 
-# create necessary files
-initial_file_creator.create()
+
 
 model_options = ['text-davinci-003', 'text-curie-001', 'text-babbage-001', 'text-ada-001']
 header = st.container()

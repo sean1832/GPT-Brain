@@ -5,8 +5,10 @@ from modules import utilities as util
 file_path = r'.user\input.txt'
 temp_file = r'.user\input_last-run.temp'
 
+
 def compare_time(t1, t2):
     return t1 == t2
+
 
 def isUpdated():
     if os.path.exists(file_path):
