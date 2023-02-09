@@ -14,6 +14,9 @@ st.set_page_config(
     page_title='Seanium Brain'
 )
 
+# create necessary files
+initial_file_creator.create()
+
 model_options = ['text-davinci-003', 'text-curie-001', 'text-babbage-001', 'text-ada-001']
 header = st.container()
 body = st.container()
@@ -21,8 +24,7 @@ LOG_PATH = '.user/log'
 SESSION_TIME = st.session_state['SESSION_TIME']
 CURRENT_LOG_FILE = f'{LOG_PATH}/log_{SESSION_TIME}.log'
 
-# create necessary files
-initial_file_creator.create()
+
 
 
 def create_log():
