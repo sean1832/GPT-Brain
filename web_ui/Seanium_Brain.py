@@ -5,9 +5,6 @@ import check_update
 import time
 import os
 
-
-
-
 # activate session
 if 'SESSION_TIME' not in st.session_state:
     st.session_state['SESSION_TIME'] = time.strftime("%Y%m%d-%H%H%S")
@@ -16,7 +13,7 @@ st.set_page_config(
     page_title='Seanium Brain'
 )
 
-model_options = ['text-davinci-003', 'text-curie-001','text-babbage-001','text-ada-001']
+model_options = ['text-davinci-003', 'text-curie-001', 'text-babbage-001', 'text-ada-001']
 header = st.container()
 body = st.container()
 LOG_PATH = '.user/log'
@@ -29,13 +26,15 @@ def create_log():
         util.write_file(f'Session {SESSION_TIME}\n\n', CURRENT_LOG_FILE)
     return CURRENT_LOG_FILE
 
-def log(content, path=LOG_PATH, seperater_text=''):
+
+def log(content, delimiter=''):
     log_file = create_log()
 
-    if seperater_text != '':
-        seperater_text = f'\n\n=============={seperater_text}==============\n'
-    
-    util.write_file(f'\n{seperater_text + content}', log_file, 'a')
+    if delimiter != '':
+        delimiter = f'\n\n=============={delimiter}==============\n'
+
+    util.write_file(f'\n{delimiter + content}', log_file, 'a')
+
 
 def clear_log():
     log_file_name = f'log_{SESSION_TIME}.log'
@@ -44,21 +43,23 @@ def clear_log():
             if not file == log_file_name:
                 os.remove(os.path.join(root, file))
 
+
 def save_as():
     # download log file
     with open(CURRENT_LOG_FILE, 'rb') as f:
-        bytes = f.read()
+        content = f.read()
         st.download_button(
             label="📥download log",
-            data=bytes,
+            data=content,
             file_name=f'log_{SESSION_TIME}.txt',
             mime='text/plain'
         )
 
+
 # sidebar
 with st.sidebar:
     st.title('Settings')
-    output_types = st.multiselect('Output Types',['Answer', 'Summary'],default=['Answer'])
+    output_types = st.multiselect('Output Types', ['Answer', 'Summary'], default=['Answer'])
     answer_model = st.selectbox('Answer Model', model_options)
     if util.contains(output_types, 'Summary'):
         summary_model = st.selectbox('Summary Model', model_options)
@@ -72,32 +73,33 @@ with st.sidebar:
     chunk_size = st.slider('Chunk Size', 1500, 4500, value=4000)
     chunk_count = st.slider('Answer Count', 1, 5, value=1)
 
-    if st.button('Clear Log',on_click=clear_log):
+    if st.button('Clear Log', on_click=clear_log):
         st.success('Log Cleared')
 with header:
     st.title('🧠Seanium Brain')
     st.text('This is my personal AI powered brain feeding my own Obsidian notes. Ask anything.')
 
 
-def execute_brain(question):
+def execute_brain(q):
     # log question
-    log(f'\n\n\n\n[{str(time.ctime())}] - QUESTION: {question}')
+    log(f'\n\n\n\n[{str(time.ctime())}] - QUESTION: {q}')
 
     if check_update.isUpdated():
         # if brain-info is updated
         brain.build(chunk_size)
-        st.success('Brain rebuilded!')
+        st.success('Brain rebuild!')
         time.sleep(2)
-    
+
     # thinking on answer
     with st.spinner('Thinking on Answer'):
-        answer = brain.run_answer(question, answer_model, temp, max_tokens, top_p, freq_panl, pres_panl, chunk_count=chunk_count)
+        answer = brain.run_answer(q, answer_model, temp, max_tokens, top_p, freq_panl, pres_panl,
+                                  chunk_count=chunk_count)
         if util.contains(output_types, 'Answer'):
             # displaying results
             st.header('💬Answer')
             st.success(answer)
-            log(answer, seperater_text='ANSWER')
-    
+            log(answer, delimiter='ANSWER')
+
     # thinking on summary
     if util.contains(output_types, 'Summary'):
         with st.spinner('Thinking on Summary'):
@@ -106,7 +108,8 @@ def execute_brain(question):
             # displaying results
             st.header('📃Summary')
             st.success(summary)
-            log(summary, seperater_text='SUMMARY')
+            log(summary, delimiter='SUMMARY')
+
 
 # main
 with body:
@@ -117,7 +120,7 @@ with body:
     with col2:
         if os.path.exists(CURRENT_LOG_FILE):
             save_as()
-    
+
     # execute brain calculation
     if not question == '' and send:
         execute_brain(question)
