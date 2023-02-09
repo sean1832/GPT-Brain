@@ -6,7 +6,7 @@ user_dir = r'.user'
 
 def create():
     # create brain data
-    util.create_json_not_exist(f'{user_dir}/brain-data.json')
+    util.create_json_not_exist(f'{user_dir}/brain-data.json', [])
     # create brain memo
     util.create_json_not_exist(f'{user_dir}/brain-memo.json',
                                {'note_dir': '', 'delimiter': '', 'append_mode': 'False', 'force_mode': 'False'})
