@@ -31,6 +31,7 @@ def isUpdated():
             print('Temp file not exist, writing temp file...')
             # write to temp file
             util.write_file(read_mod_time, temp_file)
-            return False
+            time.sleep(1)
+            return True
     else:
         raise FileNotFoundError(f'File: {file_path} does not exist.')

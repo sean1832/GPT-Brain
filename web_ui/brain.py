@@ -21,6 +21,7 @@ def build(chunk_size=4000):
 
     result = []
 
+    print('Building brain data...')
     for chunk in chunks:
         embedding = gpt.embedding(chunk.encode(encoding='ASCII', errors='ignore').decode())
         info = {'content': chunk, 'vector': embedding}
