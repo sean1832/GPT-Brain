@@ -6,7 +6,7 @@ from modules import gpt_util as gpt
 
 
 openai.api_key = util.read_file(r'.user\API-KEYS.txt').strip()
-BRAIN_DATA = util.read_json_file(r'.user\brain-data.json')
+
 prompt_dir = '.user/prompt'
 
 
@@ -29,7 +29,8 @@ def build(chunk_size=4000):
 
 
 def run_answer(query, model, temp, max_tokens, top_p, freq_penl, pres_penl, chunk_count):
-    results = gpt.search_chunks(query, BRAIN_DATA, chunk_count)
+    brain_data = util.read_json_file(r'.user\brain-data.json')
+    results = gpt.search_chunks(query, brain_data, chunk_count)
     answers = []
     for result in results:
         my_info = util.read_file(f'{prompt_dir}/my-info.txt')
