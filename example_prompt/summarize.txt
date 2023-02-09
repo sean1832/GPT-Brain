@@ -1,4 +1,4 @@
-Write notes about the following document. Summarize the text into a single clear， detailed paragraph that are easy to read， and in a way that it makes sense.
+Write notes about the following document. Summarize the text into a single clear， detailed dot points that are easy to read， and in a way that it makes sense.
 Include most important data.
 
 <<SUM>>
