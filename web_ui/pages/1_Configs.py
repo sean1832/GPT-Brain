@@ -26,13 +26,15 @@ def save(content, path, page=''):
             util.update_json(brain_memo, 'append_mode', append_mode)
             util.update_json(brain_memo, 'force_mode', force_delimiter)
 
+
 def select_directory():
     root = tk.Tk()
     root.withdraw()
-    # make sure the dialoge is on top of the main window
+    # make sure the dialog is on top of the main window
     root.attributes('-topmost', True)
     directory = filedialog.askdirectory(initialdir=os.getcwd(), title='Select Note Directory', master=root)
     return directory
+
 
 with st.sidebar:
     st.title('Settings')
@@ -49,7 +51,7 @@ with body:
             st.text('Configuration of prompts.')
             selected_file = st.selectbox('Prompt File', os.listdir(prompt_dir))
             selected_path = prompt_dir + selected_file
-            mod_text = st.text_area('Prompts',value=util.read_file(selected_path), height=500)
+            mod_text = st.text_area('Prompts', value=util.read_file(selected_path), height=500)
             save(mod_text, selected_path)
 
         case '💽Brain Memory':
@@ -59,10 +61,6 @@ with body:
 
             note_dir = ''
 
-            util.create_json_not_exist(brain_memo, {'note_dir': '', 'delimiter': '', 'append_mode': 'False', 'force_mode': 'False'})
-            util.create_file_not_exist(f'{user_dir}note_dir_info.txt')
-            util.create_file_not_exist(f'{user_dir}brain_mem_sig.temp')
-
             col1, col2 = st.columns(2)
             with col1:
                 st.button('🔄Refresh')
@@ -70,22 +68,22 @@ with body:
                 if st.button('📁Select Note Directory'):
                     note_dir = select_directory()
                     util.update_json(brain_memo, 'note_dir', note_dir)
-            note_dir = st.text_input('Note Directory', value=util.read_json_at(brain_memo, 'note_dir'), placeholder='Select Note Directory', key='note_dir')
+            note_dir = st.text_input('Note Directory', value=util.read_json_at(brain_memo, 'note_dir'),
+                                     placeholder='Select Note Directory', key='note_dir')
 
             col1, col2 = st.columns(2)
             with col1:
                 delimiter_memo = util.read_json_at(brain_memo, 'delimiter')
                 delimiter = st.text_input('Delimiter', delimiter_memo, placeholder='e.g. +++')
-                             
+
             with col2:
                 append_mode = st.checkbox('Append Mode', value=util.read_json_at(brain_memo, 'append_mode'))
-                
+
                 force_delimiter = st.checkbox('Force Delimiter', value=util.read_json_at(brain_memo, 'force_mode'))
-                
 
             # if note directory is selected
             if note_dir != '':
-                
+
                 note_data = util.read_files(note_dir, delimiter, force_delimiter)
                 if append_mode:
                     memory_data += note_data
@@ -109,5 +107,3 @@ with body:
             st.text('Configure your OpenAI API keys.')
             mod_text = st.text_input('API Keys', value=util.read_file(f'{user_dir}API-KEYS.txt'))
             save(mod_text, f'{user_dir}API-KEYS.txt')
-
-

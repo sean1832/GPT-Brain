@@ -1,5 +1,6 @@
 import streamlit as st
 from modules import utilities as util
+import initial_file_creator
 import brain
 import check_update
 import time
@@ -19,6 +20,9 @@ body = st.container()
 LOG_PATH = '.user/log'
 SESSION_TIME = st.session_state['SESSION_TIME']
 CURRENT_LOG_FILE = f'{LOG_PATH}/log_{SESSION_TIME}.log'
+
+# create necessary files
+initial_file_creator.create()
 
 
 def create_log():
