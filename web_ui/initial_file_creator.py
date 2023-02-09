@@ -10,3 +10,6 @@ def create():
     # create brain memo
     util.create_json_not_exist(f'{user_dir}/brain-memo.json',
                                {'note_dir': '', 'delimiter': '', 'append_mode': 'False', 'force_mode': 'False'})
+
+
+create()

@@ -3,10 +3,7 @@ import textwrap
 
 from modules import utilities as util
 from modules import gpt_util as gpt
-import initial_file_creator
 
-# create necessary files
-initial_file_creator.create()
 
 openai.api_key = util.read_file(r'.user\API-KEYS.txt').strip()
 BRAIN_DATA = util.read_json_file(r'.user\brain-data.json')

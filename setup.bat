@@ -38,6 +38,8 @@ REM create input txt file
 echo.> .user\input.txt
 echo input file created!
 
+python web_ui/initial_fie_creator.py
+
 echo Setup complete! Exiting...
 
 

@@ -85,8 +85,8 @@ def execute_brain(q):
     # log question
     log(f'\n\n\n\n[{str(time.ctime())}] - QUESTION: {q}')
 
-    print(f'update: {check_update.isUpdated()}')
     if check_update.isUpdated():
+        st.success('Building Brain...')
         # if brain-info is updated
         brain.build(chunk_size)
         st.success('Brain rebuild!')
