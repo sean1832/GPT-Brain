@@ -12,7 +12,7 @@ body = st.container()
 
 user_dir = '.user/'
 prompt_dir = f'{user_dir}prompt/'
-brain_memo = f'{user_dir}brain_memo.json'
+brain_memo = f'{user_dir}brain-memo.json'
 
 
 def save(content, path, page=''):
