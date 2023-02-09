@@ -8,6 +8,7 @@ openai.api_key = util.read_file(r'.user\API-KEYS.txt').strip()
 BRAIN_DATA = util.read_json_file(r'.user\brain-data.json')
 prompt_dir = '.user/prompt'
 
+
 def build(chunk_size=4000):
     all_text = util.read_file(r'.user\input.txt')
 
@@ -18,11 +19,12 @@ def build(chunk_size=4000):
 
     for chunk in chunks:
         embedding = gpt.embedding(chunk.encode(encoding='ASCII', errors='ignore').decode())
-        info = {'content':chunk, 'vector':embedding}
+        info = {'content': chunk, 'vector': embedding}
         print(info, '\n\n\n')
         result.append(info)
 
     util.write_json_file(result, r'.user\brain-data.json')
+
 
 def run_answer(query, model, temp, max_tokens, top_p, freq_penl, pres_penl, chunk_count):
     results = gpt.search_chunks(query, BRAIN_DATA, chunk_count)
@@ -41,6 +43,7 @@ def run_answer(query, model, temp, max_tokens, top_p, freq_penl, pres_penl, chun
     all_answers = '\n\n'.join(answers)
     # print('\n\n============ANSWER============\n\n', all_answers)
     return all_answers
+
 
 def run_summary(query, model, temp, max_tokens, top_p, freq_penl, pres_penl):
     chunks = textwrap.wrap(query, 10000)
