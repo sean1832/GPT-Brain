@@ -143,12 +143,12 @@ def main():
                                              index=util.read_json_at(brain_memo, 'advanced_mode', 0))
                     advanced_mode_index = 1 if advanced_mode == 'On' else 0
 
+                filter_key = ''
+                filter_logic = ''
+                filter_val = ''
+
                 # if note directory is selected
                 if note_dir != '':
-
-                    filter_key = ''
-                    filter_logic = ''
-                    filter_val = ''
                     # if advanced mode enabled
                     if advanced_mode_index == 1:
                         note_datas = util.read_files(note_dir, single_string=False)
