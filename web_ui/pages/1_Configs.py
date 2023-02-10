@@ -78,7 +78,7 @@ def filter_data(contents: list, append=True):
         filter_key = st.text_input('Key', placeholder='Key', value=util.read_json_at(brain_memo, 'filter_keys'))
     with col2:
         options = ['IS', 'IS NOT']
-        default_value = util.read_json_at(brain_memo, 'filter_logics')
+        default_value = util.read_json_at(brain_memo, 'filter_logics', 'IS')
         logic_select = st.selectbox('Logic', options, index=options.index(default_value))
     with col3:
         value = util.read_json_at(brain_memo, 'filter_values')
@@ -144,7 +144,7 @@ def main():
                     advanced_mode_index = 1 if advanced_mode == 'On' else 0
 
                 filter_key = ''
-                filter_logic = 'IS'
+                filter_logic = ''
                 filter_val = ''
 
                 # if note directory is selected
