@@ -15,23 +15,20 @@
 - [x] Language model selection for different needs
 - [x] Basic parameter sliders for customizing configuration.
 
+## Install
+### 1. What you need
+- Install [python 3.11](https://www.python.org/downloads)
+- OpenAI [API keys](https://platform.openai.com/account/api-keys)
+### 2. Set up the project for the first time
+1. Run `setup.bat`
+2. Enter your OpenAI API Key
+
+### 3. Run
+- Execute `run-webUI.bat`
+
+
 ## Screenshoots
 ### Main Page
 ![screenshot1](https://cdn.discordapp.com/attachments/998217078915997746/1073881233387429978/image.png)
 ### Brain Memory
-![screenshot2](https://cdn.discordapp.com/attachments/998217078915997746/1073883842840104990/image.png)
-
-## Install
-### What you need
-- Install [python 3.11](https://www.python.org/downloads)
-- OpenAI [API keys](https://platform.openai.com/account/api-keys)
-
-### Set up the project for the first time
-1. Run `setup.bat`
-2. Enter your OpenAI API Key
-
-## How to use
-### Run
-- Execute `run-webUI.bat`
-
-## Contributer
+![screenshot2](https://cdn.discordapp.com/attachments/998217078915997746/1073885430270922822/image.png)
