@@ -12,6 +12,7 @@
 - [x] Integration with [Obsidian note](https://obsidian.md/) directory for easy updates
 - [x] Section parsing using delimiters for targeted updates
 - [x] Obsidian YAML metadata filtering with "is" and "is not" logic *(only a single field is currently supported.)*
+- [ ] Multi metadata filtering
 - [x] Language model selection for different needs
 - [x] Basic parameter sliders for customizing configuration.
 
