@@ -2,9 +2,11 @@
 # 🧠 GPT Brain
 [![python](https://img.shields.io/badge/python-3.11-blue)](https://www.python.org/downloads/release/python-3112/)
 
-*⭐️ Like this repo? please consider star*
+*⭐️ Like this repo? please consider a star!*
 
 *💡This project is inspired by youtuber [All About AI](https://www.youtube.com/@AllAboutAI)'s video on [Second Brain](https://www.youtube.com/watch?v=1k2JpJRIoAA&ab_channel=AllAboutAI). Please consider support him!*
+
+*💡As I am not a professional programmer and am fairly new to Python, this project may contain bugs. If you encounter any issues, please suggest them in the [Issues section](https://github.com/sean1832/GPT-Brain/issues).*
 
 ### Feature
 - [x] Configurable prompts for questions and summarization.
