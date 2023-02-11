@@ -144,7 +144,7 @@ def main():
                     advanced_mode_index = 1 if advanced_mode == 'On' else 0
 
                 filter_key = ''
-                filter_logic = ''
+                filter_logic = 'IS'
                 filter_val = ''
 
                 # if note directory is selected
