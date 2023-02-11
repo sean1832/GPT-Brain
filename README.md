@@ -1,6 +1,7 @@
-
 # 🧠 GPT Brain
 [![python](https://img.shields.io/badge/python-3.11-blue)](https://www.python.org/downloads/release/python-3112/)
+
+>[中文说明](./README_CN.md) | [English](./README.md)
 
 *⭐️ Like this repo? please consider a star!*
 
