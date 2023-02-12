@@ -115,7 +115,7 @@ def execute_brain(q):
 
 # main
 with body:
-    question = st.text_input('Ask Brain: ')
+    question = st.text_area('Ask Brain: ')
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         send = st.button('📩Send')

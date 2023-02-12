@@ -2,4 +2,4 @@
 echo Activating Virtural environment...
 call .\venv\Scripts\activate
 
-streamlit run web_ui/Seanium_Brain.py
+streamlit run Seanium_Brain.py
