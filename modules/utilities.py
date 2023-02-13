@@ -1,5 +1,6 @@
 import json
 import os
+import glob
 
 
 # def extract_string(text, delimiter):
@@ -10,29 +11,34 @@ import os
 
 
 def extract_string(text, delimiter, force=False, join=True, split_mode=False):
-    if not delimiter in text:
-        if force:
-            return ''
-        else:
-            return text
+    # Check if delimiter is not in text
+    if delimiter not in text:
+        # If force is True, return empty string; otherwise, return the original text
+        return '' if force else text
+    # If split_mode is True, split text by delimiter and return the resulting list
+    elif split_mode:
+        return text.split(delimiter)
     else:
-        if split_mode:
-            return text.split(delimiter)
-        else:
-            substring = text.split(delimiter)
-            result = []
-            for i in range(1, len(substring), 2):
-                result.append(substring[i])
-            if join:
-                return ''.join(result)
-            else:
-                return result
+        substring = text.split(delimiter)
+        result = []
+        # Split text by delimiter and select every second item starting from the second one
+        for i in range(1, len(substring), 2):
+            result.append(substring[i])
+        # If join is True, join the resulting list into a string and return it; otherwise, return the list
+        return ''.join(result) if join else result
 
 
-def create_not_exist(path):
-    dir = os.path.dirname(path)
-    if not os.path.exists(dir):
-        os.makedirs(dir)
+def remove_oldest_file(directory, max_files):
+    files = glob.glob(f'{directory}/*')
+    if len(files) >= max_files:
+        oldest_file = min(files, key=os.path.getctime)
+        os.remove(oldest_file)
+
+
+def create_path_not_exist(path):
+    directory = os.path.dirname(path)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
 
 def create_file_not_exist(path):
@@ -78,7 +84,7 @@ def read_files(file_dir, delimiter='', force=False, single_string=True):
 
 
 def write_file(content, filepath, mode='w'):
-    create_not_exist(filepath)
+    create_path_not_exist(filepath)
     with open(filepath, mode, encoding='utf-8') as file:
         file.write(content)
 

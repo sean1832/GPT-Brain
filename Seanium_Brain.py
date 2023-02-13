@@ -1,6 +1,5 @@
 import streamlit as st
 from modules import utilities as util
-import initial_file_creator
 import brain
 import check_update
 import time
@@ -13,6 +12,8 @@ if 'SESSION_TIME' not in st.session_state:
 st.set_page_config(
     page_title='Seanium Brain'
 )
+
+util.remove_oldest_file('.user/log', 10)
 
 model_options = ['text-davinci-003', 'text-curie-001', 'text-babbage-001', 'text-ada-001']
 header = st.container()
@@ -66,7 +67,7 @@ with st.sidebar:
         summary_model = st.selectbox('Summary Model', model_options)
 
     temp = st.slider('Temperature', 0.0, 1.0, value=0.1)
-    max_tokens = st.slider('Max Tokens', 850, 2500, value=1000)
+    max_tokens = st.slider('Max Tokens', 850, 4500, value=1000)
     top_p = st.slider('Top_P', 0.0, 1.0, value=1.0)
     freq_panl = st.slider('Frequency penalty', 0.0, 1.0, value=0.0)
     pres_panl = st.slider('Presence penalty', 0.0, 1.0, value=0.0)
