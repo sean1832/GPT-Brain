@@ -145,23 +145,11 @@ def execute_brain(q):
             log(answer, delimiter='ANSWER')
 
     # thinking on other outputs
-
     if len(operations_no_question) > 0:
         for i in range(len(operations_no_question)):
             prompt_path = prompt_dictionary[operations_no_question[i]]
             other_model = other_models[i]
             process_response(answer, other_model, prompt_path, param)
-
-
-
-    # # thinking on summary
-    # if util.contains(output_types, 'Summary'):
-    #     with st.spinner('Thinking on Summary'):
-    #         summary = brain.run_summary(answer, summary_model, temp, max_tokens, top_p, freq_panl, pres_panl)
-    #         # displaying results
-    #         st.header('📃Summary')
-    #         st.success(summary)
-    #         log(summary, delimiter='SUMMARY')
 
 
 # main
