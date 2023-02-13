@@ -44,17 +44,15 @@ def run_answer(query, model, temp, max_tokens, top_p, freq_penl, pres_penl, chun
         answers.append(answer)
 
     all_answers = '\n\n'.join(answers)
-    # print('\n\n============ANSWER============\n\n', all_answers)
     return all_answers
 
 
-def run_summary(query, model, temp, max_tokens, top_p, freq_penl, pres_penl):
+def run(query, model, prompt_file, temp, max_tokens, top_p, freq_penl, pres_penl):
     chunks = textwrap.wrap(query, 10000)
-    summaries = []
+    responses = []
     for chunk in chunks:
-        prompt = util.read_file(f'{prompt_dir}/summarize.txt').replace('<<SUM>>', chunk)
-        summary = gpt.gpt3(prompt, model, temp, max_tokens, top_p, freq_penl, pres_penl)
-        summaries.append(summary)
-    all_summary = '\n\n'.join(summaries)
-    # print('\n\n============SUMMRY============\n\n', all_summary)
-    return all_summary
+        prompt = util.read_file(prompt_file).replace('<<DATA>>', chunk)
+        response = gpt.gpt3(prompt, model, temp, max_tokens, top_p, freq_penl, pres_penl)
+        responses.append(response)
+    all_response = '\n\n'.join(responses)
+    return all_response

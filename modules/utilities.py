@@ -29,10 +29,20 @@ def extract_string(text, delimiter, force=False, join=True, split_mode=False):
 
 
 def remove_oldest_file(directory, max_files):
-    files = glob.glob(f'{directory}/*')
+    files = scan_directory(directory)
     if len(files) >= max_files:
         oldest_file = min(files, key=os.path.getctime)
         os.remove(oldest_file)
+
+
+def scan_directory(directory):
+    files = glob.glob(f'{directory}/*')
+    return files
+
+
+# get file name without extension
+def get_file_name(filepath):
+    return os.path.splitext(os.path.basename(filepath))[0]
 
 
 def create_path_not_exist(path):
