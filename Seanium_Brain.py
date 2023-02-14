@@ -74,7 +74,7 @@ def process_response(query, target_model, prompt_file: str, data: model_data.par
                             data.present_penalty)
         # displaying results
         st.header(f'📃{file_name}')
-        st.success(results)
+        st.info(f'{results}')
         time.sleep(1)
         log(results, delimiter=f'{file_name.upper()}')
 
@@ -91,11 +91,11 @@ with st.sidebar:
     prompt_dictionary.pop('my-info')
 
     operations = st.multiselect('Operations', list(prompt_dictionary.keys()), default=list(prompt_dictionary.keys())[0])
-    other_models = []
     question_model = st.selectbox('Question Model', model_options)
 
     operations_no_question = [op for op in operations if op != 'question']
-
+    other_models = []
+    replace_tokens = []
     for operation in operations_no_question:
         model = st.selectbox(f'{operation} Model', model_options)
         other_models.append(model)
@@ -142,7 +142,7 @@ def execute_brain(q):
         if util.contains(operations, 'question'):
             # displaying results
             st.header('💬Answer')
-            st.success(answer)
+            st.info(f'{answer}')
             time.sleep(1)
             log(answer, delimiter='ANSWER')
 
@@ -163,7 +163,6 @@ with body:
     with col2:
         if os.path.exists(CURRENT_LOG_FILE):
             save_as()
-
     # execute brain calculation
     if not question == '' and send:
         execute_brain(question)
