@@ -114,7 +114,10 @@ def main():
                 # read selected file
                 last_sel_file = util.read_json_at(brain_memo, 'selected_prompt')
                 all_files = os.listdir(prompt_dir)
+                # sort files base on creation time
+                all_files.sort(key=lambda x: os.path.getmtime(f'{prompt_dir}{x}'), reverse=True)
 
+                print(all_files)
                 # index of last selected file
                 try:
                     last_sel_file_index = all_files.index(last_sel_file)
