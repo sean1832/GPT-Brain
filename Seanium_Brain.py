@@ -1,5 +1,4 @@
 import streamlit as st
-from streamlit_extras.echo_expander import echo_expander
 
 from modules import utilities as util
 from modules import model_data
