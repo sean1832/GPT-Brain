@@ -141,10 +141,11 @@ def main():
                               selected_file == 'question.txt' or \
                               selected_file == 'summarize.txt'
                     if not is_core:
-                        if st.button('❌Delete Prompt'):
-                            util.delete_file(f'{prompt_dir}{selected_file}')
-                            # refresh page
-                            st.experimental_rerun()
+                        if st_toggle.st_toggle_switch('Delete Prompt', label_after=True):
+                            if st.button('❌Delete'):
+                                util.delete_file(f'{prompt_dir}{selected_file}')
+                                # refresh page
+                                st.experimental_rerun()
 
                 selected_path = prompt_dir + selected_file
                 mod_text = st.text_area('Prompts', value=util.read_file(selected_path), height=500)
