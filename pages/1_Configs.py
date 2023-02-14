@@ -71,7 +71,6 @@ def match_fields(contents: list, logic_select, filter_key, filter_val):
 
 
 def filter_data(contents: list, append=True):
-
     # filters
     col1, col2, col3 = st.columns(3)
     with col1:
@@ -93,7 +92,6 @@ def filter_data(contents: list, append=True):
         return '\n\n\n\n'.join(result), filter_key, logic_select, filter_val
     else:
         return result, filter_key, logic_select, filter_val
-
 
 
 def main():
