@@ -1,5 +1,6 @@
 import streamlit as st
 import streamlit_toggle as st_toggle
+
 import os
 from modules import utilities as util
 import tkinter as tk
@@ -41,7 +42,6 @@ def select_directory():
     root.attributes('-topmost', True)
     directory = filedialog.askdirectory(initialdir=os.getcwd(), title='Select Note Directory', master=root)
     return directory
-
 
 
 def match_logic(logic, filter_key, filter_val, key, value):
@@ -139,16 +139,13 @@ def main():
                               selected_file == 'summarize.txt'
                     if not is_core:
                         if st.button('❌Delete Prompt'):
-                            pass
-                            # if confirm:
-                            #     util.delete_file(f'{prompt_dir}{selected_file}')
-                            #     # refresh page
-                            #     st.experimental_rerun()
+                            util.delete_file(f'{prompt_dir}{selected_file}')
+                            # refresh page
+                            st.experimental_rerun()
 
                 selected_path = prompt_dir + selected_file
                 mod_text = st.text_area('Prompts', value=util.read_file(selected_path), height=500)
                 save(mod_text, selected_path)
-                st.warning('Do not modify the file name.')
 
             case '💽Brain Memory':
                 st.title('💽Brain Memory')
