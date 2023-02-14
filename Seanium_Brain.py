@@ -25,7 +25,7 @@ LOG_PATH = '.user/log'
 PROMPT_PATH = '.user/prompt'
 SESSION_TIME = st.session_state['SESSION_TIME']
 CURRENT_LOG_FILE = f'{LOG_PATH}/log_{SESSION_TIME}.log'
-
+BRAIN_MEMO = '.user/brain-memo.json'
 
 def create_log():
     if not os.path.exists(CURRENT_LOG_FILE):
@@ -100,16 +100,16 @@ with st.sidebar:
         model = st.selectbox(f'{operation} Model', model_options)
         other_models.append(model)
 
-    temp = st.slider('Temperature', 0.0, 1.0, value=0.1)
-    max_tokens = st.slider('Max Tokens', 850, 4500, value=1000)
+    temp = st.slider('Temperature', 0.0, 1.0, value=util.read_json_at(BRAIN_MEMO, 'temp', 0.1))
+    max_tokens = st.slider('Max Tokens', 850, 4500, value=util.read_json_at(BRAIN_MEMO, 'max_tokens', 1000))
 
     with st.expander(label='Advanced Options'):
-        top_p = st.slider('Top_P', 0.0, 1.0, value=1.0)
-        freq_panl = st.slider('Frequency penalty', 0.0, 1.0, value=0.0)
-        pres_panl = st.slider('Presence penalty', 0.0, 1.0, value=0.0)
+        top_p = st.slider('Top_P', 0.0, 1.0, value=util.read_json_at(BRAIN_MEMO, 'top_p', 1.0))
+        freq_panl = st.slider('Frequency penalty', 0.0, 1.0, value=util.read_json_at(BRAIN_MEMO, 'frequency_penalty', 0.0))
+        pres_panl = st.slider('Presence penalty', 0.0, 1.0, value=util.read_json_at(BRAIN_MEMO, 'present_penalty', 0.0))
 
-        chunk_size = st.slider('Chunk Size', 1500, 4500, value=4000)
-        chunk_count = st.slider('Answer Count', 1, 5, value=1)
+        chunk_size = st.slider('Chunk Size', 1500, 4500, value=util.read_json_at(BRAIN_MEMO, 'chunk_size', 4000))
+        chunk_count = st.slider('Answer Count', 1, 5, value=util.read_json_at(BRAIN_MEMO, 'chunk_count', 1))
 
     param = model_data.param(temp=temp,
                              max_tokens=max_tokens,
@@ -154,6 +154,14 @@ def execute_brain(q):
             prompt_path = prompt_dictionary[operations_no_question[i]]
             other_model = other_models[i]
             process_response(answer, other_model, prompt_path, param)
+    # convert param to dictionary
+    param_dict = vars(param)
+
+    # write param to json
+    for key in param_dict:
+        value = param_dict[key]
+        util.update_json(BRAIN_MEMO, key, value)
+
 
 
 # main
