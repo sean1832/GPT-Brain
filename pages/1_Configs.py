@@ -1,3 +1,5 @@
+import time
+
 import streamlit as st
 import streamlit_toggle as st_toggle
 
@@ -33,6 +35,9 @@ def save(content, path, page='', json_value: dict = None):
             util.update_json(brain_memo, 'filter_keys', json_value['filter_keys'])
             util.update_json(brain_memo, 'filter_logics', json_value['filter_logics'])
             util.update_json(brain_memo, 'filter_values', json_value['filter_values'])
+        time.sleep(1)
+        # refresh page
+        st.experimental_rerun()
 
 
 def select_directory():
