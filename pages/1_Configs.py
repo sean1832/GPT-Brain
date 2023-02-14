@@ -179,9 +179,9 @@ def main():
                     append_mode = st.checkbox('Append Mode', value=util.read_json_at(brain_memo, 'append_mode'))
                     force_delimiter = st.checkbox('Force Delimiter', value=util.read_json_at(brain_memo, 'force_mode'))
                 with col3:
-                    advanced_mode = st.radio('Advanced Mode (Obsidian only)', ['Off', 'On'],
-                                             index=util.read_json_at(brain_memo, 'advanced_mode', 0))
-                    advanced_mode_index = 1 if advanced_mode == 'On' else 0
+                    advanced_mode = st_toggle.st_toggle_switch('Filter Mode',
+                                                               label_after=True,
+                                                               default_value=util.read_json_at(brain_memo, 'advanced_mode', False))
 
                 filter_key = ''
                 filter_logic = 'IS'
@@ -190,7 +190,7 @@ def main():
                 # if note directory is selected
                 if note_dir != '':
                     # if advanced mode enabled
-                    if advanced_mode_index == 1:
+                    if advanced_mode:
                         note_datas = util.read_files(note_dir, single_string=False)
                         note_datas, filter_key, filter_logic, filter_val = filter_data(note_datas, True)
                         modified_data = util.parse_data(note_datas, delimiter, force_delimiter)
@@ -207,7 +207,7 @@ def main():
                     'delimiter': delimiter,
                     'append_mode': append_mode,
                     'force_mode': force_delimiter,
-                    'advanced_mode': advanced_mode_index,
+                    'advanced_mode': advanced_mode,
                     'filter_keys': filter_key,
                     'filter_logics': filter_logic,
                     'filter_values': filter_val
