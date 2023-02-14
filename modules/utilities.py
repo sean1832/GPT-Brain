@@ -153,3 +153,10 @@ def update_json(filepath, key, value):
 def contains(list, item):
     result = list.count(item)
     return result > 0
+
+
+def get_index(list, item, default=0):
+    try:
+        return list.index(item)
+    except ValueError:
+        return default
