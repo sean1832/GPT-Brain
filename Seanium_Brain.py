@@ -82,7 +82,6 @@ def process_response(query, target_model, prompt_file: str, data: model_data.par
 # sidebar
 with st.sidebar:
     st.title('Settings')
-    advanced_mode = st_toggle.st_toggle_switch('Advanced mode', default_value=False)
 
     prompt_files = util.scan_directory(PROMPT_PATH)
     prompt_file_names = [util.get_file_name(file) for file in prompt_files]
