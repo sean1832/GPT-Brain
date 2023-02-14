@@ -50,21 +50,53 @@ def select_directory():
 
 
 def match_logic(logic, filter_key, filter_val, key, value):
+    key_match = filter_key == key
     if logic == 'IS':
-        return filter_key == key and filter_val == value
+        return key_match and filter_val == value
     elif logic == 'IS NOT':
-        return filter_key == key and filter_val != value
+        return key_match and filter_val != value
+    elif logic == 'CONTAINS':
+        return key_match and filter_val in value
+    elif logic == 'NOT CONTAINS':
+        return key_match and filter_val not in value
+    elif logic == 'MORE THAN':
+        # check if value is float
+        if not value.isnumeric():
+            return False
+        return key_match and float(filter_val) < float(value)
+    elif logic == 'LESS THAN':
+        # check if value is float
+        if not value.isnumeric():
+            return False
+        return key_match and float(filter_val) > float(value)
+    elif logic == 'MORE THAN OR EQUAL':
+        # check if value is float
+        if not value.isnumeric():
+            return False
+        return key_match and float(filter_val) <= float(value)
+    elif logic == 'LESS THAN OR EQUAL':
+        # check if value is float
+        if not value.isnumeric():
+            return False
+        return key_match and float(filter_val) >= float(value)
+    else:
+        return False
+
+
+def extract_frontmatter(content, delimiter='---'):
+    # extract metadata
+    try:
+        yaml = util.extract_string(content, delimiter, True, join=False, split_mode=True)[1]
+    except IndexError:
+        yaml = ''
+    fields = yaml.split('\n')
+    return fields
 
 
 def match_fields(contents: list, logic_select, filter_key, filter_val):
     filtered_contents = []
     for content in contents:
-        # extract metadata
-        try:
-            yaml = util.extract_string(content, '---', True, join=False, split_mode=True)[1]
-        except IndexError:
-            yaml = ''
-        fields = yaml.split('\n')
+        fields = extract_frontmatter(content, delimiter='---')
         for field in fields:
             if field == '':
                 continue
@@ -83,9 +115,16 @@ def filter_data(contents: list, append=True):
     with col1:
         filter_key = st.text_input('Key', placeholder='Key', value=util.read_json_at(brain_memo, 'filter_keys'))
     with col2:
-        options = ['IS', 'IS NOT']
-        default_value = util.read_json_at(brain_memo, 'filter_logics', 'IS')
-        logic_select = st.selectbox('Logic', options, index=options.index(default_value))
+        options = ['IS',
+                   'IS NOT',
+                   'CONTAINS',
+                   'NOT CONTAINS',
+                   'MORE THAN',
+                   'LESS THAN',
+                   'MORE THAN OR EQUAL',
+                   'LESS THAN OR EQUAL']
+        default_index = util.get_index(options, 'filter_logics', 0)
+        logic_select = st.selectbox('Logic', options, index=default_index)
     with col3:
         value = util.read_json_at(brain_memo, 'filter_values')
         if isinstance(value, int):
@@ -181,7 +220,8 @@ def main():
                 with col3:
                     advanced_mode = st_toggle.st_toggle_switch('Filter Mode',
                                                                label_after=True,
-                                                               default_value=util.read_json_at(brain_memo, 'advanced_mode', False))
+                                                               default_value=util.read_json_at(brain_memo,
+                                                                                               'advanced_mode', False))
 
                 filter_key = ''
                 filter_logic = 'IS'
