@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit_toggle as st_toggle
 import os
 from modules import utilities as util
 import tkinter as tk
@@ -40,6 +41,7 @@ def select_directory():
     root.attributes('-topmost', True)
     directory = filedialog.askdirectory(initialdir=os.getcwd(), title='Select Note Directory', master=root)
     return directory
+
 
 
 def match_logic(logic, filter_key, filter_val, key, value):
@@ -108,10 +110,45 @@ def main():
             case '📝Prompts':
                 st.title('📝Prompts')
                 st.text('Configuration of prompts.')
-                selected_file = st.selectbox('Prompt File', os.listdir(prompt_dir))
+
+                # read selected file
+                last_sel_file = util.read_json_at(brain_memo, 'selected_prompt')
+                all_files = os.listdir(prompt_dir)
+
+                # index of last selected file
+                try:
+                    last_sel_file_index = all_files.index(last_sel_file)
+                except ValueError:
+                    last_sel_file_index = 0
+
+                selected_file = st.selectbox('Prompt File', all_files, last_sel_file_index)
+
+                col1, col2 = st.columns(2)
+                with col1:
+                    if st_toggle.st_toggle_switch('New Prompt', label_after=True):
+                        new_file = st.text_input('New Prompt Name', value='new_prompt')
+                        if st.button('Create'):
+                            util.write_file('', f'{prompt_dir}{new_file}.txt')
+                            # change select file to new fie
+                            util.update_json(brain_memo, 'selected_prompt', selected_file)
+                            # refresh page
+                            st.experimental_rerun()
+                with col2:
+                    is_core = selected_file == 'my-info.txt' or \
+                              selected_file == 'question.txt' or \
+                              selected_file == 'summarize.txt'
+                    if not is_core:
+                        if st.button('❌Delete Prompt'):
+                            pass
+                            # if confirm:
+                            #     util.delete_file(f'{prompt_dir}{selected_file}')
+                            #     # refresh page
+                            #     st.experimental_rerun()
+
                 selected_path = prompt_dir + selected_file
                 mod_text = st.text_area('Prompts', value=util.read_file(selected_path), height=500)
                 save(mod_text, selected_path)
+                st.warning('Do not modify the file name.')
 
             case '💽Brain Memory':
                 st.title('💽Brain Memory')

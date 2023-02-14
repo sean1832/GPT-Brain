@@ -99,6 +99,11 @@ def write_file(content, filepath, mode='w'):
         file.write(content)
 
 
+def delete_file(filepath):
+    if os.path.exists(filepath):
+        os.remove(filepath)
+
+
 def create_json_not_exist(filepath, initial_value={}):
     if not os.path.exists(filepath):
         write_json_file(initial_value, filepath)
