@@ -90,7 +90,9 @@ with st.sidebar:
     # remove 'my-info' from prompt dictionary
     prompt_dictionary.pop('my-info')
 
-    operations = st.multiselect('Operations', list(prompt_dictionary.keys()), default=list(prompt_dictionary.keys())[0])
+    operation_options = list(prompt_dictionary.keys())
+
+    operations = st.multiselect('Operations', operation_options, default=util.read_json_at(BRAIN_MEMO, 'operations', operation_options[0]))
     question_model = st.selectbox('Question Model', model_options)
 
     operations_no_question = [op for op in operations if op != 'question']
@@ -161,6 +163,9 @@ def execute_brain(q):
     for key in param_dict:
         value = param_dict[key]
         util.update_json(BRAIN_MEMO, key, value)
+
+    # write operation to json
+    util.update_json(BRAIN_MEMO, 'operations', operations)
 
 
 
