@@ -122,7 +122,6 @@ def main():
                 # sort files base on creation time
                 all_files.sort(key=lambda x: os.path.getmtime(f'{prompt_dir}{x}'), reverse=True)
 
-                print(all_files)
                 # index of last selected file
                 try:
                     last_sel_file_index = all_files.index(last_sel_file)
