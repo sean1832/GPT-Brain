@@ -27,6 +27,7 @@ SESSION_TIME = st.session_state['SESSION_TIME']
 CURRENT_LOG_FILE = f'{LOG_PATH}/log_{SESSION_TIME}.log'
 BRAIN_MEMO = '.user/brain-memo.json'
 
+
 def create_log():
     if not os.path.exists(CURRENT_LOG_FILE):
         util.write_file(f'Session {SESSION_TIME}\n\n', CURRENT_LOG_FILE)
@@ -92,14 +93,22 @@ with st.sidebar:
 
     operation_options = list(prompt_dictionary.keys())
 
-    operations = st.multiselect('Operations', operation_options, default=util.read_json_at(BRAIN_MEMO, 'operations', operation_options[0]))
-    question_model = st.selectbox('Question Model', model_options)
+    operations = st.multiselect('Operations', operation_options, default=util.read_json_at(BRAIN_MEMO, 'operations',
+                                                                                           operation_options[0]))
+
+    last_question_model = util.read_json_at(BRAIN_MEMO, 'question_model', model_options[0])
+    # get index of last question model
+    question_model_index = util.get_index(model_options, last_question_model)
+    question_model = st.selectbox('Question Model', model_options, index=question_model_index)
 
     operations_no_question = [op for op in operations if op != 'question']
     other_models = []
     replace_tokens = []
     for operation in operations_no_question:
-        model = st.selectbox(f'{operation} Model', model_options)
+        last_model = util.read_json_at(BRAIN_MEMO, f'{operation}_model', model_options[0])
+        # get index of last model
+        model_index = util.get_index(model_options, last_model)
+        model = st.selectbox(f'{operation} Model', model_options, index=model_index)
         other_models.append(model)
 
     temp = st.slider('Temperature', 0.0, 1.0, value=util.read_json_at(BRAIN_MEMO, 'temp', 0.1))
@@ -107,7 +116,8 @@ with st.sidebar:
 
     with st.expander(label='Advanced Options'):
         top_p = st.slider('Top_P', 0.0, 1.0, value=util.read_json_at(BRAIN_MEMO, 'top_p', 1.0))
-        freq_panl = st.slider('Frequency penalty', 0.0, 1.0, value=util.read_json_at(BRAIN_MEMO, 'frequency_penalty', 0.0))
+        freq_panl = st.slider('Frequency penalty', 0.0, 1.0,
+                              value=util.read_json_at(BRAIN_MEMO, 'frequency_penalty', 0.0))
         pres_panl = st.slider('Presence penalty', 0.0, 1.0, value=util.read_json_at(BRAIN_MEMO, 'present_penalty', 0.0))
 
         chunk_size = st.slider('Chunk Size', 1500, 4500, value=util.read_json_at(BRAIN_MEMO, 'chunk_size', 4000))
@@ -167,6 +177,12 @@ def execute_brain(q):
     # write operation to json
     util.update_json(BRAIN_MEMO, 'operations', operations)
 
+    # write question model to json
+    util.update_json(BRAIN_MEMO, 'question_model', question_model)
+
+    # write other models to json
+    for i in range(len(operations_no_question)):
+        util.update_json(BRAIN_MEMO, f'{operations_no_question[i]}_model', other_models[i])
 
 
 # main
