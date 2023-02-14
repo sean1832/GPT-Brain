@@ -1,5 +1,6 @@
 import streamlit as st
-import streamlit_toggle as st_toggle
+from streamlit_extras.echo_expander import echo_expander
+
 from modules import utilities as util
 from modules import model_data
 import brain
@@ -101,12 +102,14 @@ with st.sidebar:
 
     temp = st.slider('Temperature', 0.0, 1.0, value=0.1)
     max_tokens = st.slider('Max Tokens', 850, 4500, value=1000)
-    top_p = st.slider('Top_P', 0.0, 1.0, value=1.0)
-    freq_panl = st.slider('Frequency penalty', 0.0, 1.0, value=0.0)
-    pres_panl = st.slider('Presence penalty', 0.0, 1.0, value=0.0)
 
-    chunk_size = st.slider('Chunk Size', 1500, 4500, value=4000)
-    chunk_count = st.slider('Answer Count', 1, 5, value=1)
+    with st.expander(label='Advanced Options'):
+        top_p = st.slider('Top_P', 0.0, 1.0, value=1.0)
+        freq_panl = st.slider('Frequency penalty', 0.0, 1.0, value=0.0)
+        pres_panl = st.slider('Presence penalty', 0.0, 1.0, value=0.0)
+
+        chunk_size = st.slider('Chunk Size', 1500, 4500, value=4000)
+        chunk_count = st.slider('Answer Count', 1, 5, value=1)
 
     param = model_data.param(temp=temp,
                              max_tokens=max_tokens,
