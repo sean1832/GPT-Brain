@@ -15,7 +15,7 @@
 - [x] Configurable prompts.
 - [x] Customizable personal background information for more accurate answers.
 - [x] Integration with [Obsidian note](https://obsidian.md/) local directory for easy note content updates.
-- [x] Note content preview.
+- [x] Note content preview & content modification.
 - [x] Section parsing using delimiters for targeted updates.
 - [x] [Obsidian YAML frontmatter](https://help.obsidian.md/Editing+and+formatting/Metadata) filtering.
 - [x] openAI API key management.

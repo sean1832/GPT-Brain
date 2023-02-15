@@ -14,8 +14,8 @@
 - [x] 使用 [OpenAI embedding](https://platform.openai.com/docs/guides/embeddings/what-are-embeddings) 对笔记内容和问题进行对称比较，以增强搜索效果。
 - [x] 可配置prompt。
 - [x] 可个性化的个人背景信息以获得更贴切的答案。
-- [x] 与 [Obsidian note](https://obsidian.md/) 目录相连，以便进行简单的更新。
-- [x] 笔记内容预览。
+- [x] 与 [Obsidian note](https://obsidian.md/) 目录相连，以便进行简单的笔记内容更新。
+- [x] 笔记内容预览 & 直接修改。
 - [x] 使用分隔符对笔记解析，以进行有选择性的文本写入。
 - [x] [Obsidian YAML frontmatter](https://help.obsidian.md/Editing+and+formatting/Metadata) 过滤。
 - [x] OpenAI API 密钥管理。
