@@ -109,11 +109,11 @@ def match_fields(contents: list, logic_select, filter_key, filter_val):
     return filtered_contents
 
 
-def filter_data(contents: list, append=True):
+def add_filter(num):
     # filters
     col1, col2, col3 = st.columns(3)
     with col1:
-        filter_key = st.text_input('Key', placeholder='Key', value=util.read_json_at(brain_memo, 'filter_keys'))
+        filter_key = st.text_input(f'Key{num}', placeholder='Key', value=util.read_json_at(brain_memo, 'filter_keys'))
     with col2:
         options = ['IS',
                    'IS NOT',
@@ -124,12 +124,19 @@ def filter_data(contents: list, append=True):
                    'MORE THAN OR EQUAL',
                    'LESS THAN OR EQUAL']
         default_index = util.get_index(options, 'filter_logics', 0)
-        logic_select = st.selectbox('Logic', options, index=default_index)
+        logic_select = st.selectbox(f'Logic{num}', options, index=default_index)
     with col3:
         value = util.read_json_at(brain_memo, 'filter_values')
         if isinstance(value, int):
             value = "{:02}".format(value)
-        filter_val = st.text_input('value', placeholder='Value', value=value)
+        filter_val = st.text_input(f'value{num}', placeholder='Value', value=value)
+    return filter_key, logic_select, filter_val
+
+
+def filter_data(contents: list, append=True):
+
+    # add filter
+    filter_key, logic_select, filter_val = add_filter(0)
 
     # filter data
     filtered_contents = match_fields(contents, logic_select, filter_key, filter_val)
