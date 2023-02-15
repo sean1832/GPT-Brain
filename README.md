@@ -10,14 +10,24 @@
 *💡As I am not a professional programmer and am fairly new to Python, this project may contain bugs. If you encounter any issues, please suggest them in the [Issues section](https://github.com/sean1832/GPT-Brain/issues).*
 
 ### Feature
-- [x] Configurable prompts for questions and summarization.
-- [x] Customizable personal background information for more accurate answers
-- [x] Integration with [Obsidian note](https://obsidian.md/) directory for easy updates
-- [x] Section parsing using delimiters for targeted updates
-- [x] Obsidian YAML metadata filtering with "is" and "is not" logic *(only a single field is currently supported.)*
-- [ ] Multi metadata filtering
-- [x] Language model selection for different needs
-- [x] Basic parameter sliders for customizing configuration.
+- [x] Use [OpenAI GPT-3](https://platform.openai.com/docs/models/gpt-3) to generate response.
+- [x] Use [OpenAI embedding](https://platform.openai.com/docs/guides/embeddings/what-are-embeddings) for symmetric comparison of question and note content for enhanced searching.
+- [x] Configurable prompts.
+- [x] Customizable personal background information for more accurate answers.
+- [x] Integration with [Obsidian note](https://obsidian.md/) local directory for easy note content updates.
+- [x] Note content preview.
+- [x] Section parsing using delimiters for targeted updates.
+- [x] [Obsidian YAML frontmatter](https://help.obsidian.md/Editing+and+formatting/Metadata) filtering.
+- [x] openAI API key management.
+- [x] OpenAI Language model selection for different needs.
+- [x] Basic & Advanced parameter sliders for OpenAI Language model configurations.
+
+### Todo
+- [ ] Batch script to update library.
+- [ ] Versioning.
+- [ ] Tooltips for parameters.
+- [ ] Chinese support.
+- [ ] Release for windows.
 
 ## Install
 ### 1. What you need
@@ -31,7 +41,7 @@
 - Execute `run-webUI.bat`
 
 
-## Screenshoots
+## Demo
 ### Main Page
 ![screenshot1](https://cdn.discordapp.com/attachments/998217078915997746/1073881233387429978/image.png)
 ### Brain Memory
