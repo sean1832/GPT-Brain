@@ -23,7 +23,7 @@
 - [x] Basic & Advanced parameter sliders for OpenAI Language model configurations.
 
 ### Todo
-- [ ] Batch script to update library.
+- [x] ~~Batch script to update library.~~
 - [ ] Versioning.
 - [ ] Tooltips for parameters.
 - [ ] Chinese support.
