@@ -8,15 +8,18 @@ from modules import utilities as util
 import tkinter as tk
 from tkinter import filedialog
 
+user_dir = '.user/'
+prompt_dir = f'{user_dir}prompt/'
+brain_memo = f'{user_dir}brain-memo.json'
+
+if 'FILTER_ROW_COUNT' not in st.session_state:
+    st.session_state['FILTER_ROW_COUNT'] = util.read_json_at(brain_memo, 'filter_row_count')
+
 st.set_page_config(
     page_title='Configs'
 )
 
 body = st.container()
-
-user_dir = '.user/'
-prompt_dir = f'{user_dir}prompt/'
-brain_memo = f'{user_dir}brain-memo.json'
 
 
 def save(content, path, page='', json_value: dict = None):
@@ -32,9 +35,8 @@ def save(content, path, page='', json_value: dict = None):
             util.update_json(brain_memo, 'append_mode', json_value['append_mode'])
             util.update_json(brain_memo, 'force_mode', json_value['force_mode'])
             util.update_json(brain_memo, 'advanced_mode', json_value['advanced_mode'])
-            util.update_json(brain_memo, 'filter_keys', json_value['filter_keys'])
-            util.update_json(brain_memo, 'filter_logics', json_value['filter_logics'])
-            util.update_json(brain_memo, 'filter_values', json_value['filter_values'])
+            util.update_json(brain_memo, 'filter_info', json_value['filter_info'])
+            util.update_json(brain_memo, 'filter_row_count', json_value['filter_row_count'])
         time.sleep(1)
         # refresh page
         st.experimental_rerun()
@@ -49,36 +51,35 @@ def select_directory():
     return directory
 
 
-def match_logic(logic, filter_key, filter_val, key, value):
-    key_match = filter_key == key
-    if logic == 'IS':
-        return key_match and filter_val == value
-    elif logic == 'IS NOT':
-        return key_match and filter_val != value
-    elif logic == 'CONTAINS':
-        return key_match and filter_val in value
-    elif logic == 'NOT CONTAINS':
-        return key_match and filter_val not in value
-    elif logic == 'MORE THAN':
+def match_logic(operator, filter_val, value):
+    if operator == 'IS':
+        return filter_val == value
+    elif operator == 'IS NOT':
+        return filter_val != value
+    elif operator == 'CONTAINS':
+        return filter_val in value
+    elif operator == 'NOT CONTAINS':
+        return filter_val not in value
+    elif operator == 'MORE THAN':
         # check if value is float
         if not value.isnumeric():
             return False
-        return key_match and float(filter_val) < float(value)
-    elif logic == 'LESS THAN':
+        return float(filter_val) < float(value)
+    elif operator == 'LESS THAN':
         # check if value is float
         if not value.isnumeric():
             return False
-        return key_match and float(filter_val) > float(value)
-    elif logic == 'MORE THAN OR EQUAL':
+        return float(filter_val) > float(value)
+    elif operator == 'MORE THAN OR EQUAL':
         # check if value is float
         if not value.isnumeric():
             return False
-        return key_match and float(filter_val) <= float(value)
-    elif logic == 'LESS THAN OR EQUAL':
+        return float(filter_val) <= float(value)
+    elif operator == 'LESS THAN OR EQUAL':
         # check if value is float
         if not value.isnumeric():
             return False
-        return key_match and float(filter_val) >= float(value)
+        return float(filter_val) >= float(value)
     else:
         return False
 
@@ -93,51 +94,98 @@ def extract_frontmatter(content, delimiter='---'):
     return fields
 
 
-def match_fields(contents: list, logic_select, filter_key, filter_val):
+def match_fields(pages: list, filter_datas: list[dict]):
     filtered_contents = []
-    for content in contents:
-        fields = extract_frontmatter(content, delimiter='---')
+    for page in pages:
+        fields = extract_frontmatter(page, delimiter='---')
+
+        found_data = []
+
         for field in fields:
             if field == '':
                 continue
-            key, value = field.split(':')
-            key = key.strip()
-            value = value.strip()
-            if match_logic(logic_select, filter_key, filter_val, key, value):
-                filtered_contents.append(content)
-                break
-    return filtered_contents
+            found_key, found_value = field.split(':')
+            found_key = found_key.strip()
+            found_value = found_value.strip()
+
+            found_data.append({
+                'key': found_key,
+                'value': found_value
+            })
+
+        found_match = []
+        for data in filter_datas:
+            for found in found_data:
+                data_key = data['key'].lower()
+                data_val = data['value'].lower()
+                found_key = found['key'].lower()
+                found_val = found['value'].lower()
+                if data_key == found_key:
+                    if match_logic(data['logic'], data_val, found_val):
+                        # found single match
+                        found_match.append(True)
+
+        # if all match
+        if found_match.count(True) == len(filter_datas):
+            filtered_contents.append(page)
+
+    combined_contents = '\n\n\n\n'.join(filtered_contents)
+    return combined_contents
 
 
-def filter_data(contents: list, append=True):
+def add_filter(num, val_filter_key, val_filter_logic, val_filter_val):
     # filters
     col1, col2, col3 = st.columns(3)
     with col1:
-        filter_key = st.text_input('Key', placeholder='Key', value=util.read_json_at(brain_memo, 'filter_keys'))
+        filter_key = st.text_input(f'Key{num}', placeholder='Key', value=val_filter_key)
     with col2:
-        options = ['IS',
-                   'IS NOT',
-                   'CONTAINS',
+        options = ['CONTAINS',
                    'NOT CONTAINS',
+                   'IS',
+                   'IS NOT',
                    'MORE THAN',
                    'LESS THAN',
                    'MORE THAN OR EQUAL',
                    'LESS THAN OR EQUAL']
-        default_index = util.get_index(options, 'filter_logics', 0)
-        logic_select = st.selectbox('Logic', options, index=default_index)
+        default_index = util.get_index(options, val_filter_logic, 0)
+        logic_select = st.selectbox(f'Logic{num}', options, index=default_index)
     with col3:
-        value = util.read_json_at(brain_memo, 'filter_values')
-        if isinstance(value, int):
-            value = "{:02}".format(value)
-        filter_val = st.text_input('value', placeholder='Value', value=value)
+        if isinstance(val_filter_val, int):
+            val_filter_val = "{:02}".format(val_filter_val)
+        filter_val = st.text_input(f'value{num}', placeholder='Value', value=val_filter_val)
+    return filter_key, logic_select, filter_val
+
+
+def filter_data(pages: list, add_filter_button, del_filter_button):
+    init_filter_infos = util.read_json_at(brain_memo, 'filter_info')
+
+    filter_datas = []
+    if add_filter_button:
+        st.session_state['FILTER_ROW_COUNT'] += 1
+    if del_filter_button:
+        st.session_state['FILTER_ROW_COUNT'] -= 1
+    if st.session_state['FILTER_ROW_COUNT'] > 1:
+        for i in range(st.session_state['FILTER_ROW_COUNT']):
+            try:
+                init_info = init_filter_infos[i-1]
+                init_key = init_info['key']
+                init_logic = init_info['logic']
+                init_val = init_info['value']
+            except IndexError:
+                init_key = ''
+                init_logic = 'CONTAINS'
+                init_val = ''
+
+            if i == 0:
+                continue
+            # add filter
+            filter_key, logic_select, filter_val = add_filter(i, init_key, init_logic, init_val)
+            data = {'key': filter_key, 'logic': logic_select, 'value': filter_val}
+            filter_datas.append(data)
 
     # filter data
-    filtered_contents = match_fields(contents, logic_select, filter_key, filter_val)
-    result = filtered_contents
-    if append:
-        return '\n\n\n\n'.join(result), filter_key, logic_select, filter_val
-    else:
-        return result, filter_key, logic_select, filter_val
+    filtered_contents = match_fields(pages, filter_datas)
+    return filtered_contents, filter_datas
 
 
 def main():
@@ -209,7 +257,7 @@ def main():
                 note_dir = st.text_input('Note Directory', value=util.read_json_at(brain_memo, 'note_dir'),
                                          placeholder='Select Note Directory', key='note_dir')
 
-                col1, col2, col3 = st.columns(3)
+                col1, col2, col3, col4 = st.columns([1, 2, 2, 2])
                 with col1:
                     delimiter_memo = util.read_json_at(brain_memo, 'delimiter')
                     delimiter = st.text_input('Delimiter', delimiter_memo, placeholder='e.g. +++')
@@ -222,17 +270,18 @@ def main():
                                                                label_after=True,
                                                                default_value=util.read_json_at(brain_memo,
                                                                                                'advanced_mode', False))
-
-                filter_key = ''
-                filter_logic = 'IS'
-                filter_val = ''
+                with col4:
+                    if advanced_mode:
+                        add_filter_button = st.button('Add Filter')
+                        del_filter_button = st.button('Delete Filter')
 
                 # if note directory is selected
                 if note_dir != '':
                     # if advanced mode enabled
                     if advanced_mode:
                         note_datas = util.read_files(note_dir, single_string=False)
-                        note_datas, filter_key, filter_logic, filter_val = filter_data(note_datas, True)
+                        note_datas, filter_info = filter_data(note_datas, add_filter_button, del_filter_button)
+                        # note_datas, filter_key, filter_logic, filter_val = filter_data(note_datas, True)
                         modified_data = util.parse_data(note_datas, delimiter, force_delimiter)
                     else:
                         modified_data = util.read_files(note_dir, single_string=True, delimiter=delimiter,
@@ -248,9 +297,8 @@ def main():
                     'append_mode': append_mode,
                     'force_mode': force_delimiter,
                     'advanced_mode': advanced_mode,
-                    'filter_keys': filter_key,
-                    'filter_logics': filter_logic,
-                    'filter_values': filter_val
+                    'filter_info': filter_info,
+                    'filter_row_count': len(filter_info),
                 })
 
             case '🔑API Keys':
