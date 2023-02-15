@@ -18,7 +18,7 @@
 - [x] Note content preview & content modification.
 - [x] Section parsing using delimiters for targeted updates.
 - [x] [Obsidian YAML frontmatter](https://help.obsidian.md/Editing+and+formatting/Metadata) filtering.
-- [x] openAI API key management.
+- [x] OpenAI API key management.
 - [x] OpenAI Language model selection for different needs.
 - [x] Basic & Advanced parameter sliders for OpenAI Language model configurations.
 
@@ -27,6 +27,7 @@
 - [ ] Versioning.
 - [ ] Tooltips for parameters.
 - [ ] Chinese support.
+- [ ] Provide detail documentation for users.
 - [ ] Release for windows.
 
 ## Install
