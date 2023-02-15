@@ -52,36 +52,35 @@ def select_directory():
     return directory
 
 
-def match_logic(logic, filter_key, filter_val, key, value):
-    key_match = filter_key == key
-    if logic == 'IS':
-        return key_match and filter_val == value
-    elif logic == 'IS NOT':
-        return key_match and filter_val != value
-    elif logic == 'CONTAINS':
-        return key_match and filter_val in value
-    elif logic == 'NOT CONTAINS':
-        return key_match and filter_val not in value
-    elif logic == 'MORE THAN':
+def match_logic(operator, filter_val, value):
+    if operator == 'IS':
+        return filter_val == value
+    elif operator == 'IS NOT':
+        return filter_val != value
+    elif operator == 'CONTAINS':
+        return filter_val in value
+    elif operator == 'NOT CONTAINS':
+        return filter_val not in value
+    elif operator == 'MORE THAN':
         # check if value is float
         if not value.isnumeric():
             return False
-        return key_match and float(filter_val) < float(value)
-    elif logic == 'LESS THAN':
+        return float(filter_val) < float(value)
+    elif operator == 'LESS THAN':
         # check if value is float
         if not value.isnumeric():
             return False
-        return key_match and float(filter_val) > float(value)
-    elif logic == 'MORE THAN OR EQUAL':
+        return float(filter_val) > float(value)
+    elif operator == 'MORE THAN OR EQUAL':
         # check if value is float
         if not value.isnumeric():
             return False
-        return key_match and float(filter_val) <= float(value)
-    elif logic == 'LESS THAN OR EQUAL':
+        return float(filter_val) <= float(value)
+    elif operator == 'LESS THAN OR EQUAL':
         # check if value is float
         if not value.isnumeric():
             return False
-        return key_match and float(filter_val) >= float(value)
+        return float(filter_val) >= float(value)
     else:
         return False
 
@@ -96,20 +95,43 @@ def extract_frontmatter(content, delimiter='---'):
     return fields
 
 
-def match_fields(contents: list, logic_select, filter_key, filter_val):
+def match_fields(pages: list, filter_datas: list[dict]):
     filtered_contents = []
-    for content in contents:
-        fields = extract_frontmatter(content, delimiter='---')
+    for page in pages:
+        fields = extract_frontmatter(page, delimiter='---')
+
+        found_data = []
+
         for field in fields:
             if field == '':
                 continue
-            key, value = field.split(':')
-            key = key.strip()
-            value = value.strip()
-            if match_logic(logic_select, filter_key, filter_val, key, value):
-                filtered_contents.append(content)
-                break
-    return filtered_contents
+            found_key, found_value = field.split(':')
+            found_key = found_key.strip()
+            found_value = found_value.strip()
+
+            found_data.append({
+                'key': found_key,
+                'value': found_value
+            })
+
+        found_match = []
+        for data in filter_datas:
+            for found in found_data:
+                data_key = data['key'].lower()
+                data_val = data['value'].lower()
+                found_key = found['key'].lower()
+                found_val = found['value'].lower()
+                if data_key == found_key:
+                    if match_logic(data['logic'], data_val, found_val):
+                        # found single match
+                        found_match.append(True)
+
+        # if all match
+        if found_match.count(True) == len(filter_datas):
+            filtered_contents.append(page)
+
+    combined_contents = '\n\n\n\n'.join(filtered_contents)
+    return combined_contents
 
 
 def add_filter(num):
@@ -136,26 +158,25 @@ def add_filter(num):
     return filter_key, logic_select, filter_val
 
 
-def filter_data(contents: list, add_filter_button, del_filter_button, append=True):
-
+def filter_data(pages: list, add_filter_button, del_filter_button, append=True):
+    filter_datas = []
     if add_filter_button:
         st.session_state['FILTER_ROW_COUNT'] += 1
     if del_filter_button:
         st.session_state['FILTER_ROW_COUNT'] -= 1
     if st.session_state['FILTER_ROW_COUNT'] > 1:
-        for i in range (st.session_state['FILTER_ROW_COUNT']):
+        for i in range(st.session_state['FILTER_ROW_COUNT']):
             if i == 0:
                 continue
             # add filter
             filter_key, logic_select, filter_val = add_filter(i)
 
-    # # filter data
-    # filtered_contents = match_fields(contents, logic_select, filter_key, filter_val)
-    # result = filtered_contents
-    # if append:
-    #     return '\n\n\n\n'.join(result), filter_key, logic_select, filter_val
-    # else:
-    #     return result, filter_key, logic_select, filter_val
+            data = {'key': filter_key, 'logic': logic_select, 'value': filter_val}
+            filter_datas.append(data)
+
+    # filter data
+    filtered_contents = match_fields(pages, filter_datas)
+    return filtered_contents
 
 
 def main():
@@ -253,7 +274,7 @@ def main():
                     # if advanced mode enabled
                     if advanced_mode:
                         note_datas = util.read_files(note_dir, single_string=False)
-                        filter_data(note_datas, add_filter_button, del_filter_button)
+                        note_datas = filter_data(note_datas, add_filter_button, del_filter_button)
                         # note_datas, filter_key, filter_logic, filter_val = filter_data(note_datas, True)
                         modified_data = util.parse_data(note_datas, delimiter, force_delimiter)
                     else:
