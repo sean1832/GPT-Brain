@@ -1,7 +1,7 @@
 # 🧠 GPT 大脑
 [![python](https://img.shields.io/badge/python-3.11-blue)](https://www.python.org/downloads/release/python-3112/)
 
->[中文说明](./README_CN.md) | [English](./README.md)
+>**[中文说明](./README_CN.md)** | **[English](./README.md)**
 
 *⭐️ 喜欢这个仓库? 请给个星!*
 
@@ -32,8 +32,8 @@
 
 ## 安装
 ### 1. 所需条件
-- 安装 [python 3.11](https://www.python.org/downloads)
-- OpenAI [API 密钥](https://platform.openai.com/account/api-keys)（需要注册OpenAI账号）
+- 安装 **[python 3.11](https://www.python.org/downloads)** | [python 安装教程(Bilibili)](https://www.bilibili.com/video/BV1f3411t73m/?spm_id_from=333.337.search-card.all.click&vd_source=f96c4c534fe9f3ff6591942502d9d3a7)
+- OpenAI **[API 密钥](https://platform.openai.com/account/api-keys)**（需要注册OpenAI账号）
 ### 2. 首次设置
 1. 运行 `setup.bat`
 2. 输入您的 OpenAI API 密钥

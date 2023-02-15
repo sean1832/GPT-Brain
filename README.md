@@ -1,7 +1,7 @@
 # 🧠 GPT Brain
 [![python](https://img.shields.io/badge/python-3.11-blue)](https://www.python.org/downloads/release/python-3112/)
 
-**[中文说明](./README_CN.md)** | **[English](./README.md)**
+> **[中文说明](./README_CN.md)** | **[English](./README.md)**
 
 *⭐️ Like this repo? please consider a star!*
 
@@ -31,8 +31,8 @@
 
 ## Install
 ### 1. What you need
-- Install [python 3.11](https://www.python.org/downloads)
-- OpenAI [API keys](https://platform.openai.com/account/api-keys)
+- Install **[python 3.11](https://www.python.org/downloads)** | [python installation tutorial (YouTube)](https://youtu.be/HBxCHonP6Ro?t=105)
+- OpenAI **[API keys](https://platform.openai.com/account/api-keys)**
 ### 2. Set up the project for the first time
 1. Run `setup.bat`
 2. Enter your OpenAI API Key
