@@ -8,18 +8,18 @@ from modules import utilities as util
 import tkinter as tk
 from tkinter import filedialog
 
+user_dir = '.user/'
+prompt_dir = f'{user_dir}prompt/'
+brain_memo = f'{user_dir}brain-memo.json'
+
 if 'FILTER_ROW_COUNT' not in st.session_state:
-    st.session_state['FILTER_ROW_COUNT'] = 1
+    st.session_state['FILTER_ROW_COUNT'] = util.read_json_at(brain_memo, 'filter_row_count')
 
 st.set_page_config(
     page_title='Configs'
 )
 
 body = st.container()
-
-user_dir = '.user/'
-prompt_dir = f'{user_dir}prompt/'
-brain_memo = f'{user_dir}brain-memo.json'
 
 
 def save(content, path, page='', json_value: dict = None):
@@ -35,9 +35,8 @@ def save(content, path, page='', json_value: dict = None):
             util.update_json(brain_memo, 'append_mode', json_value['append_mode'])
             util.update_json(brain_memo, 'force_mode', json_value['force_mode'])
             util.update_json(brain_memo, 'advanced_mode', json_value['advanced_mode'])
-            util.update_json(brain_memo, 'filter_keys', json_value['filter_keys'])
-            util.update_json(brain_memo, 'filter_logics', json_value['filter_logics'])
-            util.update_json(brain_memo, 'filter_values', json_value['filter_values'])
+            util.update_json(brain_memo, 'filter_info', json_value['filter_info'])
+            util.update_json(brain_memo, 'filter_row_count', json_value['filter_row_count'])
         time.sleep(1)
         # refresh page
         st.experimental_rerun()
@@ -134,31 +133,32 @@ def match_fields(pages: list, filter_datas: list[dict]):
     return combined_contents
 
 
-def add_filter(num):
+def add_filter(num, val_filter_key, val_filter_logic, val_filter_val):
     # filters
     col1, col2, col3 = st.columns(3)
     with col1:
-        filter_key = st.text_input(f'Key{num}', placeholder='Key', value=util.read_json_at(brain_memo, 'filter_keys'))
+        filter_key = st.text_input(f'Key{num}', placeholder='Key', value=val_filter_key)
     with col2:
-        options = ['IS',
-                   'IS NOT',
-                   'CONTAINS',
+        options = ['CONTAINS',
                    'NOT CONTAINS',
+                   'IS',
+                   'IS NOT',
                    'MORE THAN',
                    'LESS THAN',
                    'MORE THAN OR EQUAL',
                    'LESS THAN OR EQUAL']
-        default_index = util.get_index(options, 'filter_logics', 0)
+        default_index = util.get_index(options, val_filter_logic, 0)
         logic_select = st.selectbox(f'Logic{num}', options, index=default_index)
     with col3:
-        value = util.read_json_at(brain_memo, 'filter_values')
-        if isinstance(value, int):
-            value = "{:02}".format(value)
-        filter_val = st.text_input(f'value{num}', placeholder='Value', value=value)
+        if isinstance(val_filter_val, int):
+            val_filter_val = "{:02}".format(val_filter_val)
+        filter_val = st.text_input(f'value{num}', placeholder='Value', value=val_filter_val)
     return filter_key, logic_select, filter_val
 
 
-def filter_data(pages: list, add_filter_button, del_filter_button, append=True):
+def filter_data(pages: list, add_filter_button, del_filter_button):
+    init_filter_infos = util.read_json_at(brain_memo, 'filter_info')
+
     filter_datas = []
     if add_filter_button:
         st.session_state['FILTER_ROW_COUNT'] += 1
@@ -166,17 +166,26 @@ def filter_data(pages: list, add_filter_button, del_filter_button, append=True):
         st.session_state['FILTER_ROW_COUNT'] -= 1
     if st.session_state['FILTER_ROW_COUNT'] > 1:
         for i in range(st.session_state['FILTER_ROW_COUNT']):
+            try:
+                init_info = init_filter_infos[i-1]
+                init_key = init_info['key']
+                init_logic = init_info['logic']
+                init_val = init_info['value']
+            except IndexError:
+                init_key = ''
+                init_logic = 'CONTAINS'
+                init_val = ''
+
             if i == 0:
                 continue
             # add filter
-            filter_key, logic_select, filter_val = add_filter(i)
-
+            filter_key, logic_select, filter_val = add_filter(i, init_key, init_logic, init_val)
             data = {'key': filter_key, 'logic': logic_select, 'value': filter_val}
             filter_datas.append(data)
 
     # filter data
     filtered_contents = match_fields(pages, filter_datas)
-    return filtered_contents
+    return filtered_contents, filter_datas
 
 
 def main():
@@ -265,16 +274,13 @@ def main():
                     if advanced_mode:
                         add_filter_button = st.button('Add Filter')
                         del_filter_button = st.button('Delete Filter')
-                filter_key = ''
-                filter_logic = 'IS'
-                filter_val = ''
 
                 # if note directory is selected
                 if note_dir != '':
                     # if advanced mode enabled
                     if advanced_mode:
                         note_datas = util.read_files(note_dir, single_string=False)
-                        note_datas = filter_data(note_datas, add_filter_button, del_filter_button)
+                        note_datas, filter_info = filter_data(note_datas, add_filter_button, del_filter_button)
                         # note_datas, filter_key, filter_logic, filter_val = filter_data(note_datas, True)
                         modified_data = util.parse_data(note_datas, delimiter, force_delimiter)
                     else:
@@ -291,9 +297,8 @@ def main():
                     'append_mode': append_mode,
                     'force_mode': force_delimiter,
                     'advanced_mode': advanced_mode,
-                    'filter_keys': filter_key,
-                    'filter_logics': filter_logic,
-                    'filter_values': filter_val
+                    'filter_info': filter_info,
+                    'filter_row_count': len(filter_info),
                 })
 
             case '🔑API Keys':
