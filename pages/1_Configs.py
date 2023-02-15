@@ -8,6 +8,9 @@ from modules import utilities as util
 import tkinter as tk
 from tkinter import filedialog
 
+if 'FILTER_ROW_COUNT' not in st.session_state:
+    st.session_state['FILTER_ROW_COUNT'] = 0
+
 st.set_page_config(
     page_title='Configs'
 )
@@ -133,18 +136,27 @@ def add_filter(num):
     return filter_key, logic_select, filter_val
 
 
-def filter_data(contents: list, append=True):
+def filter_data(contents: list, add_filter_button, append=True):
 
-    # add filter
-    filter_key, logic_select, filter_val = add_filter(0)
+    if add_filter_button:
+        st.session_state['FILTER_ROW_COUNT'] += 1
+        # add filter
+        filter_key, logic_select, filter_val = add_filter(0)
+        print(st.session_state['FILTER_ROW_COUNT'])
+    if st.session_state['FILTER_ROW_COUNT'] > 1:
+        for i in range (st.session_state['FILTER_ROW_COUNT']):
+            if i == 0:
+                continue
+            # add filter
+            filter_key, logic_select, filter_val = add_filter(i)
 
-    # filter data
-    filtered_contents = match_fields(contents, logic_select, filter_key, filter_val)
-    result = filtered_contents
-    if append:
-        return '\n\n\n\n'.join(result), filter_key, logic_select, filter_val
-    else:
-        return result, filter_key, logic_select, filter_val
+    # # filter data
+    # filtered_contents = match_fields(contents, logic_select, filter_key, filter_val)
+    # result = filtered_contents
+    # if append:
+    #     return '\n\n\n\n'.join(result), filter_key, logic_select, filter_val
+    # else:
+    #     return result, filter_key, logic_select, filter_val
 
 
 def main():
@@ -229,7 +241,7 @@ def main():
                                                                label_after=True,
                                                                default_value=util.read_json_at(brain_memo,
                                                                                                'advanced_mode', False))
-
+                    add_filter_button = st.button('Add Filter')
                 filter_key = ''
                 filter_logic = 'IS'
                 filter_val = ''
@@ -239,7 +251,8 @@ def main():
                     # if advanced mode enabled
                     if advanced_mode:
                         note_datas = util.read_files(note_dir, single_string=False)
-                        note_datas, filter_key, filter_logic, filter_val = filter_data(note_datas, True)
+                        filter_data(note_datas, add_filter_button)
+                        # note_datas, filter_key, filter_logic, filter_val = filter_data(note_datas, True)
                         modified_data = util.parse_data(note_datas, delimiter, force_delimiter)
                     else:
                         modified_data = util.read_files(note_dir, single_string=True, delimiter=delimiter,
