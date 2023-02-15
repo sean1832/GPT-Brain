@@ -11,7 +11,7 @@
 
 ### Feature
 - [x] Use [OpenAI GPT-3](https://platform.openai.com/docs/models/gpt-3) to generate response.
-- [x] Use [OpenAI embedding](https://platform.openai.com/docs/guides/embeddings/what-are-embeddings) for symmetric comparison of question and note content for enhanced searching.
+- [x] Use [OpenAI embedding](https://platform.openai.com/docs/guides/embeddings/what-are-embeddings) for semetic comparison of question and note content for enhanced searching.
 - [x] Configurable prompts.
 - [x] Customizable personal background information for more accurate answers.
 - [x] Integration with [Obsidian note](https://obsidian.md/) local directory for easy note content updates.
