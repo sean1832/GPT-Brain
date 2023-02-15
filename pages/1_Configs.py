@@ -227,7 +227,7 @@ def main():
                 note_dir = st.text_input('Note Directory', value=util.read_json_at(brain_memo, 'note_dir'),
                                          placeholder='Select Note Directory', key='note_dir')
 
-                col1, col2, col3 = st.columns(3)
+                col1, col2, col3, col4 = st.columns([1, 2, 2, 2])
                 with col1:
                     delimiter_memo = util.read_json_at(brain_memo, 'delimiter')
                     delimiter = st.text_input('Delimiter', delimiter_memo, placeholder='e.g. +++')
@@ -240,8 +240,10 @@ def main():
                                                                label_after=True,
                                                                default_value=util.read_json_at(brain_memo,
                                                                                                'advanced_mode', False))
-                    add_filter_button = st.button('Add Filter')
-                    del_filter_button = st.button('Delete Filter')
+                with col4:
+                    if advanced_mode:
+                        add_filter_button = st.button('Add Filter')
+                        del_filter_button = st.button('Delete Filter')
                 filter_key = ''
                 filter_logic = 'IS'
                 filter_val = ''
