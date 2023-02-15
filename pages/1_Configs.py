@@ -9,7 +9,7 @@ import tkinter as tk
 from tkinter import filedialog
 
 if 'FILTER_ROW_COUNT' not in st.session_state:
-    st.session_state['FILTER_ROW_COUNT'] = 0
+    st.session_state['FILTER_ROW_COUNT'] = 1
 
 st.set_page_config(
     page_title='Configs'
@@ -136,13 +136,12 @@ def add_filter(num):
     return filter_key, logic_select, filter_val
 
 
-def filter_data(contents: list, add_filter_button, append=True):
+def filter_data(contents: list, add_filter_button, del_filter_button, append=True):
 
     if add_filter_button:
         st.session_state['FILTER_ROW_COUNT'] += 1
-        # add filter
-        filter_key, logic_select, filter_val = add_filter(0)
-        print(st.session_state['FILTER_ROW_COUNT'])
+    if del_filter_button:
+        st.session_state['FILTER_ROW_COUNT'] -= 1
     if st.session_state['FILTER_ROW_COUNT'] > 1:
         for i in range (st.session_state['FILTER_ROW_COUNT']):
             if i == 0:
@@ -242,6 +241,7 @@ def main():
                                                                default_value=util.read_json_at(brain_memo,
                                                                                                'advanced_mode', False))
                     add_filter_button = st.button('Add Filter')
+                    del_filter_button = st.button('Delete Filter')
                 filter_key = ''
                 filter_logic = 'IS'
                 filter_val = ''
@@ -251,7 +251,7 @@ def main():
                     # if advanced mode enabled
                     if advanced_mode:
                         note_datas = util.read_files(note_dir, single_string=False)
-                        filter_data(note_datas, add_filter_button)
+                        filter_data(note_datas, add_filter_button, del_filter_button)
                         # note_datas, filter_key, filter_logic, filter_val = filter_data(note_datas, True)
                         modified_data = util.parse_data(note_datas, delimiter, force_delimiter)
                     else:
