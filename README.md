@@ -28,6 +28,7 @@
 - [ ] Tooltips for parameters.
 - [ ] Chinese support.
 - [ ] Provide detail documentation for users.
+- [ ] Automatic update for new version.
 - [ ] Release for windows.
 
 ## Install
