@@ -164,8 +164,8 @@ def filter_data(pages: list, add_filter_button, del_filter_button):
         st.session_state['FILTER_ROW_COUNT'] += 1
     if del_filter_button:
         st.session_state['FILTER_ROW_COUNT'] -= 1
-    if st.session_state['FILTER_ROW_COUNT'] > 1:
-        for i in range(st.session_state['FILTER_ROW_COUNT']):
+    if st.session_state['FILTER_ROW_COUNT'] >= 1:
+        for i in range(st.session_state['FILTER_ROW_COUNT']+1):
             try:
                 init_info = init_filter_infos[i-1]
                 init_key = init_info['key']
