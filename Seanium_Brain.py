@@ -25,7 +25,7 @@ PROMPT_PATH = '.user/prompt'
 SESSION_TIME = st.session_state['SESSION_TIME']
 CURRENT_LOG_FILE = f'{LOG_PATH}/log_{SESSION_TIME}.log'
 BRAIN_MEMO = '.user/brain-memo.json'
-
+MANIFEST = '.core/manifest.json'
 
 def create_log():
     if not os.path.exists(CURRENT_LOG_FILE):
@@ -132,6 +132,15 @@ with st.sidebar:
 
     if st.button('Clear Log', on_click=clear_log):
         st.success('Log Cleared')
+
+    # info
+    st.markdown('---')
+    st.markdown(f"# {util.read_json_at(MANIFEST, 'name')}")
+    st.markdown(f"version: {util.read_json_at(MANIFEST, 'version')}")
+    st.markdown(f"author: {util.read_json_at(MANIFEST, 'author')}")
+    st.markdown(f"[Report bugs]({util.read_json_at(MANIFEST, 'bugs')})")
+    st.markdown(f"[Github Repo]({util.read_json_at(MANIFEST, 'homepage')})")
+
 with header:
     st.title('🧠Seanium Brain')
     st.text('This is my personal AI powered brain feeding my own Obsidian notes. Ask anything.')
