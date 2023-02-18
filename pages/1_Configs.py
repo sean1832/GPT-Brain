@@ -275,8 +275,8 @@ def main():
                                                                                            'advanced_mode', False))
             with col4:
                 if advanced_mode:
-                    add_filter_button = st.button(_('Add Filter'))
-                    del_filter_button = st.button(_('Delete Filter'))
+                    add_filter_button = st.button("➕" + _('Add Filter'))
+                    del_filter_button = st.button("❌" + _('Delete Filter'))
 
             # if note directory is selected
             if note_dir != '':
