@@ -27,7 +27,7 @@
 - [x] ~~Versioning.~~
 - [ ] Tooltips for parameters.
 - [x] ~~Chinese support.~~
-- [ ] Multilingual search support.
+- [x] ~~Multilingual search support.~~
 - [ ] Provide detail documentation for users.
 - [ ] Automatic update for new version.
 - [ ] Release for windows.
