@@ -10,7 +10,8 @@ from tkinter import filedialog
 from modules import language
 
 user_dir = '.user/'
-prompt_dir = f'{user_dir}prompt/'
+SESSION_LANG = st.session_state['SESSION_LANGUAGE']
+prompt_dir = f'{user_dir}prompt/{SESSION_LANG}/'
 brain_memo = f'{user_dir}brain-memo.json'
 
 if 'FILTER_ROW_COUNT' not in st.session_state:
@@ -222,7 +223,7 @@ def main():
             col1, col2 = st.columns(2)
             with col1:
                 if st_toggle.st_toggle_switch(_('New Prompt'), label_after=True):
-                    new_file = st.text_input(_('New Prompt Name'), value='new_prompt')
+                    new_file = st.text_input(_('New Prompt Name'), value=_('new_prompt'))
                     if st.button(_('Create')):
                         util.write_file('', f'{prompt_dir}{new_file}.txt')
                         # change select file to new fie
@@ -230,9 +231,9 @@ def main():
                         # refresh page
                         st.experimental_rerun()
             with col2:
-                is_core = selected_file == 'my-info.txt' or \
-                          selected_file == 'question.txt' or \
-                          selected_file == 'summarize.txt'
+                is_core = selected_file == _('my-info') + '.txt' or \
+                          selected_file == _('question') + '.txt' or \
+                          selected_file == _('summarize') + '.txt'
                 if not is_core:
                     if st_toggle.st_toggle_switch(_('Delete Prompt'), label_after=True):
                         if st.button(_('❌Delete')):
