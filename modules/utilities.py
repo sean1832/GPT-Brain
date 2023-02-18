@@ -41,8 +41,11 @@ def scan_directory(directory):
 
 
 # get file name without extension
-def get_file_name(filepath):
-    return os.path.splitext(os.path.basename(filepath))[0]
+def get_file_name(filepath, extension=False):
+    if extension:
+        return os.path.basename(filepath)
+    else:
+        return os.path.splitext(os.path.basename(filepath))[0]
 
 
 def create_path_not_exist(path):
