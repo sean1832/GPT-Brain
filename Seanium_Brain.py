@@ -59,7 +59,7 @@ def save_as():
     with open(CURRENT_LOG_FILE, 'rb') as f:
         content = f.read()
         st.download_button(
-            label="📥download log",
+            label=_("📥download log"),
             data=content,
             file_name=f'log_{SESSION_TIME}.txt',
             mime='text/plain'
@@ -69,8 +69,8 @@ def save_as():
 def process_response(query, target_model, prompt_file: str, data: model_data.param):
     # check if exclude model is not target model
     file_name = util.get_file_name(prompt_file)
-    print(f'Processing {file_name}...')
-    with st.spinner(f'Thinking on {file_name}...'):
+    print(f"{_('Processing')} {file_name}...")
+    with st.spinner(f"{_('Thinking on')} {file_name}..."):
         results = brain.run(query, target_model, prompt_file,
                             data.temp,
                             data.max_tokens,
@@ -87,23 +87,24 @@ def process_response(query, target_model, prompt_file: str, data: model_data.par
 # sidebar
 with st.sidebar:
     st.title('Settings')
+    language.select_language()
     _ = language.set_language()
 
     prompt_files = util.scan_directory(PROMPT_PATH)
     prompt_file_names = [util.get_file_name(file) for file in prompt_files]
     prompt_dictionary = dict(zip(prompt_file_names, prompt_files))
     # remove 'my-info' from prompt dictionary
-    prompt_dictionary.pop('my-info')
+    prompt_dictionary.pop(_('my-info'))
 
     operation_options = list(prompt_dictionary.keys())
 
-    operations = st.multiselect('Operations', operation_options, default=util.read_json_at(BRAIN_MEMO, 'operations',
+    operations = st.multiselect(_('Operations'), operation_options, default=util.read_json_at(BRAIN_MEMO, 'operations',
                                                                                            operation_options[0]))
 
     last_question_model = util.read_json_at(BRAIN_MEMO, 'question_model', model_options[0])
     # get index of last question model
     question_model_index = util.get_index(model_options, last_question_model)
-    question_model = st.selectbox('Question Model', model_options, index=question_model_index)
+    question_model = st.selectbox(_('Question Model'), model_options, index=question_model_index)
 
     operations_no_question = [op for op in operations if op != 'question']
     other_models = []
@@ -112,20 +113,20 @@ with st.sidebar:
         last_model = util.read_json_at(BRAIN_MEMO, f'{operation}_model', model_options[0])
         # get index of last model
         model_index = util.get_index(model_options, last_model)
-        model = st.selectbox(f'{operation} Model', model_options, index=model_index)
+        model = st.selectbox(f"{operation} {_('Model')}", model_options, index=model_index)
         other_models.append(model)
 
-    temp = st.slider('Temperature', 0.0, 1.0, value=util.read_json_at(BRAIN_MEMO, 'temp', 0.1))
-    max_tokens = st.slider('Max Tokens', 850, 4500, value=util.read_json_at(BRAIN_MEMO, 'max_tokens', 1000))
+    temp = st.slider(_('Temperature'), 0.0, 1.0, value=util.read_json_at(BRAIN_MEMO, 'temp', 0.1))
+    max_tokens = st.slider(_('Max Tokens'), 850, 4500, value=util.read_json_at(BRAIN_MEMO, 'max_tokens', 1000))
 
-    with st.expander(label='Advanced Options'):
+    with st.expander(label=_('Advanced Options')):
         top_p = st.slider('Top_P', 0.0, 1.0, value=util.read_json_at(BRAIN_MEMO, 'top_p', 1.0))
-        freq_panl = st.slider('Frequency penalty', 0.0, 1.0,
+        freq_panl = st.slider(_('Frequency penalty'), 0.0, 1.0,
                               value=util.read_json_at(BRAIN_MEMO, 'frequency_penalty', 0.0))
-        pres_panl = st.slider('Presence penalty', 0.0, 1.0, value=util.read_json_at(BRAIN_MEMO, 'present_penalty', 0.0))
+        pres_panl = st.slider(_('Presence penalty'), 0.0, 1.0, value=util.read_json_at(BRAIN_MEMO, 'present_penalty', 0.0))
 
-        chunk_size = st.slider('Chunk Size', 1500, 4500, value=util.read_json_at(BRAIN_MEMO, 'chunk_size', 4000))
-        chunk_count = st.slider('Answer Count', 1, 5, value=util.read_json_at(BRAIN_MEMO, 'chunk_count', 1))
+        chunk_size = st.slider(_('Chunk size'), 1500, 4500, value=util.read_json_at(BRAIN_MEMO, 'chunk_size', 4000))
+        chunk_count = st.slider(_('Answer count'), 1, 5, value=util.read_json_at(BRAIN_MEMO, 'chunk_count', 1))
 
     param = model_data.param(temp=temp,
                              max_tokens=max_tokens,
@@ -135,19 +136,19 @@ with st.sidebar:
                              chunk_size=chunk_size,
                              chunk_count=chunk_count)
 
-    if st.button('Clear Log', on_click=clear_log):
-        st.success('Log Cleared')
+    if st.button(_('Clear Log'), on_click=clear_log):
+        st.success(_('Log Cleared'))
 
     # info
     st.markdown('---')
     st.markdown(f"# {util.read_json_at(MANIFEST, 'name')}")
-    st.markdown(f"version: {util.read_json_at(MANIFEST, 'version')}")
-    st.markdown(f"author: {util.read_json_at(MANIFEST, 'author')}")
-    st.markdown(f"[Report bugs]({util.read_json_at(MANIFEST, 'bugs')})")
-    st.markdown(f"[Github Repo]({util.read_json_at(MANIFEST, 'homepage')})")
+    st.markdown(f"{_('version')}: {util.read_json_at(MANIFEST, 'version')}")
+    st.markdown(f"{_('author')}: {util.read_json_at(MANIFEST, 'author')}")
+    st.markdown(f"[{_('Report bugs')}]({util.read_json_at(MANIFEST, 'bugs')})")
+    st.markdown(f"[{_('Github Repo')}]({util.read_json_at(MANIFEST, 'homepage')})")
 
 with header:
-    st.title('🧠Seanium Brain')
+    st.title(_('🧠Seanium Brain'))
     st.text('This is my personal AI powered brain feeding my own Obsidian notes. Ask anything.')
 
 
@@ -156,19 +157,19 @@ def execute_brain(q):
     log(f'\n\n\n\n[{str(time.ctime())}] - QUESTION: {q}')
 
     if check_update.isUpdated():
-        st.success('Building Brain...')
+        st.success(_('Building Brain...'))
         # if brain-info is updated
         brain.build(chunk_size)
-        st.success('Brain rebuild!')
+        st.success(_('Brain rebuild!'))
         time.sleep(2)
 
     # thinking on answer
-    with st.spinner('Thinking on Answer'):
+    with st.spinner(_('Thinking on Answer')):
         answer = brain.run_answer(q, question_model, temp, max_tokens, top_p, freq_panl, pres_panl,
                                   chunk_count=chunk_count)
         if util.contains(operations, 'question'):
             # displaying results
-            st.header('💬Answer')
+            st.header(_('💬Answer'))
             st.info(f'{answer}')
             time.sleep(1)
             log(answer, delimiter='ANSWER')
@@ -200,10 +201,10 @@ def execute_brain(q):
 
 # main
 with body:
-    question = st.text_area('Ask Brain: ')
+    question = st.text_area(_('Ask Brain: '))
     col1, col2, col3, col4 = st.columns(4)
     with col1:
-        send = st.button('📩Send')
+        send = st.button(_('📩Send'))
     with col2:
         if os.path.exists(CURRENT_LOG_FILE):
             save_as()
