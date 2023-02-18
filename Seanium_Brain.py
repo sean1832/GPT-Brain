@@ -160,12 +160,9 @@ with st.sidebar:
 with header:
     st.title(_('🧠GPT-Brain'))
     st.text(_('This is my personal AI powered brain feeding my own Obsidian notes. Ask anything.'))
-    isEnglish = st.session_state['SESSION_LANGUAGE'] == 'en_US'
 
     message(_("This is a beta version. Please [🪲report bugs](") + util.read_json_at(MANIFEST, 'bugs') + _(
         ") if you find any."))
-
-    message(_('This version does not allow for inquiries in languages other than English.'), condition=not isEnglish)
 
 
 def execute_brain(q):
