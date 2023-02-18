@@ -25,11 +25,11 @@ def build(chunk_size=4000):
         print(info, '\n\n\n')
         result.append(info)
 
-    util.write_json_file(result, r'.user\brain-data.json')
+    util.write_json(result, r'.user\brain-data.json')
 
 
 def run_answer(query, model, temp, max_tokens, top_p, freq_penl, pres_penl, chunk_count):
-    brain_data = util.read_json_file(r'.user\brain-data.json')
+    brain_data = util.read_json(r'.user\brain-data.json')
     results = gpt.search_chunks(query, brain_data, chunk_count)
     answers = []
     for result in results:
