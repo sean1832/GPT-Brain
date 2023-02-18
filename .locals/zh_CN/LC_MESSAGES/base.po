@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-19 03:00+1100\n"
-"PO-Revision-Date: 2023-02-19 03:01+1100\n"
+"POT-Creation-Date: 2023-02-19 03:16+1100\n"
+"PO-Revision-Date: 2023-02-19 03:16+1100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -79,7 +79,7 @@ msgstr "创建"
 msgid "my-info"
 msgstr "我的背景"
 
-#: pages/1_Configs.py:235 Seanium_brain.py:118 Seanium_brain.py:183
+#: pages/1_Configs.py:235 Seanium_brain.py:117 Seanium_brain.py:182
 msgid "question"
 msgstr "问题"
 
@@ -163,113 +163,113 @@ msgstr "正在处理"
 msgid "Thinking on"
 msgstr "正在思考"
 
-#: Seanium_brain.py:110
+#: Seanium_brain.py:109
 msgid "Operations"
 msgstr "操作"
 
-#: Seanium_brain.py:116
+#: Seanium_brain.py:115
 msgid "Question Model"
 msgstr "问题模型"
 
-#: Seanium_brain.py:125
+#: Seanium_brain.py:124
 msgid "Model"
 msgstr "模型"
 
-#: Seanium_brain.py:128
+#: Seanium_brain.py:127
 msgid "Temperature"
 msgstr "温度（Temperature）"
 
-#: Seanium_brain.py:129
+#: Seanium_brain.py:128
 msgid "Max Tokens"
 msgstr "最大令牌数（Max Token）"
 
-#: Seanium_brain.py:131
+#: Seanium_brain.py:130
 msgid "Advanced Options"
 msgstr "高级设置"
 
-#: Seanium_brain.py:132
+#: Seanium_brain.py:131
 msgid "Top_P"
 msgstr ""
 
-#: Seanium_brain.py:133
+#: Seanium_brain.py:132
 msgid "Frequency penalty"
 msgstr "频率惩罚（Frequency penalty）"
 
-#: Seanium_brain.py:135
+#: Seanium_brain.py:134
 msgid "Presence penalty"
 msgstr "存在惩罚（Presence penalty）"
 
-#: Seanium_brain.py:138
+#: Seanium_brain.py:137
 msgid "Chunk size"
 msgstr "区块大小（Chunk size）"
 
-#: Seanium_brain.py:139
+#: Seanium_brain.py:138
 msgid "Answer count"
 msgstr "回答数量（Answer count）"
 
-#: Seanium_brain.py:149
+#: Seanium_brain.py:148
 msgid "Clear Log"
 msgstr "清除日志"
 
-#: Seanium_brain.py:150
+#: Seanium_brain.py:149
 msgid "Log Cleared"
 msgstr "日志以清除"
 
-#: Seanium_brain.py:155
+#: Seanium_brain.py:154
 msgid "version"
 msgstr "版本"
 
-#: Seanium_brain.py:156
+#: Seanium_brain.py:155
 msgid "author"
 msgstr "作者"
 
-#: Seanium_brain.py:157
+#: Seanium_brain.py:156
 msgid "Report bugs"
 msgstr "报告bug"
 
-#: Seanium_brain.py:158
+#: Seanium_brain.py:157
 msgid "Github Repo"
 msgstr "Github源代码"
 
-#: Seanium_brain.py:161
+#: Seanium_brain.py:160
 msgid "🧠GPT-Brain"
 msgstr "🧠GPT-大脑"
 
-#: Seanium_brain.py:162
+#: Seanium_brain.py:161
 msgid ""
 "This is my personal AI powered brain feeding my own Obsidian notes. Ask "
 "anything."
 msgstr "这是我的个人AI知识管理库，请随意问。"
 
-#: Seanium_brain.py:164
+#: Seanium_brain.py:163
 msgid "This is a beta version. Please [🪲report bugs]("
 msgstr "该版本为BETA测试版。如果遇到BUG，请[🪲在此处报告BUG]("
 
-#: Seanium_brain.py:165
+#: Seanium_brain.py:164
 msgid ") if you find any."
 msgstr ")。"
 
-#: Seanium_brain.py:173
+#: Seanium_brain.py:172
 msgid "Building Brain..."
 msgstr "重建大脑内容"
 
-#: Seanium_brain.py:176
+#: Seanium_brain.py:175
 msgid "Brain rebuild!"
 msgstr "大脑已重建！"
 
-#: Seanium_brain.py:180
+#: Seanium_brain.py:179
 msgid "Thinking on Answer"
 msgstr "思考答案中"
 
-#: Seanium_brain.py:185
+#: Seanium_brain.py:184
 msgid "💬Answer"
 msgstr "💬回答"
 
-#: Seanium_brain.py:217
+#: Seanium_brain.py:216
 msgid "Ask Brain: "
 msgstr "提问大脑："
 
-#: Seanium_brain.py:220
+#: Seanium_brain.py:219
 msgid "📩Send"
 msgstr "📩发送"
 

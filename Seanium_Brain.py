@@ -11,8 +11,7 @@ import os
 # activate session
 if 'SESSION_TIME' not in st.session_state:
     st.session_state['SESSION_TIME'] = time.strftime("%Y%m%d-%H%H%S")
-if 'SESSION_LANGUAGE' not in st.session_state:
-    st.session_state['SESSION_LANGUAGE'] = util.read_json_at('.user/language.json', 'SESSION_LANGUAGE', 'en_US')
+
 
 st.set_page_config(
     page_title='GPT Brain'

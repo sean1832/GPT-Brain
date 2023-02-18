@@ -2,12 +2,18 @@ import openai
 import textwrap
 
 from modules import utilities as util
+from modules import language
+import streamlit as st
 from modules import gpt_util as gpt
-
 
 openai.api_key = util.read_file(r'.user\API-KEYS.txt').strip()
 
-prompt_dir = '.user/prompt'
+if 'SESSION_LANGUAGE' not in st.session_state:
+    st.session_state['SESSION_LANGUAGE'] = util.read_json_at('.user/language.json', 'SESSION_LANGUAGE', 'en_US')
+
+SESSION_LANG = st.session_state['SESSION_LANGUAGE']
+prompt_dir = f'.user/prompt/{SESSION_LANG}'
+_ = language.set_language()
 
 
 def build(chunk_size=4000):
@@ -33,9 +39,9 @@ def run_answer(query, model, temp, max_tokens, top_p, freq_penl, pres_penl, chun
     results = gpt.search_chunks(query, brain_data, chunk_count)
     answers = []
     for result in results:
-        my_info = util.read_file(f'{prompt_dir}/my-info.txt')
+        my_info = util.read_file(f'{prompt_dir}/' + _('my-info') + '.txt')
 
-        prompt = util.read_file(f'{prompt_dir}/question.txt')
+        prompt = util.read_file(f'{prompt_dir}/' + _('question') + '.txt')
         prompt = prompt.replace('<<INFO>>', result['content'])
         prompt = prompt.replace('<<QS>>', query)
         prompt = prompt.replace('<<MY-INFO>>', my_info)
