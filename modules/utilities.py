@@ -114,7 +114,7 @@ def write_json(content, filepath, mode='w'):
         json.dump(content, file, indent=2)
 
 
-def read_json_file(filepath):
+def read_json(filepath):
     try:
         with open(filepath, 'r') as file:
             return json.load(file)
@@ -124,7 +124,7 @@ def read_json_file(filepath):
 
 
 def read_json_at(filepath, key, default_value=''):
-    data = read_json_file(filepath)
+    data = read_json(filepath)
     try:
         # if key is string, check if it is boolean or numeric
         if isinstance(data[key], str):
@@ -146,7 +146,7 @@ def read_json_at(filepath, key, default_value=''):
 
 
 def update_json(filepath, key, value):
-    data = read_json_file(filepath)
+    data = read_json(filepath)
     data[key] = value
     write_json(data, filepath)
 
