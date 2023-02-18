@@ -14,7 +14,6 @@ if 'SESSION_TIME' not in st.session_state:
 if 'SESSION_LANGUAGE' not in st.session_state:
     st.session_state['SESSION_LANGUAGE'] = util.read_json_at('.user/language.json', 'SESSION_LANGUAGE', 'en_US')
 
-
 st.set_page_config(
     page_title='Seanium Brain'
 )
@@ -30,6 +29,7 @@ SESSION_TIME = st.session_state['SESSION_TIME']
 CURRENT_LOG_FILE = f'{LOG_PATH}/log_{SESSION_TIME}.log'
 BRAIN_MEMO = '.user/brain-memo.json'
 MANIFEST = '.core/manifest.json'
+
 
 def create_log():
     if not os.path.exists(CURRENT_LOG_FILE):
@@ -86,20 +86,20 @@ def process_response(query, target_model, prompt_file: str, data: model_data.par
 
 # sidebar
 with st.sidebar:
-    st.title('Settings')
-    language.select_language()
     _ = language.set_language()
+    st.title(_('Settings'))
+    language.select_language()
 
     prompt_files = util.scan_directory(PROMPT_PATH)
     prompt_file_names = [util.get_file_name(file) for file in prompt_files]
     prompt_dictionary = dict(zip(prompt_file_names, prompt_files))
     # remove 'my-info' from prompt dictionary
-    prompt_dictionary.pop(_('my-info'))
+    prompt_dictionary.pop('my-info')
 
     operation_options = list(prompt_dictionary.keys())
 
     operations = st.multiselect(_('Operations'), operation_options, default=util.read_json_at(BRAIN_MEMO, 'operations',
-                                                                                           operation_options[0]))
+                                                                                              operation_options[0]))
 
     last_question_model = util.read_json_at(BRAIN_MEMO, 'question_model', model_options[0])
     # get index of last question model
@@ -113,7 +113,7 @@ with st.sidebar:
         last_model = util.read_json_at(BRAIN_MEMO, f'{operation}_model', model_options[0])
         # get index of last model
         model_index = util.get_index(model_options, last_model)
-        model = st.selectbox(f"{operation} {_('Model')}", model_options, index=model_index)
+        model = st.selectbox(f"{operation} " + _('Model'), model_options, index=model_index)
         other_models.append(model)
 
     temp = st.slider(_('Temperature'), 0.0, 1.0, value=util.read_json_at(BRAIN_MEMO, 'temp', 0.1))
@@ -123,7 +123,8 @@ with st.sidebar:
         top_p = st.slider('Top_P', 0.0, 1.0, value=util.read_json_at(BRAIN_MEMO, 'top_p', 1.0))
         freq_panl = st.slider(_('Frequency penalty'), 0.0, 1.0,
                               value=util.read_json_at(BRAIN_MEMO, 'frequency_penalty', 0.0))
-        pres_panl = st.slider(_('Presence penalty'), 0.0, 1.0, value=util.read_json_at(BRAIN_MEMO, 'present_penalty', 0.0))
+        pres_panl = st.slider(_('Presence penalty'), 0.0, 1.0,
+                              value=util.read_json_at(BRAIN_MEMO, 'present_penalty', 0.0))
 
         chunk_size = st.slider(_('Chunk size'), 1500, 4500, value=util.read_json_at(BRAIN_MEMO, 'chunk_size', 4000))
         chunk_count = st.slider(_('Answer count'), 1, 5, value=util.read_json_at(BRAIN_MEMO, 'chunk_count', 1))
@@ -142,14 +143,14 @@ with st.sidebar:
     # info
     st.markdown('---')
     st.markdown(f"# {util.read_json_at(MANIFEST, 'name')}")
-    st.markdown(f"{_('version')}: {util.read_json_at(MANIFEST, 'version')}")
-    st.markdown(f"{_('author')}: {util.read_json_at(MANIFEST, 'author')}")
-    st.markdown(f"[{_('Report bugs')}]({util.read_json_at(MANIFEST, 'bugs')})")
-    st.markdown(f"[{_('Github Repo')}]({util.read_json_at(MANIFEST, 'homepage')})")
+    st.markdown(_('version') + f": {util.read_json_at(MANIFEST, 'version')}")
+    st.markdown(_('author') + f": {util.read_json_at(MANIFEST, 'author')}")
+    st.markdown("[" + _('Report bugs') + "]" + f"({util.read_json_at(MANIFEST, 'bugs')})")
+    st.markdown("[" + _('Github Repo') + "]" + f"({util.read_json_at(MANIFEST, 'homepage')})")
 
 with header:
-    st.title(_('🧠Seanium Brain'))
-    st.text('This is my personal AI powered brain feeding my own Obsidian notes. Ask anything.')
+    st.title(_('🧠GPT-Brain'))
+    st.text(_('This is my personal AI powered brain feeding my own Obsidian notes. Ask anything.'))
 
 
 def execute_brain(q):
