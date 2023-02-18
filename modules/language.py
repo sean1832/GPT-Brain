@@ -23,7 +23,6 @@ def select_language():
 
 
 def set_language():
-    select_language()
     # set current language
     lang_translations = gettext.translation('base', localedir='.locals', languages=[st.session_state['SESSION_LANGUAGE']])
     lang_translations.install()
