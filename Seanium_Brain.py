@@ -150,8 +150,8 @@ with st.sidebar:
     # info
     st.markdown('---')
     st.markdown(f"# {util.read_json_at(MANIFEST, 'name')}")
-    st.markdown(_('version') + f": {util.read_json_at(MANIFEST, 'version')}")
-    st.markdown(_('author') + f": {util.read_json_at(MANIFEST, 'author')}")
+    st.markdown(_('Version') + f": {util.read_json_at(MANIFEST, 'version')}")
+    st.markdown(_('Author') + f": {util.read_json_at(MANIFEST, 'author')}")
     st.markdown("[" + _('Report bugs') + "]" + f"({util.read_json_at(MANIFEST, 'bugs')})")
     st.markdown("[" + _('Github Repo') + "]" + f"({util.read_json_at(MANIFEST, 'homepage')})")
 
