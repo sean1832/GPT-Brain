@@ -15,7 +15,7 @@ if 'SESSION_LANGUAGE' not in st.session_state:
     st.session_state['SESSION_LANGUAGE'] = util.read_json_at('.user/language.json', 'SESSION_LANGUAGE', 'en_US')
 
 st.set_page_config(
-    page_title='Seanium Brain'
+    page_title='GPT Brain'
 )
 
 util.remove_oldest_file('.user/log', 10)
@@ -24,8 +24,9 @@ model_options = ['text-davinci-003', 'text-curie-001', 'text-babbage-001', 'text
 header = st.container()
 body = st.container()
 LOG_PATH = '.user/log'
-PROMPT_PATH = '.user/prompt'
 SESSION_TIME = st.session_state['SESSION_TIME']
+SESSION_LANG = st.session_state['SESSION_LANGUAGE']
+PROMPT_PATH = f'.user/prompt/{SESSION_LANG}'
 CURRENT_LOG_FILE = f'{LOG_PATH}/log_{SESSION_TIME}.log'
 BRAIN_MEMO = '.user/brain-memo.json'
 MANIFEST = '.core/manifest.json'
@@ -102,11 +103,11 @@ with st.sidebar:
     prompt_file_names = [util.get_file_name(file) for file in prompt_files]
     prompt_dictionary = dict(zip(prompt_file_names, prompt_files))
     # remove 'my-info' from prompt dictionary
-    prompt_dictionary.pop('my-info')
+    prompt_dictionary.pop(_('my-info'))
 
     operation_options = list(prompt_dictionary.keys())
-
-    operations = st.multiselect(_('Operations'), operation_options, default=util.read_json_at(BRAIN_MEMO, 'operations',
+    print(util.read_json_at(BRAIN_MEMO, f'operations_{SESSION_LANG}', operation_options[0]))
+    operations = st.multiselect(_('Operations'), operation_options, default=util.read_json_at(BRAIN_MEMO, f'operations_{SESSION_LANG}',
                                                                                               operation_options[0]))
 
     last_question_model = util.read_json_at(BRAIN_MEMO, 'question_model', model_options[0])
@@ -114,7 +115,7 @@ with st.sidebar:
     question_model_index = util.get_index(model_options, last_question_model)
     question_model = st.selectbox(_('Question Model'), model_options, index=question_model_index)
 
-    operations_no_question = [op for op in operations if op != 'question']
+    operations_no_question = [op for op in operations if op != _('question')]
     other_models = []
     replace_tokens = []
     for operation in operations_no_question:
@@ -182,7 +183,7 @@ def execute_brain(q):
     with st.spinner(_('Thinking on Answer')):
         answer = brain.run_answer(q, question_model, temp, max_tokens, top_p, freq_panl, pres_panl,
                                   chunk_count=chunk_count)
-        if util.contains(operations, 'question'):
+        if util.contains(operations, _('question')):
             # displaying results
             st.header(_('💬Answer'))
             st.info(f'{answer}')
@@ -204,7 +205,7 @@ def execute_brain(q):
         util.update_json(BRAIN_MEMO, key, value)
 
     # write operation to json
-    util.update_json(BRAIN_MEMO, 'operations', operations)
+    util.update_json(BRAIN_MEMO, f'operations_{SESSION_LANG}', operations)
 
     # write question model to json
     util.update_json(BRAIN_MEMO, 'question_model', question_model)

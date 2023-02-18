@@ -112,8 +112,8 @@ def create_json_not_exist(filepath, initial_value={}):
         write_json(initial_value, filepath)
 
 
-def write_json(content, filepath, mode='w'):
-    with open(filepath, mode) as file:
+def write_json(content, filepath, mode='w', encoding='UTF-8'):
+    with open(filepath, mode, encoding=encoding) as file:
         json.dump(content, file, indent=2)
 
 
