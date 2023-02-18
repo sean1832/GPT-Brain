@@ -106,7 +106,6 @@ with st.sidebar:
     prompt_dictionary.pop(_('my-info'))
 
     operation_options = list(prompt_dictionary.keys())
-    print(util.read_json_at(BRAIN_MEMO, f'operations_{SESSION_LANG}', operation_options[0]))
     operations = st.multiselect(_('Operations'), operation_options,
                                 default=util.read_json_at(BRAIN_MEMO, f'operations_{SESSION_LANG}', operation_options[0]))
 
