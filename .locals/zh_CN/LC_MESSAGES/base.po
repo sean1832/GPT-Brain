@@ -1,0 +1,278 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-19 03:16+1100\n"
+"PO-Revision-Date: 2023-02-19 03:16+1100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.2.2\n"
+
+#: pages/1_Configs.py:32
+msgid "💾Save"
+msgstr "💾保存"
+
+#: pages/1_Configs.py:35
+msgid "✅File saved!"
+msgstr "✅文件以保存！"
+
+#: pages/1_Configs.py:54 pages/1_Configs.py:261
+msgid "Select Note Directory"
+msgstr "请选择笔记文件目录"
+
+#: pages/1_Configs.py:197 Seanium_brain.py:99
+msgid "Settings"
+msgstr "设置"
+
+#: pages/1_Configs.py:198
+msgid "Menu"
+msgstr "菜单"
+
+#: pages/1_Configs.py:199 pages/1_Configs.py:205 pages/1_Configs.py:206
+msgid "📝Prompts"
+msgstr "📝咒文（prompt）"
+
+#: pages/1_Configs.py:200 pages/1_Configs.py:248 pages/1_Configs.py:249
+#: pages/1_Configs.py:301
+msgid "💽Brain Memory"
+msgstr "💽脑记忆"
+
+#: pages/1_Configs.py:201 pages/1_Configs.py:310 pages/1_Configs.py:311
+msgid "🔑API Keys"
+msgstr "🔑API 密匙"
+
+#: pages/1_Configs.py:207
+msgid "Configuration of prompts."
+msgstr "这里设置咒文（prompt）"
+
+#: pages/1_Configs.py:221
+msgid "Prompt File"
+msgstr "咒文文件"
+
+#: pages/1_Configs.py:225
+msgid "New Prompt"
+msgstr "新建咒文"
+
+#: pages/1_Configs.py:226
+msgid "New Prompt Name"
+msgstr "新建文件名"
+
+#: pages/1_Configs.py:226
+msgid "new_prompt"
+msgstr "新建咒文"
+
+#: pages/1_Configs.py:227
+msgid "Create"
+msgstr "创建"
+
+#: pages/1_Configs.py:234 Seanium_brain.py:106
+msgid "my-info"
+msgstr "我的背景"
+
+#: pages/1_Configs.py:235 Seanium_brain.py:117 Seanium_brain.py:182
+msgid "question"
+msgstr "问题"
+
+#: pages/1_Configs.py:236
+msgid "summarize"
+msgstr "总结"
+
+#: pages/1_Configs.py:238
+msgid "Delete Prompt"
+msgstr "删除咒文"
+
+#: pages/1_Configs.py:239
+msgid "❌Delete"
+msgstr "❌删除"
+
+#: pages/1_Configs.py:245
+msgid "Prompts"
+msgstr "咒文（Prompts）"
+
+#: pages/1_Configs.py:250
+msgid "Modify your brain knowledge base."
+msgstr "这里修改大脑知识库"
+
+#: pages/1_Configs.py:255
+msgid "🔄Refresh"
+msgstr "🔄刷新"
+
+#: pages/1_Configs.py:257
+msgid "📁Select Note Directory"
+msgstr "📁选择笔记目录"
+
+#: pages/1_Configs.py:260
+msgid "Note Directory"
+msgstr "笔记目录"
+
+#: pages/1_Configs.py:266
+msgid "Delimiter"
+msgstr "分界符号"
+
+#: pages/1_Configs.py:269
+msgid "Append Mode"
+msgstr "附加模式"
+
+#: pages/1_Configs.py:270
+msgid "Force Delimiter"
+msgstr "强制分界"
+
+#: pages/1_Configs.py:273
+msgid "Filter Mode"
+msgstr "筛选模式"
+
+#: pages/1_Configs.py:279
+msgid "Add Filter"
+msgstr "增加筛选"
+
+#: pages/1_Configs.py:280
+msgid "Delete Filter"
+msgstr "删除筛选"
+
+#: pages/1_Configs.py:300
+msgid "Raw Memory Inputs"
+msgstr "笔记数据内容"
+
+#: pages/1_Configs.py:312
+msgid "Configure your OpenAI API keys."
+msgstr "这里设置OpenAI API密匙"
+
+#: pages/1_Configs.py:313
+msgid "API Keys"
+msgstr "API密匙"
+
+#: Seanium_brain.py:63
+msgid "📥download log"
+msgstr "📥下载日志"
+
+#: Seanium_brain.py:73
+msgid "Processing"
+msgstr "正在处理"
+
+#: Seanium_brain.py:74
+msgid "Thinking on"
+msgstr "正在思考"
+
+#: Seanium_brain.py:109
+msgid "Operations"
+msgstr "操作"
+
+#: Seanium_brain.py:115
+msgid "Question Model"
+msgstr "问题模型"
+
+#: Seanium_brain.py:124
+msgid "Model"
+msgstr "模型"
+
+#: Seanium_brain.py:127
+msgid "Temperature"
+msgstr "温度（Temperature）"
+
+#: Seanium_brain.py:128
+msgid "Max Tokens"
+msgstr "最大令牌数（Max Token）"
+
+#: Seanium_brain.py:130
+msgid "Advanced Options"
+msgstr "高级设置"
+
+#: Seanium_brain.py:131
+msgid "Top_P"
+msgstr ""
+
+#: Seanium_brain.py:132
+msgid "Frequency penalty"
+msgstr "频率惩罚（Frequency penalty）"
+
+#: Seanium_brain.py:134
+msgid "Presence penalty"
+msgstr "存在惩罚（Presence penalty）"
+
+#: Seanium_brain.py:137
+msgid "Chunk size"
+msgstr "区块大小（Chunk size）"
+
+#: Seanium_brain.py:138
+msgid "Answer count"
+msgstr "回答数量（Answer count）"
+
+#: Seanium_brain.py:148
+msgid "Clear Log"
+msgstr "清除日志"
+
+#: Seanium_brain.py:149
+msgid "Log Cleared"
+msgstr "日志以清除"
+
+#: Seanium_brain.py:154
+msgid "version"
+msgstr "版本"
+
+#: Seanium_brain.py:155
+msgid "author"
+msgstr "作者"
+
+#: Seanium_brain.py:156
+msgid "Report bugs"
+msgstr "报告bug"
+
+#: Seanium_brain.py:157
+msgid "Github Repo"
+msgstr "Github源代码"
+
+#: Seanium_brain.py:160
+msgid "🧠GPT-Brain"
+msgstr "🧠GPT-大脑"
+
+#: Seanium_brain.py:161
+msgid ""
+"This is my personal AI powered brain feeding my own Obsidian notes. Ask "
+"anything."
+msgstr "这是我的个人AI知识管理库，请随意问。"
+
+#: Seanium_brain.py:163
+msgid "This is a beta version. Please [🪲report bugs]("
+msgstr "该版本为BETA测试版。如果遇到BUG，请[🪲在此处报告BUG]("
+
+#: Seanium_brain.py:164
+msgid ") if you find any."
+msgstr ")。"
+
+#: Seanium_brain.py:172
+msgid "Building Brain..."
+msgstr "重建大脑内容"
+
+#: Seanium_brain.py:175
+msgid "Brain rebuild!"
+msgstr "大脑已重建！"
+
+#: Seanium_brain.py:179
+msgid "Thinking on Answer"
+msgstr "思考答案中"
+
+#: Seanium_brain.py:184
+msgid "💬Answer"
+msgstr "💬回答"
+
+#: Seanium_brain.py:216
+msgid "Ask Brain: "
+msgstr "提问大脑："
+
+#: Seanium_brain.py:219
+msgid "📩Send"
+msgstr "📩发送"
+
+#~ msgid ""
+#~ "This version does not allow for inquiries in languages other than English."
+#~ msgstr "该版本暂不支持英语以外的检索。"

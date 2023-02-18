@@ -1,0 +1,278 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-19 03:16+1100\n"
+"PO-Revision-Date: 2023-02-18 23:31+1100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_AU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.2.2\n"
+
+#: pages/1_Configs.py:32
+msgid "💾Save"
+msgstr "💾Save"
+
+#: pages/1_Configs.py:35
+msgid "✅File saved!"
+msgstr "✅File saved!"
+
+#: pages/1_Configs.py:54 pages/1_Configs.py:261
+msgid "Select Note Directory"
+msgstr "Select Note Directory"
+
+#: pages/1_Configs.py:197 Seanium_brain.py:99
+msgid "Settings"
+msgstr "Settings"
+
+#: pages/1_Configs.py:198
+msgid "Menu"
+msgstr "Menu"
+
+#: pages/1_Configs.py:199 pages/1_Configs.py:205 pages/1_Configs.py:206
+msgid "📝Prompts"
+msgstr "📝Prompts"
+
+#: pages/1_Configs.py:200 pages/1_Configs.py:248 pages/1_Configs.py:249
+#: pages/1_Configs.py:301
+msgid "💽Brain Memory"
+msgstr "💽Brain Memory"
+
+#: pages/1_Configs.py:201 pages/1_Configs.py:310 pages/1_Configs.py:311
+msgid "🔑API Keys"
+msgstr "🔑API Keys"
+
+#: pages/1_Configs.py:207
+msgid "Configuration of prompts."
+msgstr "Configuration of prompts."
+
+#: pages/1_Configs.py:221
+msgid "Prompt File"
+msgstr "Prompt File"
+
+#: pages/1_Configs.py:225
+msgid "New Prompt"
+msgstr "New Prompt"
+
+#: pages/1_Configs.py:226
+msgid "New Prompt Name"
+msgstr "New Prompt Name"
+
+#: pages/1_Configs.py:226
+#, fuzzy
+msgid "new_prompt"
+msgstr "New Prompt"
+
+#: pages/1_Configs.py:227
+msgid "Create"
+msgstr "Create"
+
+#: pages/1_Configs.py:234 Seanium_brain.py:106
+msgid "my-info"
+msgstr "my-info"
+
+#: pages/1_Configs.py:235 Seanium_brain.py:117 Seanium_brain.py:182
+#, fuzzy
+msgid "question"
+msgstr "Question Model"
+
+#: pages/1_Configs.py:236
+msgid "summarize"
+msgstr ""
+
+#: pages/1_Configs.py:238
+msgid "Delete Prompt"
+msgstr "Delete Prompt"
+
+#: pages/1_Configs.py:239
+msgid "❌Delete"
+msgstr "❌Delete"
+
+#: pages/1_Configs.py:245
+msgid "Prompts"
+msgstr "Prompts"
+
+#: pages/1_Configs.py:250
+msgid "Modify your brain knowledge base."
+msgstr "Modify your brain knowledge base."
+
+#: pages/1_Configs.py:255
+msgid "🔄Refresh"
+msgstr "🔄Refresh"
+
+#: pages/1_Configs.py:257
+msgid "📁Select Note Directory"
+msgstr "📁Select Note Directory"
+
+#: pages/1_Configs.py:260
+msgid "Note Directory"
+msgstr "Note Directory"
+
+#: pages/1_Configs.py:266
+msgid "Delimiter"
+msgstr "Delimiter"
+
+#: pages/1_Configs.py:269
+msgid "Append Mode"
+msgstr "Append Mode"
+
+#: pages/1_Configs.py:270
+msgid "Force Delimiter"
+msgstr "Force Delimiter"
+
+#: pages/1_Configs.py:273
+msgid "Filter Mode"
+msgstr "Filter Mode"
+
+#: pages/1_Configs.py:279
+msgid "Add Filter"
+msgstr "Add Filter"
+
+#: pages/1_Configs.py:280
+msgid "Delete Filter"
+msgstr "Delete Filter"
+
+#: pages/1_Configs.py:300
+msgid "Raw Memory Inputs"
+msgstr "Raw Memory Inputs"
+
+#: pages/1_Configs.py:312
+msgid "Configure your OpenAI API keys."
+msgstr "Configure your OpenAI API keys."
+
+#: pages/1_Configs.py:313
+msgid "API Keys"
+msgstr "API Keys"
+
+#: Seanium_brain.py:63
+msgid "📥download log"
+msgstr "📥download log"
+
+#: Seanium_brain.py:73
+msgid "Processing"
+msgstr ""
+
+#: Seanium_brain.py:74
+#, fuzzy
+msgid "Thinking on"
+msgstr "Thinking on Answer"
+
+#: Seanium_brain.py:109
+msgid "Operations"
+msgstr "Operations"
+
+#: Seanium_brain.py:115
+msgid "Question Model"
+msgstr "Question Model"
+
+#: Seanium_brain.py:124
+msgid "Model"
+msgstr ""
+
+#: Seanium_brain.py:127
+msgid "Temperature"
+msgstr "Temperature"
+
+#: Seanium_brain.py:128
+msgid "Max Tokens"
+msgstr "Max Tokens"
+
+#: Seanium_brain.py:130
+msgid "Advanced Options"
+msgstr "Advanced Options"
+
+#: Seanium_brain.py:131
+msgid "Top_P"
+msgstr ""
+
+#: Seanium_brain.py:132
+msgid "Frequency penalty"
+msgstr "Frequency penalty"
+
+#: Seanium_brain.py:134
+msgid "Presence penalty"
+msgstr "Presence penalty"
+
+#: Seanium_brain.py:137
+msgid "Chunk size"
+msgstr "Chunk size"
+
+#: Seanium_brain.py:138
+msgid "Answer count"
+msgstr "Answer count"
+
+#: Seanium_brain.py:148
+msgid "Clear Log"
+msgstr "Clear Log"
+
+#: Seanium_brain.py:149
+msgid "Log Cleared"
+msgstr "Log Cleared"
+
+#: Seanium_brain.py:154
+msgid "version"
+msgstr ""
+
+#: Seanium_brain.py:155
+msgid "author"
+msgstr ""
+
+#: Seanium_brain.py:156
+msgid "Report bugs"
+msgstr ""
+
+#: Seanium_brain.py:157
+msgid "Github Repo"
+msgstr ""
+
+#: Seanium_brain.py:160
+#, fuzzy
+msgid "🧠GPT-Brain"
+msgstr "🧠Seanium Brain"
+
+#: Seanium_brain.py:161
+msgid ""
+"This is my personal AI powered brain feeding my own Obsidian notes. Ask "
+"anything."
+msgstr ""
+
+#: Seanium_brain.py:163
+msgid "This is a beta version. Please [🪲report bugs]("
+msgstr ""
+
+#: Seanium_brain.py:164
+msgid ") if you find any."
+msgstr ""
+
+#: Seanium_brain.py:172
+msgid "Building Brain..."
+msgstr "Building Brain..."
+
+#: Seanium_brain.py:175
+msgid "Brain rebuild!"
+msgstr "Brain rebuild!"
+
+#: Seanium_brain.py:179
+msgid "Thinking on Answer"
+msgstr "Thinking on Answer"
+
+#: Seanium_brain.py:184
+msgid "💬Answer"
+msgstr "💬Answer"
+
+#: Seanium_brain.py:216
+msgid "Ask Brain: "
+msgstr "Ask Brain: "
+
+#: Seanium_brain.py:219
+msgid "📩Send"
+msgstr "📩Send"
