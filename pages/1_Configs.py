@@ -179,6 +179,11 @@ def filter_data(pages: list, add_filter_button, del_filter_button):
                 init_key = ''
                 init_logic = 'CONTAINS'
                 init_val = ''
+            except KeyError:
+                init_key = ''
+                init_logic = 'CONTAINS'
+                init_val = ''
+
 
             if i == 0:
                 continue
