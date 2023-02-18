@@ -2,19 +2,16 @@ import gettext
 import streamlit as st
 import modules.utilities as util
 
-languages_dict = {
-    'English': 'en_US',
-    '简体中文': 'zh_CN'
-}
+languages = util.read_json('.locals/languages.json')
 
 
 def select_language():
-    language_index = util.get_index(list(languages_dict.values()), st.session_state['SESSION_LANGUAGE'])
+    language_index = util.get_index(list(languages.values()), st.session_state['SESSION_LANGUAGE'])
 
     # Add a language selector widget to the Streamlit app
-    language = st.sidebar.selectbox('Language', languages_dict.keys(), language_index)
+    language = st.sidebar.selectbox('Language', languages.keys(), language_index)
 
-    selected_lang = languages_dict[language]
+    selected_lang = languages[language]
 
     if st.session_state['SESSION_LANGUAGE'] != selected_lang:
         st.session_state['SESSION_LANGUAGE'] = selected_lang
