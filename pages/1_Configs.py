@@ -278,8 +278,10 @@ def main():
                     add_filter_button = st.button("➕" + _('Add Filter'))
                     del_filter_button = st.button("❌" + _('Delete Filter'))
 
+            filter_info = {}
             # if note directory is selected
             if note_dir != '':
+
                 # if advanced mode enabled
                 if advanced_mode:
                     note_datas = util.read_files(note_dir, single_string=False)
