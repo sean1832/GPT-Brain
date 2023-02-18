@@ -106,10 +106,10 @@ def delete_file(filepath):
 
 def create_json_not_exist(filepath, initial_value={}):
     if not os.path.exists(filepath):
-        write_json_file(initial_value, filepath)
+        write_json(initial_value, filepath)
 
 
-def write_json_file(content, filepath, mode='w'):
+def write_json(content, filepath, mode='w'):
     with open(filepath, mode) as file:
         json.dump(content, file, indent=2)
 
@@ -119,6 +119,7 @@ def read_json_file(filepath):
         with open(filepath, 'r') as file:
             return json.load(file)
     except FileNotFoundError:
+        create_json_not_exist(filepath)
         return {}
 
 
@@ -140,14 +141,14 @@ def read_json_at(filepath, key, default_value=''):
     except KeyError:
         # if key not found, create key with default value
         data[key] = default_value
-        write_json_file(data, filepath)
+        write_json(data, filepath)
         return data[key]
 
 
 def update_json(filepath, key, value):
     data = read_json_file(filepath)
     data[key] = value
-    write_json_file(data, filepath)
+    write_json(data, filepath)
 
 
 def contains(list, item):
