@@ -70,8 +70,8 @@ def save_as():
 def process_response(query, target_model, prompt_file: str, data: model_data.param):
     # check if exclude model is not target model
     file_name = util.get_file_name(prompt_file)
-    print(f"{_('Processing')} {file_name}...")
-    with st.spinner(f"{_('Thinking on')} {file_name}..."):
+    print(_('Processing') + f" {file_name}...")
+    with st.spinner(_('Thinking on') + f" {file_name}..."):
         results = brain.run(query, target_model, prompt_file,
                             data.temp,
                             data.max_tokens,
@@ -107,8 +107,8 @@ with st.sidebar:
 
     operation_options = list(prompt_dictionary.keys())
     print(util.read_json_at(BRAIN_MEMO, f'operations_{SESSION_LANG}', operation_options[0]))
-    operations = st.multiselect(_('Operations'), operation_options, default=util.read_json_at(BRAIN_MEMO, f'operations_{SESSION_LANG}',
-                                                                                              operation_options[0]))
+    operations = st.multiselect(_('Operations'), operation_options,
+                                default=util.read_json_at(BRAIN_MEMO, f'operations_{SESSION_LANG}', operation_options[0]))
 
     last_question_model = util.read_json_at(BRAIN_MEMO, 'question_model', model_options[0])
     # get index of last question model

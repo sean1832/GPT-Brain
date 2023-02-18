@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-19 02:52+1100\n"
+"POT-Creation-Date: 2023-02-19 03:00+1100\n"
 "PO-Revision-Date: 2023-02-18 23:31+1100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -80,7 +80,7 @@ msgstr "Create"
 msgid "my-info"
 msgstr "my-info"
 
-#: pages/1_Configs.py:235 Seanium_brain.py:118 Seanium_brain.py:186
+#: pages/1_Configs.py:235 Seanium_brain.py:118 Seanium_brain.py:183
 #, fuzzy
 msgid "question"
 msgstr "Question Model"
@@ -156,6 +156,15 @@ msgstr "API Keys"
 #: Seanium_brain.py:63
 msgid "📥download log"
 msgstr "📥download log"
+
+#: Seanium_brain.py:73
+msgid "Processing"
+msgstr ""
+
+#: Seanium_brain.py:74
+#, fuzzy
+msgid "Thinking on"
+msgstr "Thinking on Answer"
 
 #: Seanium_brain.py:110
 msgid "Operations"
@@ -236,39 +245,34 @@ msgid ""
 "anything."
 msgstr ""
 
-#: Seanium_brain.py:165
+#: Seanium_brain.py:164
 msgid "This is a beta version. Please [🪲report bugs]("
 msgstr ""
 
-#: Seanium_brain.py:166
+#: Seanium_brain.py:165
 msgid ") if you find any."
 msgstr ""
 
-#: Seanium_brain.py:168
-msgid ""
-"This version does not allow for inquiries in languages other than English."
-msgstr ""
-
-#: Seanium_brain.py:176
+#: Seanium_brain.py:173
 msgid "Building Brain..."
 msgstr "Building Brain..."
 
-#: Seanium_brain.py:179
+#: Seanium_brain.py:176
 msgid "Brain rebuild!"
 msgstr "Brain rebuild!"
 
-#: Seanium_brain.py:183
+#: Seanium_brain.py:180
 msgid "Thinking on Answer"
 msgstr "Thinking on Answer"
 
-#: Seanium_brain.py:188
+#: Seanium_brain.py:185
 msgid "💬Answer"
 msgstr "💬Answer"
 
-#: Seanium_brain.py:220
+#: Seanium_brain.py:217
 msgid "Ask Brain: "
 msgstr "Ask Brain: "
 
-#: Seanium_brain.py:223
+#: Seanium_brain.py:220
 msgid "📩Send"
 msgstr "📩Send"

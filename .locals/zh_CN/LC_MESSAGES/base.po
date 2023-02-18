@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-19 02:52+1100\n"
-"PO-Revision-Date: 2023-02-19 02:52+1100\n"
+"POT-Creation-Date: 2023-02-19 03:00+1100\n"
+"PO-Revision-Date: 2023-02-19 03:01+1100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -79,7 +79,7 @@ msgstr "创建"
 msgid "my-info"
 msgstr "我的背景"
 
-#: pages/1_Configs.py:235 Seanium_brain.py:118 Seanium_brain.py:186
+#: pages/1_Configs.py:235 Seanium_brain.py:118 Seanium_brain.py:183
 msgid "question"
 msgstr "问题"
 
@@ -154,6 +154,14 @@ msgstr "API密匙"
 #: Seanium_brain.py:63
 msgid "📥download log"
 msgstr "📥下载日志"
+
+#: Seanium_brain.py:73
+msgid "Processing"
+msgstr "正在处理"
+
+#: Seanium_brain.py:74
+msgid "Thinking on"
+msgstr "正在思考"
 
 #: Seanium_brain.py:110
 msgid "Operations"
@@ -233,39 +241,38 @@ msgid ""
 "anything."
 msgstr "这是我的个人AI知识管理库，请随意问。"
 
-#: Seanium_brain.py:165
+#: Seanium_brain.py:164
 msgid "This is a beta version. Please [🪲report bugs]("
 msgstr "该版本为BETA测试版。如果遇到BUG，请[🪲在此处报告BUG]("
 
-#: Seanium_brain.py:166
+#: Seanium_brain.py:165
 msgid ") if you find any."
 msgstr ")。"
 
-#: Seanium_brain.py:168
-msgid ""
-"This version does not allow for inquiries in languages other than English."
-msgstr "该版本暂不支持英语以外的检索。"
-
-#: Seanium_brain.py:176
+#: Seanium_brain.py:173
 msgid "Building Brain..."
 msgstr "重建大脑内容"
 
-#: Seanium_brain.py:179
+#: Seanium_brain.py:176
 msgid "Brain rebuild!"
 msgstr "大脑已重建！"
 
-#: Seanium_brain.py:183
+#: Seanium_brain.py:180
 msgid "Thinking on Answer"
 msgstr "思考答案中"
 
-#: Seanium_brain.py:188
+#: Seanium_brain.py:185
 msgid "💬Answer"
 msgstr "💬回答"
 
-#: Seanium_brain.py:220
+#: Seanium_brain.py:217
 msgid "Ask Brain: "
 msgstr "提问大脑："
 
-#: Seanium_brain.py:223
+#: Seanium_brain.py:220
 msgid "📩Send"
 msgstr "📩发送"
+
+#~ msgid ""
+#~ "This version does not allow for inquiries in languages other than English."
+#~ msgstr "该版本暂不支持英语以外的检索。"
