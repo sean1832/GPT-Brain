@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-19 00:48+1100\n"
+"POT-Creation-Date: 2023-02-19 02:21+1100\n"
 "PO-Revision-Date: 2023-02-18 23:31+1100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -30,7 +30,7 @@ msgstr "✅File saved!"
 msgid "Select Note Directory"
 msgstr "Select Note Directory"
 
-#: pages/1_Configs.py:196 Seanium_brain.py:99
+#: pages/1_Configs.py:196 Seanium_brain.py:98
 msgid "Settings"
 msgstr "Settings"
 
@@ -139,86 +139,95 @@ msgstr "API Keys"
 msgid "📥download log"
 msgstr "📥download log"
 
-#: Seanium_brain.py:110
+#: Seanium_brain.py:105
+msgid "my-info"
+msgstr "my-info"
+
+#: Seanium_brain.py:109
 msgid "Operations"
 msgstr "Operations"
 
-#: Seanium_brain.py:116
+#: Seanium_brain.py:115
 msgid "Question Model"
 msgstr "Question Model"
 
-#: Seanium_brain.py:125
+#: Seanium_brain.py:117 Seanium_brain.py:185
+#, fuzzy
+msgid "question"
+msgstr "Question Model"
+
+#: Seanium_brain.py:124
 msgid "Model"
 msgstr ""
 
-#: Seanium_brain.py:128
+#: Seanium_brain.py:127
 msgid "Temperature"
 msgstr "Temperature"
 
-#: Seanium_brain.py:129
+#: Seanium_brain.py:128
 msgid "Max Tokens"
 msgstr "Max Tokens"
 
-#: Seanium_brain.py:131
+#: Seanium_brain.py:130
 msgid "Advanced Options"
 msgstr "Advanced Options"
 
-#: Seanium_brain.py:132
+#: Seanium_brain.py:131
 msgid "Top_P"
 msgstr ""
 
-#: Seanium_brain.py:133
+#: Seanium_brain.py:132
 msgid "Frequency penalty"
 msgstr "Frequency penalty"
 
-#: Seanium_brain.py:135
+#: Seanium_brain.py:134
 msgid "Presence penalty"
 msgstr "Presence penalty"
 
-#: Seanium_brain.py:138
+#: Seanium_brain.py:137
 msgid "Chunk size"
 msgstr "Chunk size"
 
-#: Seanium_brain.py:139
+#: Seanium_brain.py:138
 msgid "Answer count"
 msgstr "Answer count"
 
-#: Seanium_brain.py:149
+#: Seanium_brain.py:148
 msgid "Clear Log"
 msgstr "Clear Log"
 
-#: Seanium_brain.py:150
+#: Seanium_brain.py:149
 msgid "Log Cleared"
 msgstr "Log Cleared"
 
-#: Seanium_brain.py:155
+#: Seanium_brain.py:154
 msgid "version"
 msgstr ""
 
-#: Seanium_brain.py:156
+#: Seanium_brain.py:155
 msgid "author"
 msgstr ""
 
-#: Seanium_brain.py:157
+#: Seanium_brain.py:156
 msgid "Report bugs"
 msgstr ""
 
-#: Seanium_brain.py:158
+#: Seanium_brain.py:157
 msgid "Github Repo"
 msgstr ""
 
-#: Seanium_brain.py:161
+#: Seanium_brain.py:160
 #, fuzzy
 msgid "🧠GPT-Brain"
 msgstr "🧠Seanium Brain"
 
-#: Seanium_brain.py:162
+#: Seanium_brain.py:161
 msgid ""
 "This is my personal AI powered brain feeding my own Obsidian notes. Ask "
 "anything."
 msgstr ""
 
-#: Seanium_brain.py:165
+#: Seanium_brain.py:164
 msgid "This is a beta version. Please [🪲report bugs]("
 msgstr ""
 
@@ -231,29 +240,26 @@ msgid ""
 "This version does not allow for inquiries in languages other than English."
 msgstr ""
 
-#: Seanium_brain.py:174
+#: Seanium_brain.py:175
 msgid "Building Brain..."
 msgstr "Building Brain..."
 
-#: Seanium_brain.py:177
+#: Seanium_brain.py:178
 msgid "Brain rebuild!"
 msgstr "Brain rebuild!"
 
-#: Seanium_brain.py:181
+#: Seanium_brain.py:182
 msgid "Thinking on Answer"
 msgstr "Thinking on Answer"
 
-#: Seanium_brain.py:186
+#: Seanium_brain.py:187
 msgid "💬Answer"
 msgstr "💬Answer"
 
-#: Seanium_brain.py:218
+#: Seanium_brain.py:219
 msgid "Ask Brain: "
 msgstr "Ask Brain: "
 
-#: Seanium_brain.py:221
+#: Seanium_brain.py:222
 msgid "📩Send"
 msgstr "📩Send"
-
-#~ msgid "my-info"
-#~ msgstr "my-info"
