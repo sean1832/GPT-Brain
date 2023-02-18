@@ -116,7 +116,7 @@ def write_json(content, filepath, mode='w'):
 
 def read_json(filepath):
     try:
-        with open(filepath, 'r') as file:
+        with open(filepath, 'r', encoding='UTF-8') as file:
             return json.load(file)
     except FileNotFoundError:
         create_json_not_exist(filepath)
