@@ -2,6 +2,7 @@ import streamlit as st
 
 from modules import utilities as util
 from modules import model_data
+from modules import language
 import brain
 import check_update
 import time
@@ -10,6 +11,9 @@ import os
 # activate session
 if 'SESSION_TIME' not in st.session_state:
     st.session_state['SESSION_TIME'] = time.strftime("%Y%m%d-%H%H%S")
+if 'SESSION_LANGUAGE' not in st.session_state:
+    st.session_state['SESSION_LANGUAGE'] = util.read_json_at('.user/language.json', 'SESSION_LANGUAGE', 'en_US')
+
 
 st.set_page_config(
     page_title='Seanium Brain'
@@ -83,6 +87,7 @@ def process_response(query, target_model, prompt_file: str, data: model_data.par
 # sidebar
 with st.sidebar:
     st.title('Settings')
+    _ = language.set_language()
 
     prompt_files = util.scan_directory(PROMPT_PATH)
     prompt_file_names = [util.get_file_name(file) for file in prompt_files]
