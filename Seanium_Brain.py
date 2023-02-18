@@ -84,6 +84,14 @@ def process_response(query, target_model, prompt_file: str, data: model_data.par
         log(results, delimiter=f'{file_name.upper()}')
 
 
+def message(msg, condition=None):
+    if condition is not None:
+        if condition:
+            st.warning("⚠️" + msg)
+    else:
+        st.warning("⚠️" + msg)
+
+
 # sidebar
 with st.sidebar:
     _ = language.set_language()
@@ -120,7 +128,7 @@ with st.sidebar:
     max_tokens = st.slider(_('Max Tokens'), 850, 4500, value=util.read_json_at(BRAIN_MEMO, 'max_tokens', 1000))
 
     with st.expander(label=_('Advanced Options')):
-        top_p = st.slider('Top_P', 0.0, 1.0, value=util.read_json_at(BRAIN_MEMO, 'top_p', 1.0))
+        top_p = st.slider(_('Top_P'), 0.0, 1.0, value=util.read_json_at(BRAIN_MEMO, 'top_p', 1.0))
         freq_panl = st.slider(_('Frequency penalty'), 0.0, 1.0,
                               value=util.read_json_at(BRAIN_MEMO, 'frequency_penalty', 0.0))
         pres_panl = st.slider(_('Presence penalty'), 0.0, 1.0,
@@ -151,6 +159,12 @@ with st.sidebar:
 with header:
     st.title(_('🧠GPT-Brain'))
     st.text(_('This is my personal AI powered brain feeding my own Obsidian notes. Ask anything.'))
+    isEnglish = st.session_state['SESSION_LANGUAGE'] == 'en_US'
+
+    message(_("This is a beta version. Please [🪲report bugs](") + util.read_json_at(MANIFEST, 'bugs') + _(
+        ") if you find any."))
+
+    message(_('This version does not allow for inquiries in languages other than English.'), condition=not isEnglish)
 
 
 def execute_brain(q):
