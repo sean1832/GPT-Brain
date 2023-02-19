@@ -1,7 +1,7 @@
 import streamlit as st
 
 from modules import utilities as util
-from modules import model_data
+from modules import model_param
 from modules import language
 import brain
 import check_update
