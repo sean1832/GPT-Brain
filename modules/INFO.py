@@ -2,6 +2,10 @@ import streamlit as st
 import time
 import modules.utilities as util
 
+st.set_page_config(
+    page_title='GPT Brain'
+)
+
 # path
 USER_DIR = '.user'
 LOG_PATH = '.user/log'
@@ -13,7 +17,8 @@ INIT_LANGUAGE = '.user/language.json'
 if 'SESSION_TIME' not in st.session_state:
     st.session_state['SESSION_TIME'] = time.strftime("%Y%m%d-%H%H%S")
 
-
+if 'SESSION_LANGUAGE' not in st.session_state:
+    st.session_state['SESSION_LANGUAGE'] = util.read_json_at(INIT_LANGUAGE, 'SESSION_LANGUAGE')
 
 if 'FILTER_ROW_COUNT' not in st.session_state:
     st.session_state['FILTER_ROW_COUNT'] = util.read_json_at(BRAIN_MEMO, 'filter_row_count')

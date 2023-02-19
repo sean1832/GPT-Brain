@@ -3,20 +3,10 @@ import os
 
 import streamlit as st
 
+import modules.INFO as INFO
 import modules as mod
 import GPT
 import modules.utilities as util
-
-
-import modules.INFO as INFO
-
-st.set_page_config(
-    page_title='GPT Brain'
-)
-
-if 'SESSION_LANGUAGE' not in st.session_state:
-    st.session_state['SESSION_LANGUAGE'] = util.read_json_at(INFO.INIT_LANGUAGE, 'SESSION_LANGUAGE')
-
 
 SESSION_LANG = st.session_state['SESSION_LANGUAGE']
 PROMPT_PATH = f'.user/prompt/{SESSION_LANG}'
