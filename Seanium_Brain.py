@@ -4,8 +4,8 @@ import os
 import streamlit as st
 
 import modules as mod
+import GPT
 import modules.utilities as util
-
 
 # activate session
 if 'SESSION_TIME' not in st.session_state:
@@ -17,9 +17,6 @@ st.set_page_config(
 
 util.remove_oldest_file('.user/log', 10)
 
-model_options = ['text-davinci-003', 'text-curie-001', 'text-babbage-001', 'text-ada-001']
-header = st.container()
-body = st.container()
 LOG_PATH = '.user/log'
 SESSION_TIME = st.session_state['SESSION_TIME']
 SESSION_LANG = st.session_state['SESSION_LANGUAGE']
@@ -27,6 +24,10 @@ PROMPT_PATH = f'.user/prompt/{SESSION_LANG}'
 CURRENT_LOG_FILE = f'{LOG_PATH}/log_{SESSION_TIME}.log'
 BRAIN_MEMO = '.user/brain-memo.json'
 MANIFEST = '.core/manifest.json'
+
+model_options = ['text-davinci-003', 'text-curie-001', 'text-babbage-001', 'text-ada-001']
+header = st.container()
+body = st.container()
 
 
 def create_log():
@@ -64,12 +65,11 @@ def save_as():
         )
 
 
-def process_response(query, target_model, prompt_file: str, data: mod.model_param.param):
+def process_response(query, target_model, prompt_file: str, data: GPT.model_param.param):
     # check if exclude model is not target model
     file_name = util.get_file_name(prompt_file)
-    print(_('Processing') + f" {file_name}...")
-    with st.spinner(_('Thinking on') + f" {file_name}..."):
-        results = mod.brain.run(query, target_model, prompt_file,
+    with st.spinner(_('Thinking on ') + f"{file_name}..."):
+        results = GPT.query.run(query, target_model, prompt_file,
                                 data.temp,
                                 data.max_tokens,
                                 data.top_p,
@@ -135,7 +135,7 @@ with st.sidebar:
         chunk_size = st.slider(_('Chunk size'), 1500, 4500, value=util.read_json_at(BRAIN_MEMO, 'chunk_size', 4000))
         chunk_count = st.slider(_('Answer count'), 1, 5, value=util.read_json_at(BRAIN_MEMO, 'chunk_count', 1))
 
-    param = mod.model_param.param(temp=temp,
+    param = GPT.model_param.param(temp=temp,
                                   max_tokens=max_tokens,
                                   top_p=top_p,
                                   frequency_penalty=freq_panl,
@@ -169,13 +169,13 @@ def execute_brain(q):
     if mod.check_update.isUpdated():
         st.success(_('Building Brain...'))
         # if brain-info is updated
-        mod.brain.build(chunk_size)
+        GPT.query.build(chunk_size)
         st.success(_('Brain rebuild!'))
         time.sleep(2)
 
     # thinking on answer
     with st.spinner(_('Thinking on Answer')):
-        answer = mod.brain.run_answer(q, question_model, temp, max_tokens, top_p, freq_panl, pres_panl,
+        answer = GPT.query.run_answer(q, question_model, temp, max_tokens, top_p, freq_panl, pres_panl,
                                       chunk_count=chunk_count)
         if util.contains(operations, _('question')):
             # displaying results
