@@ -3,13 +3,6 @@ import os
 import glob
 
 
-# def extract_string(text, delimiter):
-#     # Extract string between delimiters
-#     start_index = text.index(delimiter) + len(delimiter)
-#     end_index = text.index(delimiter, start_index)
-#     return text[start_index:end_index]
-
-
 def extract_string(text, delimiter, force=False, join=True, split_mode=False):
     # Check if delimiter is not in text
     if delimiter not in text:
@@ -154,13 +147,13 @@ def update_json(filepath, key, value):
     write_json(data, filepath)
 
 
-def contains(list, item):
-    result = list.count(item)
+def contains(ls: list, item):
+    result = ls.count(item)
     return result > 0
 
 
-def get_index(list, item, default=0) -> int:
+def get_index(ls: list, item, default=0) -> int:
     try:
-        return list.index(item)
+        return ls.index(item)
     except ValueError:
         return default

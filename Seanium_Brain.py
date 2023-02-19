@@ -1,17 +1,15 @@
-import streamlit as st
-
-from modules import utilities as util
-from modules import model_param
-from modules import language
-import brain
-import check_update
 import time
 import os
+
+import streamlit as st
+
+import modules as mod
+import modules.utilities as util
+
 
 # activate session
 if 'SESSION_TIME' not in st.session_state:
     st.session_state['SESSION_TIME'] = time.strftime("%Y%m%d-%H%H%S")
-
 
 st.set_page_config(
     page_title='GPT Brain'
@@ -66,17 +64,17 @@ def save_as():
         )
 
 
-def process_response(query, target_model, prompt_file: str, data: model_data.param):
+def process_response(query, target_model, prompt_file: str, data: mod.model_param.param):
     # check if exclude model is not target model
     file_name = util.get_file_name(prompt_file)
     print(_('Processing') + f" {file_name}...")
     with st.spinner(_('Thinking on') + f" {file_name}..."):
-        results = brain.run(query, target_model, prompt_file,
-                            data.temp,
-                            data.max_tokens,
-                            data.top_p,
-                            data.frequency_penalty,
-                            data.present_penalty)
+        results = mod.brain.run(query, target_model, prompt_file,
+                                data.temp,
+                                data.max_tokens,
+                                data.top_p,
+                                data.frequency_penalty,
+                                data.present_penalty)
         # displaying results
         st.header(f'📃{file_name}')
         st.info(f'{results}')
@@ -94,9 +92,9 @@ def message(msg, condition=None):
 
 # sidebar
 with st.sidebar:
-    _ = language.set_language()
+    _ = mod.language.set_language()
     st.title(_('Settings'))
-    language.select_language()
+    mod.language.select_language()
 
     prompt_files = util.scan_directory(PROMPT_PATH)
     prompt_file_names = [util.get_file_name(file) for file in prompt_files]
@@ -106,7 +104,8 @@ with st.sidebar:
 
     operation_options = list(prompt_dictionary.keys())
     operations = st.multiselect(_('Operations'), operation_options,
-                                default=util.read_json_at(BRAIN_MEMO, f'operations_{SESSION_LANG}', operation_options[0]))
+                                default=util.read_json_at(BRAIN_MEMO, f'operations_{SESSION_LANG}',
+                                                          operation_options[0]))
 
     last_question_model = util.read_json_at(BRAIN_MEMO, 'question_model', model_options[0])
     # get index of last question model
@@ -136,13 +135,13 @@ with st.sidebar:
         chunk_size = st.slider(_('Chunk size'), 1500, 4500, value=util.read_json_at(BRAIN_MEMO, 'chunk_size', 4000))
         chunk_count = st.slider(_('Answer count'), 1, 5, value=util.read_json_at(BRAIN_MEMO, 'chunk_count', 1))
 
-    param = model_data.param(temp=temp,
-                             max_tokens=max_tokens,
-                             top_p=top_p,
-                             frequency_penalty=freq_panl,
-                             present_penalty=pres_panl,
-                             chunk_size=chunk_size,
-                             chunk_count=chunk_count)
+    param = mod.model_param.param(temp=temp,
+                                  max_tokens=max_tokens,
+                                  top_p=top_p,
+                                  frequency_penalty=freq_panl,
+                                  present_penalty=pres_panl,
+                                  chunk_size=chunk_size,
+                                  chunk_count=chunk_count)
 
     if st.button(_('Clear Log'), on_click=clear_log):
         st.success(_('Log Cleared'))
@@ -167,17 +166,17 @@ def execute_brain(q):
     # log question
     log(f'\n\n\n\n[{str(time.ctime())}] - QUESTION: {q}')
 
-    if check_update.isUpdated():
+    if mod.check_update.isUpdated():
         st.success(_('Building Brain...'))
         # if brain-info is updated
-        brain.build(chunk_size)
+        mod.brain.build(chunk_size)
         st.success(_('Brain rebuild!'))
         time.sleep(2)
 
     # thinking on answer
     with st.spinner(_('Thinking on Answer')):
-        answer = brain.run_answer(q, question_model, temp, max_tokens, top_p, freq_panl, pres_panl,
-                                  chunk_count=chunk_count)
+        answer = mod.brain.run_answer(q, question_model, temp, max_tokens, top_p, freq_panl, pres_panl,
+                                      chunk_count=chunk_count)
         if util.contains(operations, _('question')):
             # displaying results
             st.header(_('💬Answer'))

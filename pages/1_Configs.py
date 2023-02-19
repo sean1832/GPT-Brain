@@ -1,13 +1,14 @@
 import time
+import os
 
 import streamlit as st
 import streamlit_toggle as st_toggle
-
-import os
-from modules import utilities as util
 import tkinter as tk
 from tkinter import filedialog
-from modules import language
+
+import modules.language as language
+import modules.utilities as util
+
 
 user_dir = '.user/'
 SESSION_LANG = st.session_state['SESSION_LANGUAGE']
@@ -51,7 +52,7 @@ def select_directory():
     root.withdraw()
     # make sure the dialog is on top of the main window
     root.attributes('-topmost', True)
-    directory = filedialog.askdirectory(initialdir=os.getcwd(), title=_('Select Note Directory'), master=root)
+    directory = filedialog.askdirectory(initialdir=os.getcwd(), title=_('Select Note Directory'))
     return directory
 
 

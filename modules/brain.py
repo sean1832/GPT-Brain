@@ -1,10 +1,10 @@
 import openai
 import textwrap
-
-from modules import utilities as util
-from modules import language
 import streamlit as st
-from modules import gpt_util as gpt
+
+import modules.utilities as util
+import modules.language as language
+import modules.gpt_toolkit as gpt
 
 openai.api_key = util.read_file(r'.user\API-KEYS.txt').strip()
 
@@ -23,8 +23,6 @@ def build(chunk_size=4000):
     chunks = textwrap.wrap(all_text, chunk_size)
 
     result = []
-
-    print('Building brain data...')
     for chunk in chunks:
         embedding = gpt.embedding(chunk.encode(encoding='ASCII', errors='ignore').decode())
         info = {'content': chunk, 'vector': embedding}

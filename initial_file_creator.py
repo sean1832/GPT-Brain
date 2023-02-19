@@ -13,4 +13,5 @@ def create():
                                {'note_dir': '', 'delimiter': '', 'append_mode': False, 'force_mode': False})
     print(f'brain memo file created: {user_dir}/brain-memo.json')
 
+
 create()
