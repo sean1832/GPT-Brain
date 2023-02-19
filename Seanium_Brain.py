@@ -6,48 +6,34 @@ import streamlit as st
 import modules as mod
 import GPT
 import modules.utilities as util
+import modules.INFO as INFO
 
-# activate session
-if 'SESSION_TIME' not in st.session_state:
-    st.session_state['SESSION_TIME'] = time.strftime("%Y%m%d-%H%H%S")
-
-st.set_page_config(
-    page_title='GPT Brain'
-)
-
-util.remove_oldest_file('.user/log', 10)
-
-LOG_PATH = '.user/log'
-SESSION_TIME = st.session_state['SESSION_TIME']
 SESSION_LANG = st.session_state['SESSION_LANGUAGE']
 PROMPT_PATH = f'.user/prompt/{SESSION_LANG}'
-CURRENT_LOG_FILE = f'{LOG_PATH}/log_{SESSION_TIME}.log'
-BRAIN_MEMO = '.user/brain-memo.json'
-MANIFEST = '.core/manifest.json'
 
-model_options = ['text-davinci-003', 'text-curie-001', 'text-babbage-001', 'text-ada-001']
+
+util.remove_oldest_file(INFO.LOG_PATH, 10)
+
 header = st.container()
 body = st.container()
 
 
 def create_log():
-    if not os.path.exists(CURRENT_LOG_FILE):
-        util.write_file(f'Session {SESSION_TIME}\n\n', CURRENT_LOG_FILE)
-    return CURRENT_LOG_FILE
+    if not os.path.exists(INFO.CURRENT_LOG_FILE):
+        util.write_file(f'Session {INFO.SESSION_TIME}\n\n', INFO.CURRENT_LOG_FILE)
+    return INFO.CURRENT_LOG_FILE
 
 
 def log(content, delimiter=''):
     log_file = create_log()
-
     if delimiter != '':
         delimiter = f'\n\n=============={delimiter}==============\n'
-
     util.write_file(f'\n{delimiter + content}', log_file, 'a')
 
 
 def clear_log():
-    log_file_name = f'log_{SESSION_TIME}.log'
-    for root, dirs, files in os.walk(LOG_PATH):
+    log_file_name = f'log_{INFO.SESSION_TIME}.log'
+    for root, dirs, files in os.walk(INFO.LOG_PATH):
         for file in files:
             if not file == log_file_name:
                 os.remove(os.path.join(root, file))
@@ -55,12 +41,12 @@ def clear_log():
 
 def save_as():
     # download log file
-    with open(CURRENT_LOG_FILE, 'rb') as f:
+    with open(INFO.CURRENT_LOG_FILE, 'rb') as f:
         content = f.read()
         st.download_button(
             label=_("📥download log"),
             data=content,
-            file_name=f'log_{SESSION_TIME}.txt',
+            file_name=f'log_{INFO.SESSION_TIME}.txt',
             mime='text/plain'
         )
 
@@ -104,36 +90,37 @@ with st.sidebar:
 
     operation_options = list(prompt_dictionary.keys())
     operations = st.multiselect(_('Operations'), operation_options,
-                                default=util.read_json_at(BRAIN_MEMO, f'operations_{SESSION_LANG}',
+                                default=util.read_json_at(INFO.BRAIN_MEMO, f'operations_{SESSION_LANG}',
                                                           operation_options[0]))
 
-    last_question_model = util.read_json_at(BRAIN_MEMO, 'question_model', model_options[0])
+    last_question_model = util.read_json_at(INFO.BRAIN_MEMO, 'question_model', INFO.MODELS_OPTIONS[0])
     # get index of last question model
-    question_model_index = util.get_index(model_options, last_question_model)
-    question_model = st.selectbox(_('Question Model'), model_options, index=question_model_index)
+    question_model_index = util.get_index(INFO.MODELS_OPTIONS, last_question_model)
+    question_model = st.selectbox(_('Question Model'), INFO.MODELS_OPTIONS, index=question_model_index)
 
     operations_no_question = [op for op in operations if op != _('question')]
     other_models = []
     replace_tokens = []
     for operation in operations_no_question:
-        last_model = util.read_json_at(BRAIN_MEMO, f'{operation}_model', model_options[0])
+        last_model = util.read_json_at(INFO.BRAIN_MEMO, f'{operation}_model', INFO.MODELS_OPTIONS[0])
         # get index of last model
-        model_index = util.get_index(model_options, last_model)
-        model = st.selectbox(f"{operation} " + _('Model'), model_options, index=model_index)
+        model_index = util.get_index(INFO.MODELS_OPTIONS, last_model)
+        model = st.selectbox(f"{operation} " + _('Model'), INFO.MODELS_OPTIONS, index=model_index)
         other_models.append(model)
 
-    temp = st.slider(_('Temperature'), 0.0, 1.0, value=util.read_json_at(BRAIN_MEMO, 'temp', 0.1))
-    max_tokens = st.slider(_('Max Tokens'), 850, 4500, value=util.read_json_at(BRAIN_MEMO, 'max_tokens', 1000))
+    temp = st.slider(_('Temperature'), 0.0, 1.0, value=util.read_json_at(INFO.BRAIN_MEMO, 'temp', 0.1))
+    max_tokens = st.slider(_('Max Tokens'), 850, 4500, value=util.read_json_at(INFO.BRAIN_MEMO, 'max_tokens', 1000))
 
     with st.expander(label=_('Advanced Options')):
-        top_p = st.slider(_('Top_P'), 0.0, 1.0, value=util.read_json_at(BRAIN_MEMO, 'top_p', 1.0))
+        top_p = st.slider(_('Top_P'), 0.0, 1.0, value=util.read_json_at(INFO.BRAIN_MEMO, 'top_p', 1.0))
         freq_panl = st.slider(_('Frequency penalty'), 0.0, 1.0,
-                              value=util.read_json_at(BRAIN_MEMO, 'frequency_penalty', 0.0))
+                              value=util.read_json_at(INFO.BRAIN_MEMO, 'frequency_penalty', 0.0))
         pres_panl = st.slider(_('Presence penalty'), 0.0, 1.0,
-                              value=util.read_json_at(BRAIN_MEMO, 'present_penalty', 0.0))
+                              value=util.read_json_at(INFO.BRAIN_MEMO, 'present_penalty', 0.0))
 
-        chunk_size = st.slider(_('Chunk size'), 1500, 4500, value=util.read_json_at(BRAIN_MEMO, 'chunk_size', 4000))
-        chunk_count = st.slider(_('Answer count'), 1, 5, value=util.read_json_at(BRAIN_MEMO, 'chunk_count', 1))
+        chunk_size = st.slider(_('Chunk size'), 1500, 4500,
+                               value=util.read_json_at(INFO.BRAIN_MEMO, 'chunk_size', 4000))
+        chunk_count = st.slider(_('Answer count'), 1, 5, value=util.read_json_at(INFO.BRAIN_MEMO, 'chunk_count', 1))
 
     param = GPT.model_param.param(temp=temp,
                                   max_tokens=max_tokens,
@@ -148,17 +135,17 @@ with st.sidebar:
 
     # info
     st.markdown('---')
-    st.markdown(f"# {util.read_json_at(MANIFEST, 'name')}")
-    st.markdown(_('Version') + f": {util.read_json_at(MANIFEST, 'version')}")
-    st.markdown(_('Author') + f": {util.read_json_at(MANIFEST, 'author')}")
-    st.markdown("[" + _('Report bugs') + "]" + f"({util.read_json_at(MANIFEST, 'bugs')})")
-    st.markdown("[" + _('Github Repo') + "]" + f"({util.read_json_at(MANIFEST, 'homepage')})")
+    st.markdown(f"# {util.read_json_at(INFO.MANIFEST, 'name')}")
+    st.markdown(_('Version') + f": {util.read_json_at(INFO.MANIFEST, 'version')}")
+    st.markdown(_('Author') + f": {util.read_json_at(INFO.MANIFEST, 'author')}")
+    st.markdown("[" + _('Report bugs') + "]" + f"({util.read_json_at(INFO.MANIFEST, 'bugs')})")
+    st.markdown("[" + _('Github Repo') + "]" + f"({util.read_json_at(INFO.MANIFEST, 'homepage')})")
 
 with header:
     st.title(_('🧠GPT-Brain'))
     st.text(_('This is my personal AI powered brain feeding my own Obsidian notes. Ask anything.'))
 
-    message(_("This is a beta version. Please [🪲report bugs](") + util.read_json_at(MANIFEST, 'bugs') + _(
+    message(_("This is a beta version. Please [🪲report bugs](") + util.read_json_at(INFO.MANIFEST, 'bugs') + _(
         ") if you find any."))
 
 
@@ -196,17 +183,17 @@ def execute_brain(q):
     # write param to json
     for key in param_dict:
         value = param_dict[key]
-        util.update_json(BRAIN_MEMO, key, value)
+        util.update_json(INFO.BRAIN_MEMO, key, value)
 
     # write operation to json
-    util.update_json(BRAIN_MEMO, f'operations_{SESSION_LANG}', operations)
+    util.update_json(INFO.BRAIN_MEMO, f'operations_{SESSION_LANG}', operations)
 
     # write question model to json
-    util.update_json(BRAIN_MEMO, 'question_model', question_model)
+    util.update_json(INFO.BRAIN_MEMO, 'question_model', question_model)
 
     # write other models to json
     for i in range(len(operations_no_question)):
-        util.update_json(BRAIN_MEMO, f'{operations_no_question[i]}_model', other_models[i])
+        util.update_json(INFO.BRAIN_MEMO, f'{operations_no_question[i]}_model', other_models[i])
 
 
 # main
@@ -216,7 +203,7 @@ with body:
     with col1:
         send = st.button(_('📩Send'))
     with col2:
-        if os.path.exists(CURRENT_LOG_FILE):
+        if os.path.exists(INFO.CURRENT_LOG_FILE):
             save_as()
     # execute brain calculation
     if not question == '' and send:

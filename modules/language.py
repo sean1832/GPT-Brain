@@ -2,6 +2,7 @@ import gettext
 import streamlit as st
 import modules.utilities as util
 
+
 languages = util.read_json('.locals/languages.json')
 
 

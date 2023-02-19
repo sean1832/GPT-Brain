@@ -8,8 +8,8 @@ import GPT
 
 openai.api_key = util.read_file(r'.user\API-KEYS.txt').strip()
 
-if 'SESSION_LANGUAGE' not in st.session_state:
-    st.session_state['SESSION_LANGUAGE'] = util.read_json_at('.user/language.json', 'SESSION_LANGUAGE', 'en_US')
+# if 'SESSION_LANGUAGE' not in st.session_state:
+#     st.session_state['SESSION_LANGUAGE'] = util.read_json_at('.user/language.json', 'SESSION_LANGUAGE', 'en_US')
 
 SESSION_LANG = st.session_state['SESSION_LANGUAGE']
 prompt_dir = f'.user/prompt/{SESSION_LANG}'

@@ -8,15 +8,10 @@ from tkinter import filedialog
 
 import modules.language as language
 import modules.utilities as util
+import modules.INFO as INFO
 
-
-user_dir = '.user/'
 SESSION_LANG = st.session_state['SESSION_LANGUAGE']
-prompt_dir = f'{user_dir}prompt/{SESSION_LANG}/'
-brain_memo = f'{user_dir}brain-memo.json'
-
-if 'FILTER_ROW_COUNT' not in st.session_state:
-    st.session_state['FILTER_ROW_COUNT'] = util.read_json_at(brain_memo, 'filter_row_count')
+PROMPT_PATH = f'{INFO.USER_DIR}/prompt/{SESSION_LANG}/'
 
 _ = language.set_language()
 
@@ -36,12 +31,12 @@ def save(content, path, page='', json_value: dict = None):
         st.success(_('✅File saved!'))
         # write to json file
         if page == '💽Brain Memory':
-            util.update_json(brain_memo, 'delimiter', json_value['delimiter'])
-            util.update_json(brain_memo, 'append_mode', json_value['append_mode'])
-            util.update_json(brain_memo, 'force_mode', json_value['force_mode'])
-            util.update_json(brain_memo, 'advanced_mode', json_value['advanced_mode'])
-            util.update_json(brain_memo, 'filter_info', json_value['filter_info'])
-            util.update_json(brain_memo, 'filter_row_count', json_value['filter_row_count'])
+            util.update_json(INFO.BRAIN_MEMO, 'delimiter', json_value['delimiter'])
+            util.update_json(INFO.BRAIN_MEMO, 'append_mode', json_value['append_mode'])
+            util.update_json(INFO.BRAIN_MEMO, 'force_mode', json_value['force_mode'])
+            util.update_json(INFO.BRAIN_MEMO, 'advanced_mode', json_value['advanced_mode'])
+            util.update_json(INFO.BRAIN_MEMO, 'filter_info', json_value['filter_info'])
+            util.update_json(INFO.BRAIN_MEMO, 'filter_row_count', json_value['filter_row_count'])
         time.sleep(1)
         # refresh page
         st.experimental_rerun()
@@ -162,7 +157,7 @@ def add_filter(num, val_filter_key, val_filter_logic, val_filter_val):
 
 
 def filter_data(pages: list, add_filter_button, del_filter_button):
-    init_filter_infos = util.read_json_at(brain_memo, 'filter_info')
+    init_filter_infos = util.read_json_at(INFO.BRAIN_MEMO, 'filter_info')
 
     filter_datas = []
     if add_filter_button:
@@ -184,7 +179,6 @@ def filter_data(pages: list, add_filter_button, del_filter_button):
                 init_key = ''
                 init_logic = 'CONTAINS'
                 init_val = ''
-
 
             if i == 0:
                 continue
@@ -213,10 +207,10 @@ def main():
             st.text(_('Configuration of prompts.'))
 
             # read selected file
-            last_sel_file = util.read_json_at(brain_memo, 'selected_prompt')
-            all_files = os.listdir(prompt_dir)
+            last_sel_file = util.read_json_at(INFO.BRAIN_MEMO, 'selected_prompt')
+            all_files = os.listdir(PROMPT_PATH)
             # sort files base on creation time
-            all_files.sort(key=lambda x: os.path.getmtime(f'{prompt_dir}{x}'), reverse=True)
+            all_files.sort(key=lambda x: os.path.getmtime(f'{PROMPT_PATH}{x}'), reverse=True)
 
             # index of last selected file
             try:
@@ -231,9 +225,9 @@ def main():
                 if st_toggle.st_toggle_switch(_('New Prompt'), label_after=True):
                     new_file = st.text_input(_('New Prompt Name'), value=_('new_prompt'))
                     if st.button(_('Create')):
-                        util.write_file('', f'{prompt_dir}{new_file}.txt')
+                        util.write_file('', f'{PROMPT_PATH}{new_file}.txt')
                         # change select file to new fie
-                        util.update_json(brain_memo, 'selected_prompt', selected_file)
+                        util.update_json(INFO.BRAIN_MEMO, 'selected_prompt', selected_file)
                         # refresh page
                         st.experimental_rerun()
             with col2:
@@ -243,18 +237,18 @@ def main():
                 if not is_core:
                     if st_toggle.st_toggle_switch(_('Delete Prompt'), label_after=True):
                         if st.button(_('❌Delete')):
-                            util.delete_file(f'{prompt_dir}{selected_file}')
+                            util.delete_file(f'{PROMPT_PATH}{selected_file}')
                             # refresh page
                             st.experimental_rerun()
 
-            selected_path = prompt_dir + selected_file
+            selected_path = PROMPT_PATH + selected_file
             mod_text = st.text_area(_('Prompts'), value=util.read_file(selected_path), height=500)
             save(mod_text, selected_path)
 
         if menu == _('💽Brain Memory'):
             st.title(_('💽Brain Memory'))
             st.text(_('Modify your brain knowledge base.'))
-            memory_data = util.read_file(f'{user_dir}input.txt')
+            memory_data = util.read_file(f'{INFO.USER_DIR}/input.txt')
 
             col1, col2 = st.columns(2)
             with col1:
@@ -262,23 +256,23 @@ def main():
             with col2:
                 if st.button(_('📁Select Note Directory')):
                     note_dir = select_directory()
-                    util.update_json(brain_memo, 'note_dir', note_dir)
-            note_dir = st.text_input(_('Note Directory'), value=util.read_json_at(brain_memo, 'note_dir'),
+                    util.update_json(INFO.BRAIN_MEMO, 'note_dir', note_dir)
+            note_dir = st.text_input(_('Note Directory'), value=util.read_json_at(INFO.BRAIN_MEMO, 'note_dir'),
                                      placeholder=_('Select Note Directory'), key='note_dir')
 
             col1, col2, col3, col4 = st.columns([1, 2, 2, 2])
             with col1:
-                delimiter_memo = util.read_json_at(brain_memo, 'delimiter')
+                delimiter_memo = util.read_json_at(INFO.BRAIN_MEMO, 'delimiter')
                 delimiter = st.text_input(_('Delimiter'), delimiter_memo, placeholder='e.g. +++')
 
             with col2:
-                append_mode = st.checkbox(_('Append Mode'), value=util.read_json_at(brain_memo, 'append_mode'))
+                append_mode = st.checkbox(_('Append Mode'), value=util.read_json_at(INFO.BRAIN_MEMO, 'append_mode'))
                 force_delimiter = st.checkbox(_('Force Delimiter'),
-                                              value=util.read_json_at(brain_memo, 'force_mode'))
+                                              value=util.read_json_at(INFO.BRAIN_MEMO, 'force_mode'))
             with col3:
                 advanced_mode = st_toggle.st_toggle_switch(_('Filter Mode'),
                                                            label_after=True,
-                                                           default_value=util.read_json_at(brain_memo,
+                                                           default_value=util.read_json_at(INFO.BRAIN_MEMO,
                                                                                            'advanced_mode', False))
             with col4:
                 if advanced_mode:
@@ -304,7 +298,7 @@ def main():
                     memory_data = modified_data
 
             mod_text = st.text_area(_('Raw Memory Inputs'), value=memory_data, height=500)
-            save(mod_text, f'{user_dir}input.txt', _('💽Brain Memory'), {
+            save(mod_text, f'{INFO.USER_DIR}/input.txt', _('💽Brain Memory'), {
                 'delimiter': delimiter,
                 'append_mode': append_mode,
                 'force_mode': force_delimiter,
@@ -316,8 +310,8 @@ def main():
         if menu == _('🔑API Keys'):
             st.title(_('🔑API Keys'))
             st.text(_('Configure your OpenAI API keys.'))
-            mod_text = st.text_input(_('API Keys'), value=util.read_file(f'{user_dir}API-KEYS.txt'))
-            save(mod_text, f'{user_dir}API-KEYS.txt')
+            mod_text = st.text_input(_('API Keys'), value=util.read_file(f'{INFO.USER_DIR}/API-KEYS.txt'))
+            save(mod_text, f'{INFO.USER_DIR}/API-KEYS.txt')
 
 
 if __name__ == '__main__':
