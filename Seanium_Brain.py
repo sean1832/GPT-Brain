@@ -29,14 +29,17 @@ with st.sidebar:
     prompt_dictionary.pop(_('my-info'))
 
     operation_options = list(prompt_dictionary.keys())
-    operations = st.multiselect(_('Operations'), operation_options,
+    operations = st.multiselect(_('Operations'),
+                                operation_options,
                                 default=util.read_json_at(INFO.BRAIN_MEMO, f'operations_{SESSION_LANG}',
-                                                          operation_options[0]))
+                                                          operation_options[0]),
+                                help=_('Combinations of operations to perform.'))
 
     last_question_model = util.read_json_at(INFO.BRAIN_MEMO, 'question_model', INFO.MODELS_OPTIONS[0])
     # get index of last question model
     question_model_index = util.get_index(INFO.MODELS_OPTIONS, last_question_model)
-    question_model = st.selectbox(_('Question Model'), INFO.MODELS_OPTIONS, index=question_model_index)
+    question_model = st.selectbox(_('Question Model'), INFO.MODELS_OPTIONS, index=question_model_index,
+                                  help=_('Model used for answering user question.'))
 
     operations_no_question = [op for op in operations if op != _('question')]
     other_models = []
@@ -48,19 +51,43 @@ with st.sidebar:
         model = st.selectbox(f"{operation} " + _('Model'), INFO.MODELS_OPTIONS, index=model_index)
         other_models.append(model)
 
-    temp = st.slider(_('Temperature'), 0.0, 1.0, value=util.read_json_at(INFO.BRAIN_MEMO, 'temp', 0.1))
-    max_tokens = st.slider(_('Max Tokens'), 850, 4500, value=util.read_json_at(INFO.BRAIN_MEMO, 'max_tokens', 1000))
+    temp = st.slider(_('Temperature'), 0.0, 1.0, value=util.read_json_at(INFO.BRAIN_MEMO, 'temp', 0.1),
+                     help=_('What sampling temperature to use, between 0 and 1. Higher values like 0.8 will make the '
+                            'output more random, while lower values like 0.2 will make it more focused and '
+                            'deterministic. \n\nIt is generally recommend altering this or `top_p` but not both.'))
+    max_tokens = st.slider(_('Max Tokens'), 850, 4096, value=util.read_json_at(INFO.BRAIN_MEMO, 'max_tokens', 1000),
+                           help=_("The maximum number of tokens to generate in the completion.\n\nThe token count of "
+                                  "your prompt plus `max_tokens` cannot exceed the model's context length. Most "
+                                  "models have a context length of 2048 tokens (except for the newest models, "
+                                  "which support 4096)."))
 
     with st.expander(label=_('Advanced Options')):
-        top_p = st.slider(_('Top_P'), 0.0, 1.0, value=util.read_json_at(INFO.BRAIN_MEMO, 'top_p', 1.0))
-        freq_panl = st.slider(_('Frequency penalty'), 0.0, 1.0,
-                              value=util.read_json_at(INFO.BRAIN_MEMO, 'frequency_penalty', 0.0))
+        top_p = st.slider(_('Top_P'), 0.0, 1.0, value=util.read_json_at(INFO.BRAIN_MEMO, 'top_p', 1.0),
+                          help=_("An alternative to sampling with temperature, called nucleus sampling, where the "
+                                 "model considers the results of the tokens with top_p probability mass. So 0.1 means "
+                                 "only the tokens comprising the top 10% probability mass are considered.\n\n"
+                                 "It is generally recommend altering this or `temperature` but not both."))
+        freq_panl = st.slider(_('Frequency penalty'), 0.0, 2.0,
+                              value=util.read_json_at(INFO.BRAIN_MEMO, 'frequency_penalty', 0.0),
+                              help=_("Larger the number increasing the model's likelihood to talk about new topics. "
+                                     "Penalize new tokens based on whether they appear in the text so far."
+                                     "\n\n[See more information about frequency and presence penalties.]"
+                                     "(https://platform.openai.com/docs/api-reference/parameter-details)"))
         pres_panl = st.slider(_('Presence penalty'), 0.0, 1.0,
-                              value=util.read_json_at(INFO.BRAIN_MEMO, 'present_penalty', 0.0))
+                              value=util.read_json_at(INFO.BRAIN_MEMO, 'present_penalty', 0.0),
+                              help=_("Decreasing the model's likelihood to repeat the same line verbatim. Penalize "
+                                     "new tokens based on their existing frequency in the text so far."
+                                     "\n\n[See more information about frequency and presence penalties.]"
+                                     "(https://platform.openai.com/docs/api-reference/parameter-details)"))
 
         chunk_size = st.slider(_('Chunk size'), 1500, 4500,
-                               value=util.read_json_at(INFO.BRAIN_MEMO, 'chunk_size', 4000))
-        chunk_count = st.slider(_('Answer count'), 1, 5, value=util.read_json_at(INFO.BRAIN_MEMO, 'chunk_count', 1))
+                               value=util.read_json_at(INFO.BRAIN_MEMO, 'chunk_size', 4000),
+                               help=_("The number of tokens to consider at each step. The larger this is, the more "
+                                      "context the model has to work with, but the slower generation and expensive "
+                                      "will it be."))
+        chunk_count = st.slider(_('Answer count'), 1, 5, value=util.read_json_at(INFO.BRAIN_MEMO, 'chunk_count', 1),
+                                help=_("The number of answers to generate. The model will continue to iteratively "
+                                       "generating answers until it reaches the answer count."))
 
     param = GPT.model.param(temp=temp,
                             max_tokens=max_tokens,
