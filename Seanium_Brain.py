@@ -102,7 +102,7 @@ with body:
         send = st.button(_('📩Send'))
     with col2:
         if os.path.exists(INFO.CURRENT_LOG_FILE):
-            st_tool.save_as()
+            st_tool.download_as()
     # execute brain calculation
     if not question == '' and send:
         st_tool.execute_brain(question, param, op, models, prompt_dictionary, SESSION_LANG)

@@ -31,7 +31,7 @@ def clear_log():
                 os.remove(os.path.join(root, file))
 
 
-def save_as():
+def download_as():
     # download log file
     with open(INFO.CURRENT_LOG_FILE, 'rb') as f:
         content = f.read()
