@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-02-21 03:21+1100\n"
-"PO-Revision-Date: 2023-02-21 03:47+1100\n"
+"PO-Revision-Date: 2023-02-21 04:06+1100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja_JP\n"
@@ -215,7 +215,7 @@ msgstr ")をお願いします。"
 
 #: Seanium_brain.py:133
 msgid "Ask Brain: "
-msgstr "ブレインに聞く。"
+msgstr "ブレインに聞く: "
 
 #: Seanium_brain.py:136
 msgid "📩Send"
@@ -348,7 +348,7 @@ msgstr "✅ファイルが保存されました!"
 
 #: streamlit_toolkit/tools.py:211
 msgid "Thinking on "
-msgstr "思考中："
+msgstr "思考中： "
 
 #: streamlit_toolkit/tools.py:234
 msgid "Building Brain..."
