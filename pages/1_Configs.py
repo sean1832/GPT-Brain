@@ -1,14 +1,12 @@
-import time
 import os
 
 import streamlit as st
 import streamlit_toggle as st_toggle
-import tkinter as tk
-from tkinter import filedialog
 
 import modules.language as language
 import modules.utilities as util
 import modules.INFO as INFO
+import streamlit_toolkit.tools as st_tools
 
 SESSION_LANG = st.session_state['SESSION_LANGUAGE']
 PROMPT_PATH = f'{INFO.USER_DIR}/prompt/{SESSION_LANG}/'
@@ -20,176 +18,6 @@ st.set_page_config(
 )
 
 body = st.container()
-
-
-def save(content, path, page='', json_value: dict = None):
-    if json_value is None:
-        json_value = []
-    save_but = st.button(_('💾Save'))
-    if save_but:
-        util.write_file(content, path)
-        st.success(_('✅File saved!'))
-        # write to json file
-        if page == '💽Brain Memory':
-            util.update_json(INFO.BRAIN_MEMO, 'delimiter', json_value['delimiter'])
-            util.update_json(INFO.BRAIN_MEMO, 'append_mode', json_value['append_mode'])
-            util.update_json(INFO.BRAIN_MEMO, 'force_mode', json_value['force_mode'])
-            util.update_json(INFO.BRAIN_MEMO, 'advanced_mode', json_value['advanced_mode'])
-            util.update_json(INFO.BRAIN_MEMO, 'filter_info', json_value['filter_info'])
-            util.update_json(INFO.BRAIN_MEMO, 'filter_row_count', json_value['filter_row_count'])
-        time.sleep(1)
-        # refresh page
-        st.experimental_rerun()
-
-
-def select_directory():
-    root = tk.Tk()
-    root.withdraw()
-    # make sure the dialog is on top of the main window
-    root.attributes('-topmost', True)
-    directory = filedialog.askdirectory(initialdir=os.getcwd(), title=_('Select Note Directory'))
-    return directory
-
-
-def match_logic(operator, filter_val, value):
-    if operator == 'IS':
-        return filter_val == value
-    elif operator == 'IS NOT':
-        return filter_val != value
-    elif operator == 'CONTAINS':
-        return filter_val in value
-    elif operator == 'NOT CONTAINS':
-        return filter_val not in value
-    elif operator == 'MORE THAN':
-        # check if value is float
-        if not value.isnumeric():
-            return False
-        return float(filter_val) < float(value)
-    elif operator == 'LESS THAN':
-        # check if value is float
-        if not value.isnumeric():
-            return False
-        return float(filter_val) > float(value)
-    elif operator == 'MORE THAN OR EQUAL':
-        # check if value is float
-        if not value.isnumeric():
-            return False
-        return float(filter_val) <= float(value)
-    elif operator == 'LESS THAN OR EQUAL':
-        # check if value is float
-        if not value.isnumeric():
-            return False
-        return float(filter_val) >= float(value)
-    else:
-        return False
-
-
-def extract_frontmatter(content, delimiter='---'):
-    # extract metadata
-    try:
-        yaml = util.extract_string(content, delimiter, True, join=False, split_mode=True)[1]
-    except IndexError:
-        yaml = ''
-    fields = yaml.split('\n')
-    return fields
-
-
-def match_fields(pages: list, filter_datas: list[dict]):
-    filtered_contents = []
-    for page in pages:
-        fields = extract_frontmatter(page, delimiter='---')
-
-        found_data = []
-
-        for field in fields:
-            if field == '':
-                continue
-            found_key, found_value = field.split(':')
-            found_key = found_key.strip()
-            found_value = found_value.strip()
-
-            found_data.append({
-                'key': found_key,
-                'value': found_value
-            })
-
-        found_match = []
-        for data in filter_datas:
-            for found in found_data:
-                data_key = data['key'].lower()
-                data_val = data['value'].lower()
-                found_key = found['key'].lower()
-                found_val = found['value'].lower()
-                if data_key == found_key:
-                    if match_logic(data['logic'], data_val, found_val):
-                        # found single match
-                        found_match.append(True)
-
-        # if all match
-        if found_match.count(True) == len(filter_datas):
-            filtered_contents.append(page)
-
-    combined_contents = '\n\n\n\n'.join(filtered_contents)
-    return combined_contents
-
-
-def add_filter(num, val_filter_key, val_filter_logic, val_filter_val):
-    # filters
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        filter_key = st.text_input(f'Key{num}', placeholder='Key', value=val_filter_key)
-    with col2:
-        options = ['CONTAINS',
-                   'NOT CONTAINS',
-                   'IS',
-                   'IS NOT',
-                   'MORE THAN',
-                   'LESS THAN',
-                   'MORE THAN OR EQUAL',
-                   'LESS THAN OR EQUAL']
-        default_index = util.get_index(options, val_filter_logic, 0)
-        logic_select = st.selectbox(f'Logic{num}', options, index=default_index)
-    with col3:
-        if isinstance(val_filter_val, int):
-            val_filter_val = "{:02}".format(val_filter_val)
-        filter_val = st.text_input(f'value{num}', placeholder='Value', value=val_filter_val)
-    return filter_key, logic_select, filter_val
-
-
-def filter_data(pages: list, add_filter_button, del_filter_button):
-    init_filter_infos = util.read_json_at(INFO.BRAIN_MEMO, 'filter_info')
-
-    filter_datas = []
-    if add_filter_button:
-        st.session_state['FILTER_ROW_COUNT'] += 1
-    if del_filter_button:
-        st.session_state['FILTER_ROW_COUNT'] -= 1
-    if st.session_state['FILTER_ROW_COUNT'] >= 1:
-        for i in range(st.session_state['FILTER_ROW_COUNT'] + 1):
-            try:
-                init_info = init_filter_infos[i - 1]
-                init_key = init_info['key']
-                init_logic = init_info['logic']
-                init_val = init_info['value']
-            except IndexError:
-                init_key = ''
-                init_logic = 'CONTAINS'
-                init_val = ''
-            except KeyError:
-                init_key = ''
-                init_logic = 'CONTAINS'
-                init_val = ''
-
-            if i == 0:
-                continue
-            # add filter
-            filter_key, logic_select, filter_val = add_filter(i, init_key, init_logic, init_val)
-            data = {'key': filter_key, 'logic': logic_select, 'value': filter_val}
-            filter_datas.append(data)
-
-    # filter data
-    filtered_contents = match_fields(pages, filter_datas)
-    return filtered_contents, filter_datas
 
 
 def main():
@@ -243,7 +71,7 @@ def main():
 
             selected_path = PROMPT_PATH + selected_file
             mod_text = st.text_area(_('Prompts'), value=util.read_file(selected_path), height=500)
-            save(mod_text, selected_path)
+            st_tools.save(mod_text, selected_path)
 
         if menu == _('💽Brain Memory'):
             st.title(_('💽Brain Memory'))
@@ -255,7 +83,7 @@ def main():
                 st.button(_('🔄Refresh'))
             with col2:
                 if st.button(_('📁Select Note Directory')):
-                    note_dir = select_directory()
+                    note_dir = st_tools.select_directory()
                     util.update_json(INFO.BRAIN_MEMO, 'note_dir', note_dir)
             note_dir = st.text_input(_('Note Directory'), value=util.read_json_at(INFO.BRAIN_MEMO, 'note_dir'),
                                      placeholder=_('Select Note Directory'), key='note_dir')
@@ -286,7 +114,7 @@ def main():
                 # if advanced mode enabled
                 if advanced_mode:
                     note_datas = util.read_files(note_dir, single_string=False)
-                    note_datas, filter_info = filter_data(note_datas, add_filter_button, del_filter_button)
+                    note_datas, filter_info = st_tools.filter_data(note_datas, add_filter_button, del_filter_button)
                     # note_datas, filter_key, filter_logic, filter_val = filter_data(note_datas, True)
                     modified_data = util.parse_data(note_datas, delimiter, force_delimiter)
                 else:
@@ -298,7 +126,7 @@ def main():
                     memory_data = modified_data
 
             mod_text = st.text_area(_('Raw Memory Inputs'), value=memory_data, height=500)
-            save(mod_text, f'{INFO.USER_DIR}/input.txt', _('💽Brain Memory'), {
+            st_tools.save(mod_text, f'{INFO.USER_DIR}/input.txt', _('💽Brain Memory'), {
                 'delimiter': delimiter,
                 'append_mode': append_mode,
                 'force_mode': force_delimiter,
@@ -311,7 +139,7 @@ def main():
             st.title(_('🔑API Keys'))
             st.text(_('Configure your OpenAI API keys.'))
             mod_text = st.text_input(_('API Keys'), value=util.read_file(f'{INFO.USER_DIR}/API-KEYS.txt'))
-            save(mod_text, f'{INFO.USER_DIR}/API-KEYS.txt')
+            st_tools.save(mod_text, f'{INFO.USER_DIR}/API-KEYS.txt')
 
 
 if __name__ == '__main__':

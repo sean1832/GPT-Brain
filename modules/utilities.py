@@ -157,3 +157,13 @@ def get_index(ls: list, item, default=0) -> int:
         return ls.index(item)
     except ValueError:
         return default
+
+
+def extract_frontmatter(content, delimiter='---'):
+    # extract metadata
+    try:
+        yaml = extract_string(content, delimiter, True, join=False, split_mode=True)[1]
+    except IndexError:
+        yaml = ''
+    fields = yaml.split('\n')
+    return fields
