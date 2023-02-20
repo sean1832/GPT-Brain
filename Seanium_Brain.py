@@ -135,7 +135,7 @@ with body:
     with col1:
         send = st.button(_('📩Send'))
     with col2:
-        if os.path.exists(INFO.CURRENT_LOG_FILE):
+        if os.path.exists(CURRENT_LOG_FILE):
             st_tool.download_as()
     # execute brain calculation
     if not question == '' and send:
