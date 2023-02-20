@@ -9,6 +9,9 @@ import modules.INFO as INFO
 import modules as mod
 import GPT
 
+if 'SESSION_TIME' not in st.session_state:
+    st.session_state['SESSION_TIME'] = time.strftime("%Y%m%d-%H%H%S")
+
 _ = mod.language.set_language()
 SESSION_TIME = st.session_state['SESSION_TIME']
 CURRENT_LOG_FILE = f'{INFO.LOG_PATH}/log_{SESSION_TIME}.log'

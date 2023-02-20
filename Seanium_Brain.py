@@ -9,9 +9,6 @@ import GPT
 import modules.utilities as util
 import streamlit_toolkit.tools as st_tool
 
-if 'SESSION_TIME' not in st.session_state:
-    st.session_state['SESSION_TIME'] = time.strftime("%Y%m%d-%H%H%S")
-
 SESSION_TIME = st.session_state['SESSION_TIME']
 SESSION_LANG = st.session_state['SESSION_LANGUAGE']
 
