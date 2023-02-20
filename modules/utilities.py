@@ -28,8 +28,21 @@ def remove_oldest_file(directory, max_files):
         os.remove(oldest_file)
 
 
-def scan_directory(directory):
-    files = glob.glob(f'{directory}/*')
+def scan_directory(directory, include_subdir=False, exclude=None):
+    if include_subdir:
+        files = glob.glob(f'{directory}/*', recursive=True)
+    else:
+        files = glob.glob(f'{directory}/*.*')
+    if exclude is not None:
+        filtered_files = []
+        for file in files:
+            excluded = False
+            for exclude_dir in exclude:
+                if exclude_dir in file:
+                    excluded = True
+                    break
+            if not excluded:
+                filtered_files.append(file)
     return files
 
 

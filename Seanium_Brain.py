@@ -1,4 +1,5 @@
 import os
+import time
 
 import streamlit as st
 
@@ -8,8 +9,14 @@ import GPT
 import modules.utilities as util
 import streamlit_toolkit.tools as st_tool
 
+if 'SESSION_TIME' not in st.session_state:
+    st.session_state['SESSION_TIME'] = time.strftime("%Y%m%d-%H%H%S")
+
+SESSION_TIME = st.session_state['SESSION_TIME']
 SESSION_LANG = st.session_state['SESSION_LANGUAGE']
+
 PROMPT_PATH = f'.user/prompt/{SESSION_LANG}'
+CURRENT_LOG_FILE = f'{INFO.LOG_PATH}/log_{SESSION_TIME}.log'
 
 util.remove_oldest_file(INFO.LOG_PATH, 10)
 
