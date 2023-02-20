@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-21 02:20+1100\n"
+"POT-Creation-Date: 2023-02-21 03:20+1100\n"
 "PO-Revision-Date: 2023-02-18 23:31+1100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -18,44 +18,44 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: Seanium_Brain.py:29
+#: Seanium_brain.py:29 pages/1_Configs.py:25
 msgid "Settings"
 msgstr "Settings"
 
-#: Seanium_Brain.py:36
+#: Seanium_brain.py:36 pages/1_Configs.py:62
 msgid "my-info"
 msgstr "my-info"
 
-#: Seanium_Brain.py:39
+#: Seanium_brain.py:39
 msgid "Operations"
 msgstr "Operations"
 
-#: Seanium_Brain.py:43
+#: Seanium_brain.py:43
 msgid "Combinations of operations to perform."
 msgstr ""
 
-#: Seanium_Brain.py:48
+#: Seanium_brain.py:48
 msgid "Question Model"
 msgstr "Question Model"
 
-#: Seanium_Brain.py:49
+#: Seanium_brain.py:49
 msgid "Model used for answering user question."
 msgstr ""
 
-#: Seanium_Brain.py:51
+#: Seanium_brain.py:51 pages/1_Configs.py:63 streamlit_toolkit/tools.py:249
 #, fuzzy
 msgid "question"
 msgstr "Question Model"
 
-#: Seanium_Brain.py:58
+#: Seanium_brain.py:58
 msgid "Model"
 msgstr ""
 
-#: Seanium_Brain.py:61
+#: Seanium_brain.py:61
 msgid "Temperature"
 msgstr "Temperature"
 
-#: Seanium_Brain.py:62
+#: Seanium_brain.py:62
 msgid ""
 "What sampling temperature to use, between 0 and 1. Higher values like 0.8 "
 "will make the output more random, while lower values like 0.2 will make it "
@@ -64,11 +64,11 @@ msgid ""
 "It is generally recommend altering this or `top_p` but not both."
 msgstr ""
 
-#: Seanium_Brain.py:65
+#: Seanium_brain.py:65
 msgid "Max Tokens"
 msgstr "Max Tokens"
 
-#: Seanium_Brain.py:66
+#: Seanium_brain.py:66
 msgid ""
 "The maximum number of tokens to generate in the completion.\n"
 "\n"
@@ -77,15 +77,15 @@ msgid ""
 "the newest models, which support 4096)."
 msgstr ""
 
-#: Seanium_Brain.py:71
+#: Seanium_brain.py:71
 msgid "Advanced Options"
 msgstr "Advanced Options"
 
-#: Seanium_Brain.py:72
+#: Seanium_brain.py:72
 msgid "Top_P"
 msgstr ""
 
-#: Seanium_Brain.py:73
+#: Seanium_brain.py:73
 msgid ""
 "An alternative to sampling with temperature, called nucleus sampling, where "
 "the model considers the results of the tokens with top_p probability mass. "
@@ -95,11 +95,11 @@ msgid ""
 "It is generally recommend altering this or `temperature` but not both."
 msgstr ""
 
-#: Seanium_Brain.py:77
+#: Seanium_brain.py:77
 msgid "Frequency penalty"
 msgstr "Frequency penalty"
 
-#: Seanium_Brain.py:79
+#: Seanium_brain.py:79
 msgid ""
 "Larger the number increasing the model's likelihood to talk about new "
 "topics. Penalize new tokens based on whether they appear in the text so "
@@ -109,11 +109,11 @@ msgid ""
 "platform.openai.com/docs/api-reference/parameter-details)"
 msgstr ""
 
-#: Seanium_Brain.py:83
+#: Seanium_brain.py:83
 msgid "Presence penalty"
 msgstr "Presence penalty"
 
-#: Seanium_Brain.py:85
+#: Seanium_brain.py:85
 msgid ""
 "Decreasing the model's likelihood to repeat the same line verbatim. Penalize "
 "new tokens based on their existing frequency in the text so far.\n"
@@ -122,181 +122,221 @@ msgid ""
 "platform.openai.com/docs/api-reference/parameter-details)"
 msgstr ""
 
-#: Seanium_Brain.py:90
+#: Seanium_brain.py:90
 msgid "Chunk size"
 msgstr "Chunk size"
 
-#: Seanium_Brain.py:92
+#: Seanium_brain.py:92
 msgid ""
 "The number of tokens to consider at each step. The larger this is, the more "
 "context the model has to work with, but the slower generation and expensive "
 "will it be."
 msgstr ""
 
-#: Seanium_Brain.py:95
+#: Seanium_brain.py:95
 msgid "Answer count"
 msgstr "Answer count"
 
-#: Seanium_Brain.py:96
+#: Seanium_brain.py:96
 msgid ""
 "The number of answers to generate. The model will continue to iteratively "
 "generating answers until it reaches the answer count."
 msgstr ""
 
-#: Seanium_Brain.py:113
+#: Seanium_brain.py:113
 msgid "Clear Log"
 msgstr "Clear Log"
 
-#: Seanium_Brain.py:114
+#: Seanium_brain.py:114
 msgid "Log Cleared"
 msgstr "Log Cleared"
 
-#: Seanium_Brain.py:119
+#: Seanium_brain.py:119
 msgid "Version"
 msgstr ""
 
-#: Seanium_Brain.py:120
+#: Seanium_brain.py:120
 msgid "Author"
 msgstr ""
 
-#: Seanium_Brain.py:121
+#: Seanium_brain.py:121
 msgid "Report bugs"
 msgstr ""
 
-#: Seanium_Brain.py:122
+#: Seanium_brain.py:122
 msgid "Github Repo"
 msgstr ""
 
-#: Seanium_Brain.py:125
+#: Seanium_brain.py:125
 #, fuzzy
 msgid "🧠GPT-Brain"
 msgstr "🧠Seanium Brain"
 
-#: Seanium_Brain.py:126
+#: Seanium_brain.py:126
 msgid ""
 "This is my personal AI powered brain feeding my own Obsidian notes. Ask "
 "anything."
 msgstr ""
 
-#: Seanium_Brain.py:128
+#: Seanium_brain.py:128
 msgid "This is a beta version. Please [🪲report bugs]("
 msgstr ""
 
-#: Seanium_Brain.py:129
+#: Seanium_brain.py:129
 msgid ") if you find any."
 msgstr ""
 
-#: Seanium_Brain.py:133
+#: Seanium_brain.py:133
 msgid "Ask Brain: "
 msgstr "Ask Brain: "
 
-#: Seanium_Brain.py:136
+#: Seanium_brain.py:136
 msgid "📩Send"
 msgstr "📩Send"
 
-#~ msgid "💾Save"
-#~ msgstr "💾Save"
+#: pages/1_Configs.py:26
+msgid "Menu"
+msgstr "Menu"
 
-#~ msgid "✅File saved!"
-#~ msgstr "✅File saved!"
+#: pages/1_Configs.py:27 pages/1_Configs.py:33 pages/1_Configs.py:34
+msgid "📝Prompts"
+msgstr "📝Prompts"
 
-#~ msgid "Select Note Directory"
-#~ msgstr "Select Note Directory"
+#: pages/1_Configs.py:28 pages/1_Configs.py:76 pages/1_Configs.py:77
+#: pages/1_Configs.py:129
+msgid "💽Brain Memory"
+msgstr "💽Brain Memory"
 
-#~ msgid "Menu"
-#~ msgstr "Menu"
+#: pages/1_Configs.py:29 pages/1_Configs.py:138 pages/1_Configs.py:139
+msgid "🔑API Keys"
+msgstr "🔑API Keys"
 
-#~ msgid "📝Prompts"
-#~ msgstr "📝Prompts"
+#: pages/1_Configs.py:35
+msgid "Configuration of prompts."
+msgstr "Configuration of prompts."
 
-#~ msgid "💽Brain Memory"
-#~ msgstr "💽Brain Memory"
+#: pages/1_Configs.py:49
+msgid "Prompt File"
+msgstr "Prompt File"
 
-#~ msgid "🔑API Keys"
-#~ msgstr "🔑API Keys"
+#: pages/1_Configs.py:53
+msgid "New Prompt"
+msgstr "New Prompt"
 
-#~ msgid "Configuration of prompts."
-#~ msgstr "Configuration of prompts."
+#: pages/1_Configs.py:54
+msgid "New Prompt Name"
+msgstr "New Prompt Name"
 
-#~ msgid "Prompt File"
-#~ msgstr "Prompt File"
-
-#~ msgid "New Prompt"
-#~ msgstr "New Prompt"
-
-#~ msgid "New Prompt Name"
-#~ msgstr "New Prompt Name"
-
+#: pages/1_Configs.py:54
 #, fuzzy
-#~ msgid "new_prompt"
-#~ msgstr "New Prompt"
+msgid "new_prompt"
+msgstr "New Prompt"
 
-#~ msgid "Create"
-#~ msgstr "Create"
+#: pages/1_Configs.py:55
+msgid "Create"
+msgstr "Create"
 
-#~ msgid "Delete Prompt"
-#~ msgstr "Delete Prompt"
+#: pages/1_Configs.py:64
+msgid "summarize"
+msgstr ""
 
-#~ msgid "❌Delete"
-#~ msgstr "❌Delete"
+#: pages/1_Configs.py:66
+msgid "Delete Prompt"
+msgstr "Delete Prompt"
 
-#~ msgid "Prompts"
-#~ msgstr "Prompts"
+#: pages/1_Configs.py:67
+msgid "❌Delete"
+msgstr "❌Delete"
 
-#~ msgid "Modify your brain knowledge base."
-#~ msgstr "Modify your brain knowledge base."
+#: pages/1_Configs.py:73
+msgid "Prompts"
+msgstr "Prompts"
 
-#~ msgid "🔄Refresh"
-#~ msgstr "🔄Refresh"
+#: pages/1_Configs.py:78
+msgid "Modify your brain knowledge base."
+msgstr "Modify your brain knowledge base."
 
-#~ msgid "📁Select Note Directory"
-#~ msgstr "📁Select Note Directory"
+#: pages/1_Configs.py:83
+msgid "🔄Refresh"
+msgstr "🔄Refresh"
 
-#~ msgid "Note Directory"
-#~ msgstr "Note Directory"
+#: pages/1_Configs.py:85
+msgid "📁Select Note Directory"
+msgstr "📁Select Note Directory"
 
-#~ msgid "Delimiter"
-#~ msgstr "Delimiter"
+#: pages/1_Configs.py:88
+msgid "Note Directory"
+msgstr "Note Directory"
 
-#~ msgid "Append Mode"
-#~ msgstr "Append Mode"
+#: pages/1_Configs.py:89 streamlit_toolkit/tools.py:106
+msgid "Select Note Directory"
+msgstr "Select Note Directory"
 
-#~ msgid "Force Delimiter"
-#~ msgstr "Force Delimiter"
+#: pages/1_Configs.py:94
+msgid "Delimiter"
+msgstr "Delimiter"
 
-#~ msgid "Filter Mode"
-#~ msgstr "Filter Mode"
+#: pages/1_Configs.py:97
+msgid "Append Mode"
+msgstr "Append Mode"
 
-#~ msgid "Add Filter"
-#~ msgstr "Add Filter"
+#: pages/1_Configs.py:98
+msgid "Force Delimiter"
+msgstr "Force Delimiter"
 
-#~ msgid "Delete Filter"
-#~ msgstr "Delete Filter"
+#: pages/1_Configs.py:101
+msgid "Filter Mode"
+msgstr "Filter Mode"
 
-#~ msgid "Raw Memory Inputs"
-#~ msgstr "Raw Memory Inputs"
+#: pages/1_Configs.py:107
+msgid "Add Filter"
+msgstr "Add Filter"
 
-#~ msgid "Configure your OpenAI API keys."
-#~ msgstr "Configure your OpenAI API keys."
+#: pages/1_Configs.py:108
+msgid "Delete Filter"
+msgstr "Delete Filter"
 
-#~ msgid "API Keys"
-#~ msgstr "API Keys"
+#: pages/1_Configs.py:128
+msgid "Raw Memory Inputs"
+msgstr "Raw Memory Inputs"
 
-#~ msgid "📥download log"
-#~ msgstr "📥download log"
+#: pages/1_Configs.py:140
+msgid "Configure your OpenAI API keys."
+msgstr "Configure your OpenAI API keys."
 
+#: pages/1_Configs.py:141
+msgid "API Keys"
+msgstr "API Keys"
+
+#: streamlit_toolkit/tools.py:41
+msgid "📥download log"
+msgstr "📥download log"
+
+#: streamlit_toolkit/tools.py:51
+msgid "💾Save"
+msgstr "💾Save"
+
+#: streamlit_toolkit/tools.py:54
+msgid "✅File saved!"
+msgstr "✅File saved!"
+
+#: streamlit_toolkit/tools.py:211
 #, fuzzy
-#~ msgid "Thinking on"
-#~ msgstr "Thinking on Answer"
+msgid "Thinking on "
+msgstr "Thinking on Answer"
 
-#~ msgid "Building Brain..."
-#~ msgstr "Building Brain..."
+#: streamlit_toolkit/tools.py:234
+msgid "Building Brain..."
+msgstr "Building Brain..."
 
-#~ msgid "Brain rebuild!"
-#~ msgstr "Brain rebuild!"
+#: streamlit_toolkit/tools.py:237
+msgid "Brain rebuild!"
+msgstr "Brain rebuild!"
 
-#~ msgid "Thinking on Answer"
-#~ msgstr "Thinking on Answer"
+#: streamlit_toolkit/tools.py:241
+msgid "Thinking on Answer"
+msgstr "Thinking on Answer"
 
-#~ msgid "💬Answer"
-#~ msgstr "💬Answer"
+#: streamlit_toolkit/tools.py:251
+msgid "💬Answer"
+msgstr "💬Answer"
