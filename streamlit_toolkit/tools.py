@@ -10,12 +10,14 @@ import modules as mod
 import GPT
 
 _ = mod.language.set_language()
+SESSION_TIME = st.session_state['SESSION_TIME']
+CURRENT_LOG_FILE = f'{INFO.LOG_PATH}/log_{SESSION_TIME}.log'
 
 
 def create_log():
-    if not os.path.exists(INFO.CURRENT_LOG_FILE):
-        util.write_file(f'Session {INFO.SESSION_TIME}\n\n', INFO.CURRENT_LOG_FILE)
-    return INFO.CURRENT_LOG_FILE
+    if not os.path.exists(CURRENT_LOG_FILE):
+        util.write_file(f'Session {SESSION_TIME}\n\n', CURRENT_LOG_FILE)
+    return CURRENT_LOG_FILE
 
 
 def log(content, delimiter=''):
@@ -26,7 +28,7 @@ def log(content, delimiter=''):
 
 
 def clear_log():
-    log_file_name = f'log_{INFO.SESSION_TIME}.log'
+    log_file_name = f'log_{SESSION_TIME}.log'
     for root, dirs, files in os.walk(INFO.LOG_PATH):
         for file in files:
             if not file == log_file_name:
@@ -35,12 +37,12 @@ def clear_log():
 
 def download_as():
     # download log file
-    with open(INFO.CURRENT_LOG_FILE, 'rb') as f:
+    with open(CURRENT_LOG_FILE, 'rb') as f:
         content = f.read()
         st.download_button(
             label=_("📥download log"),
             data=content,
-            file_name=f'log_{INFO.SESSION_TIME}.txt',
+            file_name=f'log_{SESSION_TIME}.txt',
             mime='text/plain'
         )
 
