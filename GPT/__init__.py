@@ -1,3 +1,3 @@
 from GPT import query
 from GPT import toolkit
-from GPT import model_param
+from GPT import model
