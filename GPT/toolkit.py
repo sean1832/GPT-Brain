@@ -26,7 +26,7 @@ def search_chunks(text, data, count=1):
             'content': item['content'],
             'point': point
         })
-    # sort points base on decendent order
+    # sort points base on descendant order
     ordered = sorted(points, key=lambda d: d['point'], reverse=True)
 
     return ordered[0:count]

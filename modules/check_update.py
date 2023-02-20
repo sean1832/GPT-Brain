@@ -1,6 +1,6 @@
 import os
 import time
-from modules import utilities as util
+import modules.utilities as util
 
 file_path = r'.user\input.txt'
 temp_file = r'.user\input_last-run.temp'
