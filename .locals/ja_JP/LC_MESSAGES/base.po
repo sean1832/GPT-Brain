@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-21 03:21+1100\n"
-"PO-Revision-Date: 2023-02-21 04:39+1100\n"
+"POT-Creation-Date: 2023-02-22 02:54+1100\n"
+"PO-Revision-Date: 2023-02-22 02:56+1100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja_JP\n"
@@ -18,43 +18,43 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: Seanium_brain.py:29 pages/1_Configs.py:25
+#: Seanium_brain.py:26 pages/1_Configs.py:26
 msgid "Settings"
 msgstr "設定"
 
-#: Seanium_brain.py:36 pages/1_Configs.py:62
+#: Seanium_brain.py:33 pages/1_Configs.py:63
 msgid "my-info"
 msgstr "マイ情報"
 
-#: Seanium_brain.py:39
+#: Seanium_brain.py:36
 msgid "Operations"
 msgstr "オペレーション"
 
-#: Seanium_brain.py:43
+#: Seanium_brain.py:40
 msgid "Combinations of operations to perform."
 msgstr "実行するオペレーションの組み合わせ。"
 
-#: Seanium_brain.py:48
+#: Seanium_brain.py:45
 msgid "Question Model"
 msgstr "質問モデル"
 
-#: Seanium_brain.py:49
+#: Seanium_brain.py:46
 msgid "Model used for answering user question."
 msgstr "ユーザーの質問に答えるために使用されるモデル。"
 
-#: Seanium_brain.py:51 pages/1_Configs.py:63 streamlit_toolkit/tools.py:249
+#: Seanium_brain.py:48 pages/1_Configs.py:64 streamlit_toolkit/tools.py:256
 msgid "question"
 msgstr "質問"
 
-#: Seanium_brain.py:58
+#: Seanium_brain.py:55
 msgid "Model"
 msgstr "モデル"
 
-#: Seanium_brain.py:61
+#: Seanium_brain.py:58
 msgid "Temperature"
 msgstr "温度"
 
-#: Seanium_brain.py:62
+#: Seanium_brain.py:59
 msgid ""
 "What sampling temperature to use, between 0 and 1. Higher values like 0.8 "
 "will make the output more random, while lower values like 0.2 will make it "
@@ -68,11 +68,11 @@ msgstr ""
 "一般的には、この値か `top_p` を変更することをお勧めしますが、両方はお勧めしま"
 "せん。"
 
-#: Seanium_brain.py:65
+#: Seanium_brain.py:62
 msgid "Max Tokens"
 msgstr "最大トークン数"
 
-#: Seanium_brain.py:66
+#: Seanium_brain.py:63
 msgid ""
 "The maximum number of tokens to generate in the completion.\n"
 "\n"
@@ -86,15 +86,15 @@ msgstr ""
 "ト長を超えることはできない。ほとんどのモデルのコンテキストの長さは 2048 トー"
 "クンである (4096をサポートする最新のモデルを除く)。"
 
-#: Seanium_brain.py:71
+#: Seanium_brain.py:68
 msgid "Advanced Options"
 msgstr "詳細オプション"
 
-#: Seanium_brain.py:72
+#: Seanium_brain.py:69
 msgid "Top_P"
 msgstr ""
 
-#: Seanium_brain.py:73
+#: Seanium_brain.py:70
 msgid ""
 "An alternative to sampling with temperature, called nucleus sampling, where "
 "the model considers the results of the tokens with top_p probability mass. "
@@ -109,11 +109,11 @@ msgstr ""
 "\n"
 "一般的には、これか `温度` を変更することが推奨されるが、両方は推奨されない。"
 
-#: Seanium_brain.py:77
+#: Seanium_brain.py:74
 msgid "Frequency penalty"
 msgstr "周波数ペナルティ"
 
-#: Seanium_brain.py:79
+#: Seanium_brain.py:76
 msgid ""
 "Larger the number increasing the model's likelihood to talk about new "
 "topics. Penalize new tokens based on whether they appear in the text so "
@@ -128,11 +128,11 @@ msgstr ""
 "[頻度ペナルティと存在ペナルティについてはこちらをご覧ください（英語）]"
 "(https://platform.openai.com/docs/api-reference/parameter-details)"
 
-#: Seanium_brain.py:83
+#: Seanium_brain.py:80
 msgid "Presence penalty"
 msgstr "存在ペナルティ"
 
-#: Seanium_brain.py:85
+#: Seanium_brain.py:82
 msgid ""
 "Decreasing the model's likelihood to repeat the same line verbatim. Penalize "
 "new tokens based on their existing frequency in the text so far.\n"
@@ -146,11 +146,11 @@ msgstr ""
 "[周波数ペナルティと存在ペナルティについてはこちらをご覧ください（英語）]"
 "(https://platform.openai.com/docs/api-reference/parameter-details)"
 
-#: Seanium_brain.py:90
+#: Seanium_brain.py:87
 msgid "Chunk size"
 msgstr "チャンクサイズ"
 
-#: Seanium_brain.py:92
+#: Seanium_brain.py:89
 msgid ""
 "The number of tokens to consider at each step. The larger this is, the more "
 "context the model has to work with, but the slower generation and expensive "
@@ -159,11 +159,11 @@ msgstr ""
 "各ステップで考慮するトークンの数。これが大きければ大きいほど、モデルはより多"
 "くの文脈を扱うことになるが、生成速度が遅くなり、コストも高くなる。"
 
-#: Seanium_brain.py:95
+#: Seanium_brain.py:92
 msgid "Answer count"
 msgstr "回答数"
 
-#: Seanium_brain.py:96
+#: Seanium_brain.py:93
 msgid ""
 "The number of answers to generate. The model will continue to iteratively "
 "generating answers until it reaches the answer count."
@@ -171,35 +171,35 @@ msgstr ""
 "生成する答えの数。モデルは答えの数に達するまで、繰り返し答えを生成し続けま"
 "す。"
 
-#: Seanium_brain.py:113
+#: Seanium_brain.py:110
 msgid "Clear Log"
 msgstr "ログを消去する"
 
-#: Seanium_brain.py:114
+#: Seanium_brain.py:111
 msgid "Log Cleared"
 msgstr "ログクリアー"
 
-#: Seanium_brain.py:119
+#: Seanium_brain.py:116
 msgid "Version"
 msgstr "バージョン"
 
-#: Seanium_brain.py:120
+#: Seanium_brain.py:117
 msgid "Author"
 msgstr "作者"
 
-#: Seanium_brain.py:121
+#: Seanium_brain.py:118
 msgid "Report bugs"
 msgstr "バグを報告する"
 
-#: Seanium_brain.py:122
+#: Seanium_brain.py:119
 msgid "Github Repo"
 msgstr "Githubリポジトリ"
 
-#: Seanium_brain.py:125
+#: Seanium_brain.py:122
 msgid "🧠GPT-Brain"
 msgstr "🧠GPT-ブレイン"
 
-#: Seanium_brain.py:126
+#: Seanium_brain.py:123
 msgid ""
 "This is my personal AI powered brain feeding my own Obsidian notes. Ask "
 "anything."
@@ -207,163 +207,178 @@ msgstr ""
 "これは、私個人のAIを搭載した脳が、私自身のノートを養っているのです。何でも聞"
 "いてください。"
 
-#: Seanium_brain.py:128
+#: Seanium_brain.py:125
 msgid "This is a beta version. Please [🪲report bugs]("
 msgstr "これはベータ版です。バグを発見した場合は、[🪲報告]("
 
-#: Seanium_brain.py:129
+#: Seanium_brain.py:126
 msgid ") if you find any."
 msgstr ")をお願いします。"
 
-#: Seanium_brain.py:133
+#: Seanium_brain.py:130
 msgid "Ask Brain: "
 msgstr "ブレインに聞く: "
 
-#: Seanium_brain.py:136
+#: Seanium_brain.py:133
 msgid "📩Send"
 msgstr "📩送る"
 
-#: pages/1_Configs.py:26
+#: pages/1_Configs.py:27
 msgid "Menu"
 msgstr "メニュー"
 
-#: pages/1_Configs.py:27 pages/1_Configs.py:33 pages/1_Configs.py:34
+#: pages/1_Configs.py:28 pages/1_Configs.py:34 pages/1_Configs.py:35
 msgid "📝Prompts"
 msgstr "📝プロンプト"
 
-#: pages/1_Configs.py:28 pages/1_Configs.py:76 pages/1_Configs.py:77
-#: pages/1_Configs.py:129
+#: pages/1_Configs.py:29 pages/1_Configs.py:77 pages/1_Configs.py:78
+#: pages/1_Configs.py:150
 msgid "💽Brain Memory"
 msgstr "💽脳内メモリ"
 
-#: pages/1_Configs.py:29 pages/1_Configs.py:138 pages/1_Configs.py:139
+#: pages/1_Configs.py:30 pages/1_Configs.py:159 pages/1_Configs.py:160
 msgid "🔑API Keys"
 msgstr "🔑APIキー"
 
-#: pages/1_Configs.py:35
+#: pages/1_Configs.py:36
 msgid "Configuration of prompts."
 msgstr "プロンプトの設定。"
 
-#: pages/1_Configs.py:49
+#: pages/1_Configs.py:50
 msgid "Prompt File"
 msgstr "プロンプトファイル"
 
-#: pages/1_Configs.py:53
+#: pages/1_Configs.py:54
 msgid "New Prompt"
 msgstr "新規プロンプト"
 
-#: pages/1_Configs.py:54
+#: pages/1_Configs.py:55
 msgid "New Prompt Name"
 msgstr "新規プロンプト名"
 
-#: pages/1_Configs.py:54
+#: pages/1_Configs.py:55
 msgid "new_prompt"
 msgstr "新規プロンプト"
 
-#: pages/1_Configs.py:55
+#: pages/1_Configs.py:56
 msgid "Create"
 msgstr "作成"
 
-#: pages/1_Configs.py:64
+#: pages/1_Configs.py:65
 msgid "summarize"
 msgstr "かいつまむ"
 
-#: pages/1_Configs.py:66
+#: pages/1_Configs.py:67
 msgid "Delete Prompt"
 msgstr "プロンプトを削除"
 
-#: pages/1_Configs.py:67
+#: pages/1_Configs.py:68
 msgid "❌Delete"
 msgstr "❎ 削除"
 
-#: pages/1_Configs.py:73
+#: pages/1_Configs.py:74
 msgid "Prompts"
 msgstr "プロンプト"
 
-#: pages/1_Configs.py:78
+#: pages/1_Configs.py:79
 msgid "Modify your brain knowledge base."
 msgstr "脳の知識データを修正する。"
 
-#: pages/1_Configs.py:83
+#: pages/1_Configs.py:84
 msgid "🔄Refresh"
 msgstr "🔄リフレッシュ"
 
-#: pages/1_Configs.py:85
+#: pages/1_Configs.py:86
 msgid "📁Select Note Directory"
 msgstr "📁ノートディレクトリを選択する"
 
-#: pages/1_Configs.py:88
+#: pages/1_Configs.py:89
 msgid "Note Directory"
 msgstr "ノートディレクトリ"
 
-#: pages/1_Configs.py:89 streamlit_toolkit/tools.py:106
+#: pages/1_Configs.py:90 streamlit_toolkit/tools.py:111
 msgid "Select Note Directory"
 msgstr "ノートディレクトリを選択する"
 
-#: pages/1_Configs.py:94
+#: pages/1_Configs.py:95
 msgid "Delimiter"
 msgstr "区切り記号"
 
-#: pages/1_Configs.py:97
+#: pages/1_Configs.py:98
 msgid "Append Mode"
 msgstr "付加モード"
 
-#: pages/1_Configs.py:98
+#: pages/1_Configs.py:99
 msgid "Force Delimiter"
 msgstr "強制デリミタ"
 
-#: pages/1_Configs.py:101
-msgid "Filter Mode"
-msgstr "フィルターモード"
+#: pages/1_Configs.py:102
+msgid "Frontmatter Filter"
+msgstr "フロントマターフィルタ"
 
-#: pages/1_Configs.py:107
+#: pages/1_Configs.py:106
+msgid "Directory Filter"
+msgstr "ディレクトリフィルター"
+
+#: pages/1_Configs.py:113
 msgid "Add Filter"
 msgstr "フィルター追加"
 
-#: pages/1_Configs.py:108
+#: pages/1_Configs.py:114
 msgid "Delete Filter"
 msgstr "フィルター削除"
 
-#: pages/1_Configs.py:128
+#: pages/1_Configs.py:122
+msgid "#### Directory to Exclude"
+msgstr "#### 除外するディレクトリ"
+
+#: pages/1_Configs.py:123
+msgid "Enter file or directory name to exclude"
+msgstr "除外するファイル名またはディレクトリ名を入力してください"
+
+#: pages/1_Configs.py:149
 msgid "Raw Memory Inputs"
 msgstr "ローメモリ入力"
 
-#: pages/1_Configs.py:140
+#: pages/1_Configs.py:161
 msgid "Configure your OpenAI API keys."
 msgstr "OpenAIのAPIキーを設定します。"
 
-#: pages/1_Configs.py:141
+#: pages/1_Configs.py:162
 msgid "API Keys"
 msgstr "APIキー"
 
-#: streamlit_toolkit/tools.py:41
+#: streamlit_toolkit/tools.py:46
 msgid "📥download log"
 msgstr "📥ダウンロードログ"
 
-#: streamlit_toolkit/tools.py:51
+#: streamlit_toolkit/tools.py:56
 msgid "💾Save"
 msgstr "💾保存"
 
-#: streamlit_toolkit/tools.py:54
+#: streamlit_toolkit/tools.py:59
 msgid "✅File saved!"
 msgstr "✅ファイルが保存されました!"
 
-#: streamlit_toolkit/tools.py:211
+#: streamlit_toolkit/tools.py:217
 msgid "Thinking on "
 msgstr "思考中： "
 
-#: streamlit_toolkit/tools.py:234
-msgid "Building Brain..."
-msgstr "脳を作る..."
+#: streamlit_toolkit/tools.py:240
+msgid "Updating Brain..."
+msgstr "脳を更新する..."
 
-#: streamlit_toolkit/tools.py:237
-msgid "Brain rebuild!"
-msgstr "脳の作り完了!"
+#: streamlit_toolkit/tools.py:244
+msgid "Brain Updated!"
+msgstr "脳が更新されました!"
 
-#: streamlit_toolkit/tools.py:241
+#: streamlit_toolkit/tools.py:248
 msgid "Thinking on Answer"
 msgstr "回答について考える"
 
-#: streamlit_toolkit/tools.py:251
+#: streamlit_toolkit/tools.py:258
 msgid "💬Answer"
 msgstr "💬解答"
+
+#~ msgid "Filter Mode"
+#~ msgstr "フィルターモード"
