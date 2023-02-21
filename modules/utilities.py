@@ -77,21 +77,33 @@ def parse_data(data, delimiter='', force=False):
     return data
 
 
-def read_files(file_dir, delimiter='', force=False, single_string=True, exclude_dir: list = None):
+def read_files(file_dir, delimiter='', force=False, single_string=True, exclude_dir: list = None, supported_formats: list = None):
     contents = []
     if exclude_dir is None:
         exclude_dir = []
+    if supported_formats is None:
+        supported_formats = ['.txt', '.md']
     # Read all files in a directory
     for root, dirs, files in os.walk(file_dir):
+        # Check if root is in excluded directories
         if any(dir in root for dir in exclude_dir):
             continue
         for file in files:
+            print(f'Processing {file}...')
             # extract file path
             filepath = os.path.join(root, file)
             # extract filename with extension
             filename = os.path.basename(filepath)
             # extract filename without extension
             filename = os.path.splitext(filename)[0]
+
+            # Check if filepath contains any excluded directories
+            if any(dir in filepath for dir in exclude_dir):
+                continue
+            # Check if file extension is in supported formats
+            if not any(file.endswith(format) for format in supported_formats):
+                continue
+
             file_data = read_file(filepath, delimiter, force)
             if force and file_data == '':
                 continue
