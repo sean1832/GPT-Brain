@@ -113,13 +113,13 @@ def main():
 
                 # if advanced mode enabled
                 if advanced_mode:
-                    note_datas = util.read_files(note_dir, single_string=False)
+                    note_datas = util.read_files(note_dir, single_string=False, exclude_dir=INFO.EXCLUDE_DIR)
                     note_datas, filter_info = st_tools.filter_data(note_datas, add_filter_button, del_filter_button)
                     # note_datas, filter_key, filter_logic, filter_val = filter_data(note_datas, True)
                     modified_data = util.parse_data(note_datas, delimiter, force_delimiter)
                 else:
                     modified_data = util.read_files(note_dir, single_string=True, delimiter=delimiter,
-                                                    force=force_delimiter)
+                                                    force=force_delimiter, exclude_dir=INFO.EXCLUDE_DIR)
 
                 # append mode
                 if append_mode:

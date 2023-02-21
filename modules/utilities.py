@@ -77,11 +77,14 @@ def parse_data(data, delimiter='', force=False):
     return data
 
 
-def read_files(file_dir, delimiter='', force=False, single_string=True):
+def read_files(file_dir, delimiter='', force=False, single_string=True, exclude_dir: list = None):
     contents = []
-
+    if exclude_dir is None:
+        exclude_dir = []
     # Read all files in a directory
     for root, dirs, files in os.walk(file_dir):
+        if any(dir in root for dir in exclude_dir):
+            continue
         for file in files:
             # extract file path
             filepath = os.path.join(root, file)

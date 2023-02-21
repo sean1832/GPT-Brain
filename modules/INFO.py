@@ -1,5 +1,5 @@
 import streamlit as st
-import time
+
 import modules.utilities as util
 
 st.set_page_config(
@@ -13,8 +13,18 @@ BRAIN_MEMO = '.user/brain-memo.json'
 MANIFEST = '.core/manifest.json'
 INIT_LANGUAGE = '.user/language.json'
 
-# activate session
+# exclude directory
+EXCLUDE_DIR = ['__pycache__',
+               '.git',
+               '.idea',
+               '.vscode',
+               '.obsidian',
+               '.trash',
+               '.git',
+               '.gitignore',
+               '.gitattributes']
 
+# activate session
 if 'SESSION_LANGUAGE' not in st.session_state:
     st.session_state['SESSION_LANGUAGE'] = util.read_json_at(INIT_LANGUAGE, 'SESSION_LANGUAGE')
 
