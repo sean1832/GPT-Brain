@@ -257,7 +257,7 @@ def execute_brain(q, params: GPT.model.param,
             # displaying results
             st.header(_('💬Answer'))
             st.info(f'{answer}')
-            time.sleep(1)
+            time.sleep(1.5)
             log(answer, delimiter='ANSWER')
 
     # thinking on other outputs
