@@ -1,7 +1,7 @@
 # 🧠 GPT Brain
 [![python](https://img.shields.io/badge/python-3.11-blue)](https://www.python.org/downloads/release/python-3112/)
 
-> **[中文说明](./README_CN.md)** | **[English](./README.md)**
+> **[中文说明](./Documentation/README_CN.md)** | **[日本語説明書](./Documentation/README_JP.md)** | **[English](./README.md)**
 
 *⭐️ Like this repo? please consider a star!*
 
@@ -25,8 +25,8 @@
 ### Todo
 - [x] ~~Batch script to update library.~~
 - [x] ~~Versioning.~~
-- [ ] Tooltips for parameters.
-- [x] ~~Chinese support.~~
+- [x] ~~Tooltips for parameters.~~
+- [x] ~~Multilingual support for UI.~~
 - [x] ~~Multilingual search support.~~
 - [ ] Provide detail documentation for users.
 - [ ] Automatic update for new version.
@@ -43,9 +43,8 @@
 ### 3. Run
 - Execute `run-webUI.bat`
 
-
 ## Demo
 ### Main Page
-![screenshot1](https://cdn.discordapp.com/attachments/998217078915997746/1073881233387429978/image.png)
+![screenshot1](Documentation/images/menu_en.png)
 ### Brain Memory
-![screenshot2](https://cdn.discordapp.com/attachments/998217078915997746/1073885430270922822/image.png)
+![screenshot2](Documentation/images/memory_en.png)

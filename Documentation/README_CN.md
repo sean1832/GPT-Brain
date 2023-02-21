@@ -1,7 +1,7 @@
 # 🧠 GPT 大脑
 [![python](https://img.shields.io/badge/python-3.11-blue)](https://www.python.org/downloads/release/python-3112/)
 
->**[中文说明](./README_CN.md)** | **[English](./README.md)**
+>**[中文说明](./README_CN.md)** | **[日本語説明書](README_JP.md)** | **[English](../README.md)**
 
 *⭐️ 喜欢这个仓库? 请给个星!*
 
@@ -25,8 +25,8 @@
 ### 未来计划
 - [x] ~~batch脚本更新库。~~
 - [x] ~~版本控制。~~
-- [ ] 参数提示。
-- [x] ~~支持中文UI~~。
+- [x] ~~参数提示。~~
+- [x] ~~支持多语言UI~~。
 - [x] ~~支持多语言检索。~~
 - [ ] 提供详细操作指南。
 - [ ] 自动更新。
@@ -46,6 +46,6 @@
 
 ## demo
 ### 主页
-![screenshot1](https://cdn.discordapp.com/attachments/998217078915997746/1073881233387429978/image.png)
+![screenshot1](images/menu_zh.png)
 ### 大脑记忆（笔记内容）
-![screenshot2](https://cdn.discordapp.com/attachments/998217078915997746/1073885430270922822/image.png)
+![screenshot2](images/memory_zh.png)
