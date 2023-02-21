@@ -103,12 +103,12 @@ def match_logic(operator, filter_val, value):
         return False
 
 
-def select_directory():
+def select_directory(initial_dir=os.getcwd()):
     root = tk.Tk()
     root.withdraw()
     # make sure the dialog is on top of the main window
     root.attributes('-topmost', True)
-    directory = filedialog.askdirectory(initialdir=os.getcwd(), title=_('Select Note Directory'), master=root)
+    directory = filedialog.askdirectory(initialdir=initial_dir, title=_('Select Note Directory'), master=root)
     return directory
 
 

@@ -83,7 +83,7 @@ def main():
                 st.button(_('🔄Refresh'))
             with col2:
                 if st.button(_('📁Select Note Directory')):
-                    note_dir = st_tools.select_directory()
+                    note_dir = st_tools.select_directory(util.read_json_at(INFO.BRAIN_MEMO, 'note_dir'))
                     util.update_json(INFO.BRAIN_MEMO, 'note_dir', note_dir)
             note_dir = st.text_input(_('Note Directory'), value=util.read_json_at(INFO.BRAIN_MEMO, 'note_dir'),
                                      placeholder=_('Select Note Directory'), key='note_dir')
