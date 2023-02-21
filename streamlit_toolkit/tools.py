@@ -108,7 +108,7 @@ def select_directory():
     root.withdraw()
     # make sure the dialog is on top of the main window
     root.attributes('-topmost', True)
-    directory = filedialog.askdirectory(initialdir=os.getcwd(), title=_('Select Note Directory'))
+    directory = filedialog.askdirectory(initialdir=os.getcwd(), title=_('Select Note Directory'), master=root)
     return directory
 
 
