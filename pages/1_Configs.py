@@ -13,9 +13,9 @@ PROMPT_PATH = f'{INFO.USER_DIR}/prompt/{SESSION_LANG}/'
 
 _ = language.set_language()
 
-st.set_page_config(
-    page_title='Configs'
-)
+# st.set_page_config(
+#     page_title='Configs'
+# )
 
 body = st.container()
 
@@ -120,6 +120,8 @@ def main():
                 else:
                     modified_data = util.read_files(note_dir, single_string=True, delimiter=delimiter,
                                                     force=force_delimiter)
+
+                # append mode
                 if append_mode:
                     memory_data += modified_data
                 else:
