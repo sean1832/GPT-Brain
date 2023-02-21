@@ -120,11 +120,16 @@ def main():
                 if Directory_Filter:
                     exclude_dir_user = st_tags.st_tags(value=util.read_json_at(INFO.BRAIN_MEMO, 'exclude_dir_user'),
                                                        label=_('#### Directory to Exclude'),
-                                                       text=_('Enter name or path of directory to exclude'))
+                                                       text=_('Enter file or directory name to exclude'))
+                    print(exclude_dir_user)
                     if exclude_dir_user:
                         exclude_dir = exclude_dir_official + list(exclude_dir_user)
-                    # remove duplicates
-                    exclude_dir = list(dict.fromkeys(exclude_dir))
+                        # remove duplicates
+                        exclude_dir = list(dict.fromkeys(exclude_dir))
+                    else:
+                        exclude_dir = exclude_dir_official
+                else:
+                    exclude_dir = exclude_dir_official
                 # if advanced mode enabled
                 if advanced_mode:
                     note_datas = util.read_files(note_dir, single_string=False, exclude_dir=exclude_dir)

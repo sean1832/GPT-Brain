@@ -21,13 +21,16 @@ def build(chunk_size=4000):
 
     # split text into smaller chunk of 4000 char each
     chunks = textwrap.wrap(all_text, chunk_size)
-
+    chunk_count = len(chunks)
     result = []
-    for chunk in chunks:
+    for idx, chunk in enumerate(chunks):
         embedding = GPT.toolkit.embedding(chunk.encode(encoding='ASCII', errors='ignore').decode())
         info = {'content': chunk, 'vector': embedding}
         print(info, '\n\n\n')
+
         result.append(info)
+        # return index one at the time
+        yield idx, chunk_count
 
     util.write_json(result, r'.user\brain-data.json')
 
