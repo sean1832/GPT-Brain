@@ -38,12 +38,12 @@ def clear_log():
                 os.remove(os.path.join(root, file))
 
 
-def download_as():
+def download_as(label):
     # download log file
     with open(CURRENT_LOG_FILE, 'rb') as f:
         content = f.read()
         st.download_button(
-            label=_("📥download log"),
+            label=label,
             data=content,
             file_name=f'log_{SESSION_TIME}.txt',
             mime='text/plain'
@@ -232,7 +232,9 @@ def execute_brain(q, params: GPT.model.param,
                   op: GPT.model.Operation,
                   model: GPT.model.Model,
                   prompt_dictionary: dict,
-                  session_language):
+                  question_prompt: str,
+                  session_language,
+                  ):
     # log question
     log(f'\n\n\n\n[{str(time.ctime())}] - QUESTION: {q}')
 
@@ -253,7 +255,7 @@ def execute_brain(q, params: GPT.model.param,
                                       params.frequency_penalty,
                                       params.present_penalty,
                                       chunk_count=params.chunk_count)
-        if util.contains(op.operations, _('question')):
+        if util.contains(op.operations, question_prompt):
             # displaying results
             st.header(_('💬Answer'))
             st.info(f'{answer}')

@@ -128,12 +128,12 @@ with header:
 # main
 with body:
     question = st.text_area(_('Ask Brain: '))
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2 = st.columns([1, 3])
     with col1:
         send = st.button(_('📩Send'))
     with col2:
         if os.path.exists(CURRENT_LOG_FILE):
-            st_tool.download_as()
+            st_tool.download_as(_("📥download log"))
     # execute brain calculation
     if not question == '' and send:
-        st_tool.execute_brain(question, param, op, models, prompt_dictionary, SESSION_LANG)
+        st_tool.execute_brain(question, param, op, models, prompt_dictionary, _('question'), SESSION_LANG)
