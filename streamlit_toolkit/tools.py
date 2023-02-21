@@ -116,13 +116,14 @@ def match_fields(pages: list, filter_datas: list[dict]):
     filtered_contents = []
     for page in pages:
         fields = util.extract_frontmatter(page, delimiter='---')
-
         found_data = []
-
         for field in fields:
             if field == '':
                 continue
-            found_key, found_value = field.split(':')
+            try:
+                found_key, found_value = field.split(': ')
+            except ValueError:
+                continue
             found_key = found_key.strip()
             found_value = found_value.strip()
 
