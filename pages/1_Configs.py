@@ -2,6 +2,7 @@ import os
 
 import streamlit as st
 import streamlit_toggle as st_toggle
+import streamlit_tags as st_tags
 
 import modules.language as language
 import modules.utilities as util
@@ -98,10 +99,15 @@ def main():
                 force_delimiter = st.checkbox(_('Force Delimiter'),
                                               value=util.read_json_at(INFO.BRAIN_MEMO, 'force_mode'))
             with col3:
-                advanced_mode = st_toggle.st_toggle_switch(_('Filter Mode'),
+                advanced_mode = st_toggle.st_toggle_switch(_('Frontmatter Filter'),
                                                            label_after=True,
                                                            default_value=util.read_json_at(INFO.BRAIN_MEMO,
                                                                                            'advanced_mode', False))
+                Directory_Filter = st_toggle.st_toggle_switch(_('Directory Filter'),
+                                                              label_after=True,
+                                                              default_value=util.read_json_at(INFO.BRAIN_MEMO,
+                                                                                              'Directory_Filter',
+                                                                                              False))
             with col4:
                 if advanced_mode:
                     add_filter_button = st.button("➕" + _('Add Filter'))
@@ -110,16 +116,24 @@ def main():
             filter_info = {}
             # if note directory is selected
             if note_dir != '':
-
+                exclude_dir_official = INFO.EXCLUDE_DIR_OFFICIAL
+                if Directory_Filter:
+                    exclude_dir_user = st_tags.st_tags(value=util.read_json_at(INFO.BRAIN_MEMO, 'exclude_dir_user'),
+                                                       label=_('#### Directory to Exclude'),
+                                                       text=_('Enter name or path of directory to exclude'))
+                    if exclude_dir_user:
+                        exclude_dir = exclude_dir_official + list(exclude_dir_user)
+                    # remove duplicates
+                    exclude_dir = list(dict.fromkeys(exclude_dir))
                 # if advanced mode enabled
                 if advanced_mode:
-                    note_datas = util.read_files(note_dir, single_string=False, exclude_dir=INFO.EXCLUDE_DIR)
+                    note_datas = util.read_files(note_dir, single_string=False, exclude_dir=exclude_dir)
                     note_datas, filter_info = st_tools.filter_data(note_datas, add_filter_button, del_filter_button)
                     # note_datas, filter_key, filter_logic, filter_val = filter_data(note_datas, True)
                     modified_data = util.parse_data(note_datas, delimiter, force_delimiter)
                 else:
                     modified_data = util.read_files(note_dir, single_string=True, delimiter=delimiter,
-                                                    force=force_delimiter, exclude_dir=INFO.EXCLUDE_DIR)
+                                                    force=force_delimiter, exclude_dir=exclude_dir)
 
                 # append mode
                 if append_mode:

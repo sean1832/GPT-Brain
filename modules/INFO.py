@@ -14,7 +14,7 @@ MANIFEST = '.core/manifest.json'
 INIT_LANGUAGE = '.user/language.json'
 
 # exclude directory
-EXCLUDE_DIR = ['__pycache__',
+EXCLUDE_DIR_OFFICIAL = ['__pycache__',
                '.git',
                '.idea',
                '.vscode',
