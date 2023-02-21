@@ -89,7 +89,6 @@ def read_files(file_dir, delimiter='', force=False, single_string=True, exclude_
         if any(dir in root for dir in exclude_dir):
             continue
         for file in files:
-            print(f'Processing {file}...')
             # extract file path
             filepath = os.path.join(root, file)
             # extract filename with extension
