@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-23 02:28+1100\n"
+"POT-Creation-Date: 2023-02-23 04:13+1100\n"
 "PO-Revision-Date: 2023-02-23 02:35+1100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Settings"
 msgstr "設定"
 
-#: Seanium_brain.py:34 pages/1_Configs.py:63
+#: Seanium_brain.py:34 Seanium_brain.py:119 pages/1_Configs.py:63
 msgid "my-info"
 msgstr "マイ情報"
 
@@ -42,7 +42,8 @@ msgstr "質問モデル"
 msgid "Model used for answering user question."
 msgstr "ユーザーの質問に答えるために使用されるモデル。"
 
-#: Seanium_brain.py:49 Seanium_brain.py:146 pages/1_Configs.py:64
+#: Seanium_brain.py:49 Seanium_brain.py:118 Seanium_brain.py:156
+#: pages/1_Configs.py:64
 msgid "question"
 msgstr "質問"
 
@@ -163,11 +164,11 @@ msgstr ""
 msgid "Stream (experimental)"
 msgstr "stream モード"
 
-#: Seanium_brain.py:97
+#: Seanium_brain.py:98
 msgid "Answer count"
 msgstr "回答数"
 
-#: Seanium_brain.py:98
+#: Seanium_brain.py:99
 msgid ""
 "The number of answers to generate. The model will continue to iteratively "
 "generating answers until it reaches the answer count.\n"
@@ -179,35 +180,35 @@ msgstr ""
 "\n"
 "この関数は stream モードをサポートしていないことに注意してください。"
 
-#: Seanium_brain.py:117
+#: Seanium_brain.py:121
 msgid "Clear Log"
 msgstr "ログを消去する"
 
-#: Seanium_brain.py:118
+#: Seanium_brain.py:122
 msgid "Log Cleared"
 msgstr "ログクリアー"
 
-#: Seanium_brain.py:123
+#: Seanium_brain.py:127
 msgid "Version"
 msgstr "バージョン"
 
-#: Seanium_brain.py:124
+#: Seanium_brain.py:128
 msgid "Author"
 msgstr "作者"
 
-#: Seanium_brain.py:125
+#: Seanium_brain.py:129
 msgid "Report bugs"
 msgstr "バグを報告する"
 
-#: Seanium_brain.py:126
+#: Seanium_brain.py:130
 msgid "Github Repo"
 msgstr "Githubリポジトリ"
 
-#: Seanium_brain.py:129
+#: Seanium_brain.py:133
 msgid "🧠GPT-Brain"
 msgstr "🧠GPT-ブレイン"
 
-#: Seanium_brain.py:130
+#: Seanium_brain.py:134
 msgid ""
 "This is my personal AI powered brain feeding my own Obsidian notes. Ask "
 "anything."
@@ -215,23 +216,23 @@ msgstr ""
 "これは、私個人のAIを搭載した脳が、私自身のノートを養っているのです。何でも聞"
 "いてください。"
 
-#: Seanium_brain.py:132
+#: Seanium_brain.py:136
 msgid "This is a beta version. Please [🪲report bugs]("
 msgstr "これはベータ版です。バグを発見した場合は、[🪲報告]("
 
-#: Seanium_brain.py:133
+#: Seanium_brain.py:137
 msgid ") if you find any."
 msgstr ")をお願いします。"
 
-#: Seanium_brain.py:137
+#: Seanium_brain.py:141
 msgid "Ask Brain: "
 msgstr "ブレインに聞く: "
 
-#: Seanium_brain.py:140
+#: Seanium_brain.py:144
 msgid "📩Send"
 msgstr "📩送る"
 
-#: Seanium_brain.py:143
+#: Seanium_brain.py:147
 msgid "📥download log"
 msgstr "📥ダウンロードログ"
 
@@ -368,7 +369,7 @@ msgstr "💾保存"
 msgid "✅File saved!"
 msgstr "✅ファイルが保存されました!"
 
-#: streamlit_toolkit/tools.py:223 streamlit_toolkit/tools.py:240
+#: streamlit_toolkit/tools.py:223 streamlit_toolkit/tools.py:239
 msgid "Thinking on "
 msgstr "思考中： "
 
@@ -380,13 +381,17 @@ msgstr "脳を更新する..."
 msgid "Brain Updated!"
 msgstr "脳が更新されました!"
 
-#: streamlit_toolkit/tools.py:285 streamlit_toolkit/tools.py:315
+#: streamlit_toolkit/tools.py:285 streamlit_toolkit/tools.py:314
 msgid "Thinking on Answer"
 msgstr "回答について考える"
 
-#: streamlit_toolkit/tools.py:294 streamlit_toolkit/tools.py:325
+#: streamlit_toolkit/tools.py:293 streamlit_toolkit/tools.py:322
 msgid "💬Answer"
 msgstr "💬解答"
+
+#, fuzzy
+#~ msgid "my_info"
+#~ msgstr "マイ情報"
 
 #~ msgid "Filter Mode"
 #~ msgstr "フィルターモード"

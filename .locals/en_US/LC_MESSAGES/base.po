@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-23 02:28+1100\n"
+"POT-Creation-Date: 2023-02-23 04:13+1100\n"
 "PO-Revision-Date: 2023-02-18 23:31+1100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Settings"
 msgstr "Settings"
 
-#: Seanium_brain.py:34 pages/1_Configs.py:63
+#: Seanium_brain.py:34 Seanium_brain.py:119 pages/1_Configs.py:63
 msgid "my-info"
 msgstr "my-info"
 
@@ -42,7 +42,8 @@ msgstr "Question Model"
 msgid "Model used for answering user question."
 msgstr ""
 
-#: Seanium_brain.py:49 Seanium_brain.py:146 pages/1_Configs.py:64
+#: Seanium_brain.py:49 Seanium_brain.py:118 Seanium_brain.py:156
+#: pages/1_Configs.py:64
 #, fuzzy
 msgid "question"
 msgstr "Question Model"
@@ -137,11 +138,11 @@ msgstr ""
 msgid "Stream (experimental)"
 msgstr ""
 
-#: Seanium_brain.py:97
+#: Seanium_brain.py:98
 msgid "Answer count"
 msgstr "Answer count"
 
-#: Seanium_brain.py:98
+#: Seanium_brain.py:99
 msgid ""
 "The number of answers to generate. The model will continue to iteratively "
 "generating answers until it reaches the answer count.\n"
@@ -149,58 +150,58 @@ msgid ""
 "Note that this function does not supports `stream` mode."
 msgstr ""
 
-#: Seanium_brain.py:117
+#: Seanium_brain.py:121
 msgid "Clear Log"
 msgstr "Clear Log"
 
-#: Seanium_brain.py:118
+#: Seanium_brain.py:122
 msgid "Log Cleared"
 msgstr "Log Cleared"
 
-#: Seanium_brain.py:123
+#: Seanium_brain.py:127
 msgid "Version"
 msgstr ""
 
-#: Seanium_brain.py:124
+#: Seanium_brain.py:128
 msgid "Author"
 msgstr ""
 
-#: Seanium_brain.py:125
+#: Seanium_brain.py:129
 msgid "Report bugs"
 msgstr ""
 
-#: Seanium_brain.py:126
+#: Seanium_brain.py:130
 msgid "Github Repo"
 msgstr ""
 
-#: Seanium_brain.py:129
+#: Seanium_brain.py:133
 #, fuzzy
 msgid "🧠GPT-Brain"
 msgstr "🧠Seanium Brain"
 
-#: Seanium_brain.py:130
+#: Seanium_brain.py:134
 msgid ""
 "This is my personal AI powered brain feeding my own Obsidian notes. Ask "
 "anything."
 msgstr ""
 
-#: Seanium_brain.py:132
+#: Seanium_brain.py:136
 msgid "This is a beta version. Please [🪲report bugs]("
 msgstr ""
 
-#: Seanium_brain.py:133
+#: Seanium_brain.py:137
 msgid ") if you find any."
 msgstr ""
 
-#: Seanium_brain.py:137
+#: Seanium_brain.py:141
 msgid "Ask Brain: "
 msgstr "Ask Brain: "
 
-#: Seanium_brain.py:140
+#: Seanium_brain.py:144
 msgid "📩Send"
 msgstr "📩Send"
 
-#: Seanium_brain.py:143
+#: Seanium_brain.py:147
 msgid "📥download log"
 msgstr "📥download log"
 
@@ -340,7 +341,7 @@ msgstr "💾Save"
 msgid "✅File saved!"
 msgstr "✅File saved!"
 
-#: streamlit_toolkit/tools.py:223 streamlit_toolkit/tools.py:240
+#: streamlit_toolkit/tools.py:223 streamlit_toolkit/tools.py:239
 #, fuzzy
 msgid "Thinking on "
 msgstr "Thinking on Answer"
@@ -355,13 +356,17 @@ msgstr "Building Brain..."
 msgid "Brain Updated!"
 msgstr "Brain rebuild!"
 
-#: streamlit_toolkit/tools.py:285 streamlit_toolkit/tools.py:315
+#: streamlit_toolkit/tools.py:285 streamlit_toolkit/tools.py:314
 msgid "Thinking on Answer"
 msgstr "Thinking on Answer"
 
-#: streamlit_toolkit/tools.py:294 streamlit_toolkit/tools.py:325
+#: streamlit_toolkit/tools.py:293 streamlit_toolkit/tools.py:322
 msgid "💬Answer"
 msgstr "💬Answer"
+
+#, fuzzy
+#~ msgid "my_info"
+#~ msgstr "my-info"
 
 #~ msgid "Filter Mode"
 #~ msgstr "Filter Mode"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-23 02:28+1100\n"
-"PO-Revision-Date: 2023-02-23 02:36+1100\n"
+"POT-Creation-Date: 2023-02-23 04:13+1100\n"
+"PO-Revision-Date: 2023-02-23 04:08+1100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Settings"
 msgstr "设置"
 
-#: Seanium_brain.py:34 pages/1_Configs.py:63
+#: Seanium_brain.py:34 Seanium_brain.py:119 pages/1_Configs.py:63
 msgid "my-info"
 msgstr "我的背景"
 
@@ -42,7 +42,8 @@ msgstr "問題模型"
 msgid "Model used for answering user question."
 msgstr "回答用戶問題的語言模型。"
 
-#: Seanium_brain.py:49 Seanium_brain.py:146 pages/1_Configs.py:64
+#: Seanium_brain.py:49 Seanium_brain.py:118 Seanium_brain.py:156
+#: pages/1_Configs.py:64
 msgid "question"
 msgstr "問題"
 
@@ -160,11 +161,11 @@ msgstr ""
 msgid "Stream (experimental)"
 msgstr "串流模式"
 
-#: Seanium_brain.py:97
+#: Seanium_brain.py:98
 msgid "Answer count"
 msgstr "回答數量（Answer count）"
 
-#: Seanium_brain.py:98
+#: Seanium_brain.py:99
 msgid ""
 "The number of answers to generate. The model will continue to iteratively "
 "generating answers until it reaches the answer count.\n"
@@ -175,57 +176,57 @@ msgstr ""
 "\n"
 "注意此功能不支持`串流`模式。"
 
-#: Seanium_brain.py:117
+#: Seanium_brain.py:121
 msgid "Clear Log"
 msgstr "清除日誌"
 
-#: Seanium_brain.py:118
+#: Seanium_brain.py:122
 msgid "Log Cleared"
 msgstr "日誌以清除"
 
-#: Seanium_brain.py:123
+#: Seanium_brain.py:127
 msgid "Version"
 msgstr "版本"
 
-#: Seanium_brain.py:124
+#: Seanium_brain.py:128
 msgid "Author"
 msgstr "作者"
 
-#: Seanium_brain.py:125
+#: Seanium_brain.py:129
 msgid "Report bugs"
 msgstr "報告bug"
 
-#: Seanium_brain.py:126
+#: Seanium_brain.py:130
 msgid "Github Repo"
 msgstr "Github源代碼"
 
-#: Seanium_brain.py:129
+#: Seanium_brain.py:133
 msgid "🧠GPT-Brain"
 msgstr "🧠GPT-大腦"
 
-#: Seanium_brain.py:130
+#: Seanium_brain.py:134
 msgid ""
 "This is my personal AI powered brain feeding my own Obsidian notes. Ask "
 "anything."
 msgstr "這是我的個人AI知識管理庫，請隨意問。"
 
-#: Seanium_brain.py:132
+#: Seanium_brain.py:136
 msgid "This is a beta version. Please [🪲report bugs]("
 msgstr "該版本為BETA測試版。如果遇到BUG，請[🪲在此處報告BUG]("
 
-#: Seanium_brain.py:133
+#: Seanium_brain.py:137
 msgid ") if you find any."
 msgstr ")。"
 
-#: Seanium_brain.py:137
+#: Seanium_brain.py:141
 msgid "Ask Brain: "
 msgstr "提問大腦："
 
-#: Seanium_brain.py:140
+#: Seanium_brain.py:144
 msgid "📩Send"
 msgstr "📩發送"
 
-#: Seanium_brain.py:143
+#: Seanium_brain.py:147
 msgid "📥download log"
 msgstr "📥下載日誌"
 
@@ -362,7 +363,7 @@ msgstr "💾保存"
 msgid "✅File saved!"
 msgstr "✅文件以保存！"
 
-#: streamlit_toolkit/tools.py:223 streamlit_toolkit/tools.py:240
+#: streamlit_toolkit/tools.py:223 streamlit_toolkit/tools.py:239
 msgid "Thinking on "
 msgstr "正在思考"
 
@@ -374,13 +375,16 @@ msgstr "更新大腦..."
 msgid "Brain Updated!"
 msgstr "大腦已更新！"
 
-#: streamlit_toolkit/tools.py:285 streamlit_toolkit/tools.py:315
+#: streamlit_toolkit/tools.py:285 streamlit_toolkit/tools.py:314
 msgid "Thinking on Answer"
 msgstr "思考答案中"
 
-#: streamlit_toolkit/tools.py:294 streamlit_toolkit/tools.py:325
+#: streamlit_toolkit/tools.py:293 streamlit_toolkit/tools.py:322
 msgid "💬Answer"
 msgstr "💬回答"
+
+#~ msgid "my_info"
+#~ msgstr "我的背景"
 
 #~ msgid "Filter Mode"
 #~ msgstr "篩選模式"
