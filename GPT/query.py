@@ -6,7 +6,9 @@ import modules.utilities as util
 import modules.language as language
 import GPT
 
-openai.api_key = util.read_file(r'.user\API-KEYS.txt').strip()
+API_KEY = util.read_file(r'.user\API-KEYS.txt').strip()
+
+openai.api_key = API_KEY
 
 # if 'SESSION_LANGUAGE' not in st.session_state:
 #     st.session_state['SESSION_LANGUAGE'] = util.read_json_at('.user/language.json', 'SESSION_LANGUAGE', 'en_US')
@@ -54,6 +56,20 @@ def run_answer(query, model, temp, max_tokens, top_p, freq_penl, pres_penl, chun
     return all_answers
 
 
+def run_answer_stream(query, model, temp, max_tokens, top_p, freq_penl, pres_penl):
+    brain_data = util.read_json(r'.user\brain-data.json')
+    results = GPT.toolkit.search_chunks(query, brain_data, count=1)
+    for result in results:
+        my_info = util.read_file(f'{prompt_dir}/' + _('my-info') + '.txt')
+        prompt = util.read_file(f'{prompt_dir}/' + _('question') + '.txt')
+        prompt = prompt.replace('<<INFO>>', result['content'])
+        prompt = prompt.replace('<<QS>>', query)
+        prompt = prompt.replace('<<MY-INFO>>', my_info)
+
+        answer_client = GPT.toolkit.gpt3_stream(API_KEY, prompt, model, temp, max_tokens, top_p, freq_penl, pres_penl)
+        return answer_client
+
+
 def run(query, model, prompt_file, temp, max_tokens, top_p, freq_penl, pres_penl):
     chunks = textwrap.wrap(query, 10000)
     responses = []
@@ -63,3 +79,10 @@ def run(query, model, prompt_file, temp, max_tokens, top_p, freq_penl, pres_penl
         responses.append(response)
     all_response = '\n\n'.join(responses)
     return all_response
+
+
+def run_stream(query, model, prompt_file, temp, max_tokens, top_p, freq_penl, pres_penl):
+    chunk = textwrap.wrap(query, 10000)[0]
+    prompt = util.read_file(prompt_file).replace('<<DATA>>', chunk)
+    client = GPT.toolkit.gpt3_stream(API_KEY, prompt, model, temp, max_tokens, top_p, freq_penl, pres_penl)
+    return client

@@ -1,5 +1,6 @@
 import os
 import time
+import json
 import streamlit as st
 import tkinter as tk
 from tkinter import filedialog
@@ -228,11 +229,37 @@ def process_response(query, target_model, prompt_file: str, data: GPT.model.para
         log(results, delimiter=f'{file_name.upper()}')
 
 
+def process_response_stream(query, target_model, prompt_file: str, data: GPT.model.param):
+    # check if exclude model is not target model
+    file_name = util.get_file_name(prompt_file)
+    with st.spinner(_('Thinking on ') + f"{file_name}..."):
+        client = GPT.query.run_stream(query, target_model, prompt_file,
+                                      data.temp,
+                                      data.max_tokens,
+                                      data.top_p,
+                                      data.frequency_penalty,
+                                      data.present_penalty)
+    # displaying results
+    st.header(f'📃{file_name}')
+    response_panel = st.empty()
+    previous_chars = ''
+    for event in client.events():
+        if event.data != '[DONE]':
+            char = json.loads(event.data)['choices'][0]['text']
+            response = previous_chars + char
+            response_panel.info(f'{response}')
+            previous_chars += char
+
+    time.sleep(1)
+    log(previous_chars, delimiter=f'{file_name.upper()}')
+
+
 def execute_brain(q, params: GPT.model.param,
                   op: GPT.model.Operation,
                   model: GPT.model.Model,
                   prompt_dictionary: dict,
                   question_prompt: str,
+                  stream: bool,
                   session_language,
                   ):
     # log question
@@ -246,28 +273,62 @@ def execute_brain(q, params: GPT.model.param,
         msg.success(_('Brain Updated!'), icon="👍")
         time.sleep(2)
 
-    # thinking on answer
-    with st.spinner(_('Thinking on Answer')):
-        answer = GPT.query.run_answer(q, model.question_model,
-                                      params.temp,
-                                      params.max_tokens,
-                                      params.top_p,
-                                      params.frequency_penalty,
-                                      params.present_penalty,
-                                      chunk_count=params.chunk_count)
-        if util.contains(op.operations, question_prompt):
+    # =================stream=================
+    if stream:
+        previous_chars = ''
+        is_question_selected = util.contains(op.operations, question_prompt)
+        with st.spinner(_('Thinking on Answer')):
+            answer_clients = GPT.query.run_answer_stream(q, model.question_model,
+                                                         params.temp,
+                                                         params.max_tokens,
+                                                         params.top_p,
+                                                         params.frequency_penalty,
+                                                         params.present_penalty)
+        if is_question_selected:
             # displaying results
             st.header(_('💬Answer'))
-            st.info(f'{answer}')
-            time.sleep(1.5)
-            log(answer, delimiter='ANSWER')
 
-    # thinking on other outputs
-    if len(op.operations_no_question) > 0:
-        for i in range(len(op.operations_no_question)):
-            prompt_path = prompt_dictionary[op.operations_no_question[i]]
-            other_model = model.other_models[i]
-            process_response(answer, other_model, prompt_path, params)
+        answer_panel = st.empty()
+        for event in answer_clients.events():
+            if event.data != '[DONE]':
+                char = json.loads(event.data)['choices'][0]['text']
+                answer = previous_chars + char
+                if is_question_selected:
+                    answer_panel.info(f'{answer}')
+                previous_chars += char
+
+        time.sleep(0.1)
+        log(previous_chars, delimiter='ANSWER')
+        if len(op.operations_no_question) > 0:
+            for i in range(len(op.operations_no_question)):
+                prompt_path = prompt_dictionary[op.operations_no_question[i]]
+                other_model = model.other_models[i]
+                process_response_stream(previous_chars, other_model, prompt_path, params)
+    # =================stream=================
+    else:
+        # thinking on answer
+        with st.spinner(_('Thinking on Answer')):
+            answer = GPT.query.run_answer(q, model.question_model,
+                                          params.temp,
+                                          params.max_tokens,
+                                          params.top_p,
+                                          params.frequency_penalty,
+                                          params.present_penalty,
+                                          chunk_count=params.chunk_count)
+            if util.contains(op.operations, question_prompt):
+                # displaying results
+                st.header(_('💬Answer'))
+                st.info(f'{answer}')
+                time.sleep(1.5)
+                log(answer, delimiter='ANSWER')
+
+        # thinking on other outputs
+        if len(op.operations_no_question) > 0:
+            for i in range(len(op.operations_no_question)):
+                prompt_path = prompt_dictionary[op.operations_no_question[i]]
+                other_model = model.other_models[i]
+                process_response(answer, other_model, prompt_path, params)
+
     # convert param to dictionary
     param_dict = vars(params)
 

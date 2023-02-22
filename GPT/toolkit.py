@@ -1,5 +1,8 @@
 import openai
 import numpy as np
+import requests
+import sseclient
+import json
 
 
 # this function compare similarity between two vectors.
@@ -44,3 +47,27 @@ def gpt3(prompt, model, temp, max_tokens, top_p, freq_penl, pres_penl):
     )
     text = response['choices'][0]['text'].strip()
     return text
+
+
+def gpt3_stream(API_KEY, prompt, model, temp, max_tokens, top_p, freq_penl, pres_penl):
+
+    url = 'https://api.openai.com/v1/completions'
+    headers = {
+        'Accept': 'text/event-stream',
+        'Authorization': 'Bearer ' + API_KEY
+    }
+    body = {
+        'model': model,
+        'prompt': prompt,
+        'max_tokens': max_tokens,
+        'temperature': temp,
+        'top_p': top_p,
+        'frequency_penalty': freq_penl,
+        'presence_penalty': pres_penl,
+        'stream': True,
+    }
+
+    req = requests.post(url, stream=True, headers=headers, json=body)
+    client = sseclient.SSEClient(req)
+    return client
+            # print(json.loads(event.data)['choices'][0]['text'], end='', flush=True)

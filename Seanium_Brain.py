@@ -2,6 +2,7 @@ import os
 import time
 
 import streamlit as st
+import streamlit_toggle as st_toggle
 
 import modules.INFO as INFO
 import modules as mod
@@ -89,10 +90,16 @@ with st.sidebar:
                                help=_("The number of tokens to consider at each step. The larger this is, the more "
                                       "context the model has to work with, but the slower generation and expensive "
                                       "will it be."))
-        chunk_count = st.slider(_('Answer count'), 1, 5, value=util.read_json_at(INFO.BRAIN_MEMO, 'chunk_count', 1),
-                                help=_("The number of answers to generate. The model will continue to iteratively "
-                                       "generating answers until it reaches the answer count."))
+        enable_stream = st_toggle.st_toggle_switch(_('Stream (experimental)'),
+                                                   default_value=util.read_json_at(INFO.BRAIN_MEMO, 'enable_stream', True))
 
+        if not enable_stream:
+            chunk_count = st.slider(_('Answer count'), 1, 5, value=util.read_json_at(INFO.BRAIN_MEMO, 'chunk_count', 1),
+                                    help=_("The number of answers to generate. The model will continue to iteratively "
+                                           "generating answers until it reaches the answer count."
+                                           "\n\nNote that this function does not supports `stream` mode."))
+        else:
+            chunk_count = 1
     param = GPT.model.param(temp=temp,
                             max_tokens=max_tokens,
                             top_p=top_p,
@@ -136,4 +143,4 @@ with body:
             st_tool.download_as(_("📥download log"))
     # execute brain calculation
     if not question == '' and send:
-        st_tool.execute_brain(question, param, op, models, prompt_dictionary, _('question'), SESSION_LANG)
+        st_tool.execute_brain(question, param, op, models, prompt_dictionary, _('question'), enable_stream, SESSION_LANG)
