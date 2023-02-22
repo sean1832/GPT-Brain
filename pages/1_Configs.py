@@ -103,10 +103,10 @@ def main():
                                                            label_after=True,
                                                            default_value=util.read_json_at(INFO.BRAIN_MEMO,
                                                                                            'advanced_mode', False))
-                Directory_Filter = st_toggle.st_toggle_switch(_('Directory Filter'),
+                directory_filter = st_toggle.st_toggle_switch(_('Directory Filter'),
                                                               label_after=True,
                                                               default_value=util.read_json_at(INFO.BRAIN_MEMO,
-                                                                                              'Directory_Filter',
+                                                                                              'is_enable_directory_filter',
                                                                                               False))
             with col4:
                 if advanced_mode:
@@ -117,7 +117,8 @@ def main():
             # if note directory is selected
             if note_dir != '':
                 exclude_dir_official = INFO.EXCLUDE_DIR_OFFICIAL
-                if Directory_Filter:
+                exclude_dir_user = ''
+                if directory_filter:
                     exclude_dir_user = st_tags.st_tags(value=util.read_json_at(INFO.BRAIN_MEMO, 'exclude_dir_user'),
                                                        label=_('#### Directory to Exclude'),
                                                        text=_('Enter file or directory name to exclude'))
@@ -154,6 +155,8 @@ def main():
                 'advanced_mode': advanced_mode,
                 'filter_info': filter_info,
                 'filter_row_count': len(filter_info),
+                'is_enable_directory_filter': directory_filter,
+                'exclude_dir_user': exclude_dir_user
             })
 
         if menu == _('🔑API Keys'):
