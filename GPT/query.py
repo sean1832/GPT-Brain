@@ -11,13 +11,8 @@ API_KEY = util.read_file(r'.user\API-KEYS.txt').strip()
 
 openai.api_key = API_KEY
 
-# if 'SESSION_LANGUAGE' not in st.session_state:
-#     st.session_state['SESSION_LANGUAGE'] = util.read_json_at('.user/language.json', 'SESSION_LANGUAGE', 'en_US')
-
 
 SESSION_LANG = st.session_state['SESSION_LANGUAGE']
-# print('SESSION_LANG', SESSION_LANG)
-# prompt_dir = f'.user/prompt/{SESSION_LANG}'
 _ = language.set_language()
 
 
