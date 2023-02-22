@@ -91,7 +91,8 @@ with st.sidebar:
                                       "context the model has to work with, but the slower generation and expensive "
                                       "will it be."))
         enable_stream = st_toggle.st_toggle_switch(_('Stream (experimental)'),
-                                                   default_value=util.read_json_at(INFO.BRAIN_MEMO, 'enable_stream', True))
+                                                   default_value=util.read_json_at(INFO.BRAIN_MEMO, 'enable_stream',
+                                                                                   True))
 
         if not enable_stream:
             chunk_count = st.slider(_('Answer count'), 1, 5, value=util.read_json_at(INFO.BRAIN_MEMO, 'chunk_count', 1),
@@ -113,6 +114,9 @@ with st.sidebar:
 
     models = GPT.model.Model(question_model=question_model,
                              other_models=other_models)
+
+    prompt_core = GPT.model.prompt_core(question=f'{PROMPT_PATH}/' + _('question') + '.txt',
+                                        my_info=f'{PROMPT_PATH}/' + _('my-info') + '.txt')
 
     if st.button(_('Clear Log'), on_click=st_tool.clear_log):
         st.success(_('Log Cleared'))
@@ -143,4 +147,12 @@ with body:
             st_tool.download_as(_("📥download log"))
     # execute brain calculation
     if not question == '' and send:
-        st_tool.execute_brain(question, param, op, models, prompt_dictionary, _('question'), enable_stream, SESSION_LANG)
+        st_tool.execute_brain(question,
+                              param,
+                              op,
+                              models,
+                              prompt_core,
+                              prompt_dictionary,
+                              _('question'),
+                              enable_stream,
+                              SESSION_LANG)

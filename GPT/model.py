@@ -19,3 +19,9 @@ class Operation:
     def __init__(self, operations, operations_no_question):
         self.operations = operations
         self.operations_no_question = operations_no_question
+
+
+class prompt_core:
+    def __init__(self, question, my_info):
+        self.question = question
+        self.my_info = my_info

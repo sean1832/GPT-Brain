@@ -5,6 +5,7 @@ import streamlit as st
 import modules.utilities as util
 import modules.language as language
 import GPT
+import modules.INFO as INFO
 
 API_KEY = util.read_file(r'.user\API-KEYS.txt').strip()
 
@@ -13,8 +14,10 @@ openai.api_key = API_KEY
 # if 'SESSION_LANGUAGE' not in st.session_state:
 #     st.session_state['SESSION_LANGUAGE'] = util.read_json_at('.user/language.json', 'SESSION_LANGUAGE', 'en_US')
 
+
 SESSION_LANG = st.session_state['SESSION_LANGUAGE']
-prompt_dir = f'.user/prompt/{SESSION_LANG}'
+# print('SESSION_LANG', SESSION_LANG)
+# prompt_dir = f'.user/prompt/{SESSION_LANG}'
 _ = language.set_language()
 
 
@@ -37,52 +40,87 @@ def build(chunk_size=4000):
     util.write_json(result, r'.user\brain-data.json')
 
 
-def run_answer(query, model, temp, max_tokens, top_p, freq_penl, pres_penl, chunk_count):
-    brain_data = util.read_json(r'.user\brain-data.json')
-    results = GPT.toolkit.search_chunks(query, brain_data, chunk_count)
-    answers = []
-    for result in results:
-        my_info = util.read_file(f'{prompt_dir}/' + _('my-info') + '.txt')
-
-        prompt = util.read_file(f'{prompt_dir}/' + _('question') + '.txt')
-        prompt = prompt.replace('<<INFO>>', result['content'])
-        prompt = prompt.replace('<<QS>>', query)
-        prompt = prompt.replace('<<MY-INFO>>', my_info)
-
-        answer = GPT.toolkit.gpt3(prompt, model, temp, max_tokens, top_p, freq_penl, pres_penl)
-        answers.append(answer)
-
-    all_answers = '\n\n'.join(answers)
-    return all_answers
-
-
-def run_answer_stream(query, model, temp, max_tokens, top_p, freq_penl, pres_penl):
-    brain_data = util.read_json(r'.user\brain-data.json')
-    results = GPT.toolkit.search_chunks(query, brain_data, count=1)
-    for result in results:
-        my_info = util.read_file(f'{prompt_dir}/' + _('my-info') + '.txt')
-        prompt = util.read_file(f'{prompt_dir}/' + _('question') + '.txt')
-        prompt = prompt.replace('<<INFO>>', result['content'])
-        prompt = prompt.replace('<<QS>>', query)
-        prompt = prompt.replace('<<MY-INFO>>', my_info)
-
-        answer_client = GPT.toolkit.gpt3_stream(API_KEY, prompt, model, temp, max_tokens, top_p, freq_penl, pres_penl)
-        return answer_client
+# def run_answer(query, model, temp, max_tokens, top_p, freq_penl, pres_penl, chunk_count):
+#     brain_data = util.read_json(r'.user\brain-data.json')
+#     results = GPT.toolkit.search_chunks(query, brain_data, chunk_count)
+#     answers = []
+#     for result in results:
+#         my_info = util.read_file(f'{prompt_dir}/' + _('my-info') + '.txt')
+#
+#         prompt = util.read_file(f'{prompt_dir}/' + _('question') + '.txt')
+#         prompt = prompt.replace('<<INFO>>', result['content'])
+#         prompt = prompt.replace('<<QS>>', query)
+#         prompt = prompt.replace('<<MY-INFO>>', my_info)
+#
+#         answer = GPT.toolkit.gpt3(prompt, model, temp, max_tokens, top_p, freq_penl, pres_penl)
+#         answers.append(answer)
+#
+#     all_answers = '\n\n'.join(answers)
+#     return all_answers
 
 
-def run(query, model, prompt_file, temp, max_tokens, top_p, freq_penl, pres_penl):
-    chunks = textwrap.wrap(query, 10000)
-    responses = []
-    for chunk in chunks:
-        prompt = util.read_file(prompt_file).replace('<<DATA>>', chunk)
-        response = GPT.toolkit.gpt3(prompt, model, temp, max_tokens, top_p, freq_penl, pres_penl)
-        responses.append(response)
-    all_response = '\n\n'.join(responses)
+# def run_answer_stream(query, model, temp, max_tokens, top_p, freq_penl, pres_penl):
+#     brain_data = util.read_json(r'.user\brain-data.json')
+#     results = GPT.toolkit.search_chunks(query, brain_data, count=1)
+#     for result in results:
+#         my_info = util.read_file(f'{prompt_dir}/' + _('my-info') + '.txt')
+#         prompt = util.read_file(f'{prompt_dir}/' + _('question') + '.txt')
+#         prompt = prompt.replace('<<INFO>>', result['content'])
+#         prompt = prompt.replace('<<QS>>', query)
+#         prompt = prompt.replace('<<MY-INFO>>', my_info)
+#
+#         answer_client = GPT.toolkit.gpt3_stream(API_KEY, prompt, model, temp, max_tokens, top_p, freq_penl, pres_penl)
+#         return answer_client
+
+
+def run(query, model, prompt_file, isQuestion, params, info_file=None):
+
+    if isQuestion:
+        data = util.read_json(INFO.BRAIN_DATA)
+        results = GPT.toolkit.search_chunks(query, data, params.chunk_count)
+        answers = []
+        for result in results:
+            my_info = util.read_file(info_file)
+            prompt = util.read_file(prompt_file)
+            prompt = prompt.replace('<<INFO>>', result['content'])
+            prompt = prompt.replace('<<QS>>', query)
+            prompt = prompt.replace('<<MY-INFO>>', my_info)
+
+            answer = GPT.toolkit.gpt3(prompt, model, params)
+            answers.append(answer)
+        all_response = '\n\n'.join(answers)
+    else:
+        chunks = textwrap.wrap(query, 10000)
+        responses = []
+        for chunk in chunks:
+            prompt = util.read_file(prompt_file).replace('<<DATA>>', chunk)
+            response = GPT.toolkit.gpt3(prompt, model, params)
+            responses.append(response)
+        all_response = '\n\n'.join(responses)
     return all_response
 
 
-def run_stream(query, model, prompt_file, temp, max_tokens, top_p, freq_penl, pres_penl):
-    chunk = textwrap.wrap(query, 10000)[0]
-    prompt = util.read_file(prompt_file).replace('<<DATA>>', chunk)
-    client = GPT.toolkit.gpt3_stream(API_KEY, prompt, model, temp, max_tokens, top_p, freq_penl, pres_penl)
+# def run_stream(query, model, prompt_file, temp, max_tokens, top_p, freq_penl, pres_penl):
+#     chunk = textwrap.wrap(query, 10000)[0]
+#     prompt = util.read_file(prompt_file).replace('<<DATA>>', chunk)
+#     client = GPT.toolkit.gpt3_stream(API_KEY, prompt, model, temp, max_tokens, top_p, freq_penl, pres_penl)
+#     return client
+
+def run_stream(query, model, prompt_file, isQuestion, params, info_file=None):
+    client = None
+    if isQuestion:
+        data = util.read_json(INFO.BRAIN_DATA)
+        results = GPT.toolkit.search_chunks(query, data, count=1)
+        for result in results:
+            my_info = util.read_file(info_file)
+            prompt = util.read_file(prompt_file)
+            prompt = prompt.replace('<<INFO>>', result['content'])
+            prompt = prompt.replace('<<QS>>', query)
+            prompt = prompt.replace('<<MY-INFO>>', my_info)
+            client = GPT.toolkit.gpt3_stream(API_KEY, prompt, model, params)
+
+    else:
+        chunk = textwrap.wrap(query, 10000)[0]
+        prompt = util.read_file(prompt_file).replace('<<DATA>>', chunk)
+        client = GPT.toolkit.gpt3_stream(API_KEY, prompt, model, params)
     return client

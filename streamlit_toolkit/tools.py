@@ -217,16 +217,15 @@ def filter_data(pages: list, add_filter_button, del_filter_button):
     return filtered_contents, filter_datas
 
 
-def process_response(query, target_model, prompt_file: str, data: GPT.model.param):
+def process_response(query, target_model, prompt_file: str, params: GPT.model.param):
     # check if exclude model is not target model
     file_name = util.get_file_name(prompt_file)
     with st.spinner(_('Thinking on ') + f"{file_name}..."):
-        results = GPT.query.run(query, target_model, prompt_file,
-                                data.temp,
-                                data.max_tokens,
-                                data.top_p,
-                                data.frequency_penalty,
-                                data.present_penalty)
+        results = GPT.query.run(query,
+                                target_model,
+                                prompt_file,
+                                isQuestion=False,
+                                params=params)
         # displaying results
         st.header(f'📃{file_name}')
         st.info(f'{results}')
@@ -234,16 +233,16 @@ def process_response(query, target_model, prompt_file: str, data: GPT.model.para
         log(results, delimiter=f'{file_name.upper()}')
 
 
-def process_response_stream(query, target_model, prompt_file: str, data: GPT.model.param):
+def process_response_stream(query, target_model, prompt_file: str, params: GPT.model.param):
     # check if exclude model is not target model
     file_name = util.get_file_name(prompt_file)
     with st.spinner(_('Thinking on ') + f"{file_name}..."):
-        client = GPT.query.run_stream(query, target_model, prompt_file,
-                                      data.temp,
-                                      data.max_tokens,
-                                      data.top_p,
-                                      data.frequency_penalty,
-                                      data.present_penalty)
+        client = GPT.query.run_stream(query,
+                                      target_model,
+                                      prompt_file,
+                                      isQuestion=False,
+                                      params=params)
+
     # displaying results
     st.header(f'📃{file_name}')
     response_panel = st.empty()
@@ -262,6 +261,7 @@ def process_response_stream(query, target_model, prompt_file: str, data: GPT.mod
 def execute_brain(q, params: GPT.model.param,
                   op: GPT.model.Operation,
                   model: GPT.model.Model,
+                  prompt_core: GPT.model.prompt_core,
                   prompt_dictionary: dict,
                   question_prompt: str,
                   stream: bool,
@@ -283,12 +283,11 @@ def execute_brain(q, params: GPT.model.param,
         previous_chars = ''
         is_question_selected = util.contains(op.operations, question_prompt)
         with st.spinner(_('Thinking on Answer')):
-            answer_clients = GPT.query.run_answer_stream(q, model.question_model,
-                                                         params.temp,
-                                                         params.max_tokens,
-                                                         params.top_p,
-                                                         params.frequency_penalty,
-                                                         params.present_penalty)
+            answer_clients = GPT.query.run_stream(q, model.question_model,
+                                                  prompt_file=prompt_core.question,
+                                                  isQuestion=True,
+                                                  params=params,
+                                                  info_file=prompt_core.my_info)
         if is_question_selected:
             # displaying results
             st.header(_('💬Answer'))
@@ -313,13 +312,11 @@ def execute_brain(q, params: GPT.model.param,
     else:
         # thinking on answer
         with st.spinner(_('Thinking on Answer')):
-            answer = GPT.query.run_answer(q, model.question_model,
-                                          params.temp,
-                                          params.max_tokens,
-                                          params.top_p,
-                                          params.frequency_penalty,
-                                          params.present_penalty,
-                                          chunk_count=params.chunk_count)
+            answer = GPT.query.run(q, model.question_model,
+                                   prompt_file=prompt_core.question,
+                                   isQuestion=True,
+                                   params=params,
+                                   info_file=prompt_core.my_info)
             if util.contains(op.operations, question_prompt):
                 # displaying results
                 st.header(_('💬Answer'))

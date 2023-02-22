@@ -3,6 +3,7 @@ import numpy as np
 import requests
 import sseclient
 import json
+import GPT
 
 
 # this function compare similarity between two vectors.
@@ -35,22 +36,21 @@ def search_chunks(text, data, count=1):
     return ordered[0:count]
 
 
-def gpt3(prompt, model, temp, max_tokens, top_p, freq_penl, pres_penl):
+def gpt3(prompt, model, params):
     response = openai.Completion.create(
         model=model,
         prompt=prompt,
-        temperature=temp,
-        max_tokens=max_tokens,
-        top_p=top_p,
-        frequency_penalty=freq_penl,
-        presence_penalty=pres_penl
+        temperature=params.temp,
+        max_tokens=params.max_tokens,
+        top_p=params.top_p,
+        frequency_penalty=params.frequency_penalty,
+        presence_penalty=params.present_penalty
     )
     text = response['choices'][0]['text'].strip()
     return text
 
 
-def gpt3_stream(API_KEY, prompt, model, temp, max_tokens, top_p, freq_penl, pres_penl):
-
+def gpt3_stream(API_KEY, prompt, model, params):
     url = 'https://api.openai.com/v1/completions'
     headers = {
         'Accept': 'text/event-stream',
@@ -59,15 +59,15 @@ def gpt3_stream(API_KEY, prompt, model, temp, max_tokens, top_p, freq_penl, pres
     body = {
         'model': model,
         'prompt': prompt,
-        'max_tokens': max_tokens,
-        'temperature': temp,
-        'top_p': top_p,
-        'frequency_penalty': freq_penl,
-        'presence_penalty': pres_penl,
+        'max_tokens': params.max_tokens,
+        'temperature': params.temp,
+        'top_p': params.top_p,
+        'frequency_penalty': params.frequency_penalty,
+        'presence_penalty': params.present_penalty,
         'stream': True,
     }
 
     req = requests.post(url, stream=True, headers=headers, json=body)
     client = sseclient.SSEClient(req)
     return client
-            # print(json.loads(event.data)['choices'][0]['text'], end='', flush=True)
+    # print(json.loads(event.data)['choices'][0]['text'], end='', flush=True)

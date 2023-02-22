@@ -10,19 +10,20 @@ st.set_page_config(
 USER_DIR = '.user'
 LOG_PATH = '.user/log'
 BRAIN_MEMO = '.user/brain-memo.json'
+BRAIN_DATA = '.user/brain-data.json'
 MANIFEST = '.core/manifest.json'
 INIT_LANGUAGE = '.user/language.json'
 
 # exclude directory
 EXCLUDE_DIR_OFFICIAL = ['__pycache__',
-               '.git',
-               '.idea',
-               '.vscode',
-               '.obsidian',
-               '.trash',
-               '.git',
-               '.gitignore',
-               '.gitattributes']
+                        '.git',
+                        '.idea',
+                        '.vscode',
+                        '.obsidian',
+                        '.trash',
+                        '.git',
+                        '.gitignore',
+                        '.gitattributes']
 
 # activate session
 if 'SESSION_LANGUAGE' not in st.session_state:
