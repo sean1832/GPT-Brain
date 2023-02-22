@@ -2,8 +2,6 @@ import openai
 import numpy as np
 import requests
 import sseclient
-import json
-import GPT
 
 
 # this function compare similarity between two vectors.
