@@ -44,6 +44,7 @@
 - Execute `run-webUI.bat`
 
 ## Demo
+![](Documentation/images/demo_menu_en.gif)
 ### Main Page
 ![screenshot1](Documentation/images/menu_en.png)
 ### Brain Memory
