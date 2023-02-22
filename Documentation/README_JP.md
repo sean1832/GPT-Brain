@@ -34,7 +34,7 @@
 
 ## 設置
 ### 1. 必要なもの
-- **[python 3.11](https://www.python.org/downloads)**をインストール | [Pythonインストール方法解説 (YouTube)](https://youtu.be/HBxCHonP6Ro?t=105)
+- **[python 3.11](https://www.python.org/downloads)** をインストール | [Pythonインストール方法解説 (YouTube)](https://youtu.be/HBxCHonP6Ro?t=105)
 - OpenAI **[APIキー](https://platform.openai.com/account/api-keys)**
 ### 2. 初めてのセットアップする
 1. `setup.bat`を起動する。
