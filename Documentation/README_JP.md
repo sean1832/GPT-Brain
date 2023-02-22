@@ -45,6 +45,7 @@
 
 
 ## デモ
+![](images/demo_menu_jp.gif)
 ### メインページ
 ![screenshot1](images/menu_jp.png)
 ### 脳内記憶

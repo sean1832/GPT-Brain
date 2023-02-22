@@ -45,6 +45,7 @@
 
 
 ## demo
+![](images/demo_menu_ch.gif)
 ### 主页
 ![screenshot1](images/menu_zh.png)
 ### 大脑记忆（笔记内容）
