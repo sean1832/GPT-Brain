@@ -37,7 +37,7 @@ with st.sidebar:
     operations = st.multiselect(_('Operations'),
                                 operation_options,
                                 default=util.read_json_at(INFO.BRAIN_MEMO, f'operations_{SESSION_LANG}',
-                                                          operation_options[0]),
+                                                          _('question')),
                                 help=_('Combinations of operations to perform.'))
 
     last_question_model = util.read_json_at(INFO.BRAIN_MEMO, 'question_model', INFO.MODELS_OPTIONS[0])
