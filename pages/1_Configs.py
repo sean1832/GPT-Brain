@@ -113,11 +113,15 @@ def main():
                     add_filter_button = st.button("➕" + _('Add Filter'))
                     del_filter_button = st.button("❌" + _('Delete Filter'))
 
+            # ==================== Default Values ====================
             filter_info = {}
+            exclude_dir_user = ''
+            # ==================== Default Values ====================
+
             # if note directory is selected
             if note_dir != '':
                 exclude_dir_official = INFO.EXCLUDE_DIR_OFFICIAL
-                exclude_dir_user = ''
+
                 if directory_filter:
                     exclude_dir_user = st_tags.st_tags(value=util.read_json_at(INFO.BRAIN_MEMO, 'exclude_dir_user'),
                                                        label=_('#### Directory to Exclude'),
