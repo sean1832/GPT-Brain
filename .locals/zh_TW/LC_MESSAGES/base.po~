@@ -1,0 +1,397 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-23 04:13+1100\n"
+"PO-Revision-Date: 2023-02-23 04:08+1100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.2.2\n"
+
+#: Seanium_brain.py:27 pages/1_Configs.py:26
+msgid "Settings"
+msgstr "设置"
+
+#: Seanium_brain.py:34 Seanium_brain.py:119 pages/1_Configs.py:63
+msgid "my-info"
+msgstr "我的背景"
+
+#: Seanium_brain.py:37
+msgid "Operations"
+msgstr "操作"
+
+#: Seanium_brain.py:41
+msgid "Combinations of operations to perform."
+msgstr "執行的操作組合。"
+
+#: Seanium_brain.py:46
+msgid "Question Model"
+msgstr "問題模型"
+
+#: Seanium_brain.py:47
+msgid "Model used for answering user question."
+msgstr "回答用戶問題的語言模型。"
+
+#: Seanium_brain.py:49 Seanium_brain.py:118 Seanium_brain.py:156
+#: pages/1_Configs.py:64
+msgid "question"
+msgstr "問題"
+
+#: Seanium_brain.py:56
+msgid "Model"
+msgstr "模型"
+
+#: Seanium_brain.py:59
+msgid "Temperature"
+msgstr "溫度（Temperature）"
+
+#: Seanium_brain.py:60
+msgid ""
+"What sampling temperature to use, between 0 and 1. Higher values like 0.8 "
+"will make the output more random, while lower values like 0.2 will make it "
+"more focused and deterministic. \n"
+"\n"
+"It is generally recommend altering this or `top_p` but not both."
+msgstr ""
+"使用什麼採樣溫度，在0和1之間。較高的值如0.8會使輸出更加隨機，而較低的值如0.2"
+"會使它更加集中和確定。\n"
+"\n"
+"一般建議改變這個值或`top_p`，但不能同時改變。"
+
+#: Seanium_brain.py:63
+msgid "Max Tokens"
+msgstr "最大令牌數（Max Token）"
+
+#: Seanium_brain.py:64
+msgid ""
+"The maximum number of tokens to generate in the completion.\n"
+"\n"
+"The token count of your prompt plus `max_tokens` cannot exceed the model's "
+"context length. Most models have a context length of 2048 tokens (except for "
+"the newest models, which support 4096)."
+msgstr ""
+"生成需要的最大數量的令牌數量。\n"
+"\n"
+"你的咒文（prompt）和結果加起來不能超過模型的總長度。大多數模型的總長度限制為"
+"2048個令牌（最新的模型支持4096個）。"
+
+#: Seanium_brain.py:69
+msgid "Advanced Options"
+msgstr "高級設置"
+
+#: Seanium_brain.py:70
+msgid "Top_P"
+msgstr ""
+
+#: Seanium_brain.py:71
+msgid ""
+"An alternative to sampling with temperature, called nucleus sampling, where "
+"the model considers the results of the tokens with top_p probability mass. "
+"So 0.1 means only the tokens comprising the top 10% probability mass are "
+"considered.\n"
+"\n"
+"It is generally recommend altering this or `temperature` but not both."
+msgstr ""
+"一種替代溫度採樣的方法被稱為“核心採樣”，在該方法中，模型會考慮到具有 top_p 概"
+"率質量的標記的結果。因此，當 top_p 的值為 0.1 時，只有包含前 10% 概率質量的標"
+"記會被考慮。\n"
+"\n"
+"通常建議調整此參數或`溫度`參數中的其中一個，但不能同時調整兩個參數。"
+
+#: Seanium_brain.py:75
+msgid "Frequency penalty"
+msgstr "頻率懲罰（Frequency penalty）"
+
+#: Seanium_brain.py:77
+msgid ""
+"Larger the number increasing the model's likelihood to talk about new "
+"topics. Penalize new tokens based on whether they appear in the text so "
+"far.\n"
+"\n"
+"[See more information about frequency and presence penalties.](https://"
+"platform.openai.com/docs/api-reference/parameter-details)"
+msgstr ""
+"增加數值會使模型談論新話題的可能性增加。基於詞語出現的頻率和存在程度對新的令"
+"牌（token）進行懲罰。\n"
+"\n"
+"[有關頻率和存在程度懲罰的更多信息，請參見此處（英文）](https://platform."
+"openai.com/docs/api-reference/parameter-details)"
+
+#: Seanium_brain.py:81
+msgid "Presence penalty"
+msgstr "存在懲罰（Presence penalty）"
+
+#: Seanium_brain.py:83
+msgid ""
+"Decreasing the model's likelihood to repeat the same line verbatim. Penalize "
+"new tokens based on their existing frequency in the text so far.\n"
+"\n"
+"[See more information about frequency and presence penalties.](https://"
+"platform.openai.com/docs/api-reference/parameter-details)"
+msgstr ""
+"降低模型重複相同句子的可能性。基於文本中已有的詞頻來懲罰新的令牌。\n"
+"\n"
+"[有關頻率和存在程度懲罰的更多信息，請參見此處（英文）](https://platform."
+"openai.com/docs/api-reference/parameter-details)"
+
+#: Seanium_brain.py:88
+msgid "Chunk size"
+msgstr "區塊大小（Chunk size）"
+
+#: Seanium_brain.py:90
+msgid ""
+"The number of tokens to consider at each step. The larger this is, the more "
+"context the model has to work with, but the slower generation and expensive "
+"will it be."
+msgstr ""
+"增加數值會增加AI思考的令牌數量。這個數字越大，模型就有越多的上下文可用，但生"
+"成速度會更慢，而且成本更高。"
+
+#: Seanium_brain.py:93
+msgid "Stream (experimental)"
+msgstr "串流模式"
+
+#: Seanium_brain.py:98
+msgid "Answer count"
+msgstr "回答數量（Answer count）"
+
+#: Seanium_brain.py:99
+msgid ""
+"The number of answers to generate. The model will continue to iteratively "
+"generating answers until it reaches the answer count.\n"
+"\n"
+"Note that this function does not supports `stream` mode."
+msgstr ""
+"需要生成的答案數量。模型會不斷迭代生成答案，直到達到所需答案數量。\n"
+"\n"
+"注意此功能不支持`串流`模式。"
+
+#: Seanium_brain.py:121
+msgid "Clear Log"
+msgstr "清除日誌"
+
+#: Seanium_brain.py:122
+msgid "Log Cleared"
+msgstr "日誌以清除"
+
+#: Seanium_brain.py:127
+msgid "Version"
+msgstr "版本"
+
+#: Seanium_brain.py:128
+msgid "Author"
+msgstr "作者"
+
+#: Seanium_brain.py:129
+msgid "Report bugs"
+msgstr "報告bug"
+
+#: Seanium_brain.py:130
+msgid "Github Repo"
+msgstr "Github源代碼"
+
+#: Seanium_brain.py:133
+msgid "🧠GPT-Brain"
+msgstr "🧠GPT-大腦"
+
+#: Seanium_brain.py:134
+msgid ""
+"This is my personal AI powered brain feeding my own Obsidian notes. Ask "
+"anything."
+msgstr "這是我的個人AI知識管理庫，請隨意問。"
+
+#: Seanium_brain.py:136
+msgid "This is a beta version. Please [🪲report bugs]("
+msgstr "該版本為BETA測試版。如果遇到BUG，請[🪲在此處報告BUG]("
+
+#: Seanium_brain.py:137
+msgid ") if you find any."
+msgstr ")。"
+
+#: Seanium_brain.py:141
+msgid "Ask Brain: "
+msgstr "提問大腦："
+
+#: Seanium_brain.py:144
+msgid "📩Send"
+msgstr "📩發送"
+
+#: Seanium_brain.py:147
+msgid "📥download log"
+msgstr "📥下載日誌"
+
+#: pages/1_Configs.py:27
+msgid "Menu"
+msgstr "菜單"
+
+#: pages/1_Configs.py:28 pages/1_Configs.py:34 pages/1_Configs.py:35
+msgid "📝Prompts"
+msgstr "📝咒文（prompt）"
+
+#: pages/1_Configs.py:29 pages/1_Configs.py:77 pages/1_Configs.py:78
+#: pages/1_Configs.py:151
+msgid "💽Brain Memory"
+msgstr "💽腦記憶"
+
+#: pages/1_Configs.py:30 pages/1_Configs.py:162 pages/1_Configs.py:163
+msgid "🔑API Keys"
+msgstr "🔑API 密匙"
+
+#: pages/1_Configs.py:36
+msgid "Configuration of prompts."
+msgstr "這裡設置咒文（prompt）"
+
+#: pages/1_Configs.py:50
+msgid "Prompt File"
+msgstr "咒文文件"
+
+#: pages/1_Configs.py:54
+msgid "New Prompt"
+msgstr "新建咒文"
+
+#: pages/1_Configs.py:55
+msgid "New Prompt Name"
+msgstr "新建文件名"
+
+#: pages/1_Configs.py:55
+msgid "new_prompt"
+msgstr "新建咒文"
+
+#: pages/1_Configs.py:56
+msgid "Create"
+msgstr "創建"
+
+#: pages/1_Configs.py:65
+msgid "summarize"
+msgstr "總結"
+
+#: pages/1_Configs.py:67
+msgid "Delete Prompt"
+msgstr "刪除咒文"
+
+#: pages/1_Configs.py:68
+msgid "❌Delete"
+msgstr "❌刪除"
+
+#: pages/1_Configs.py:74
+msgid "Prompts"
+msgstr "咒文（Prompts）"
+
+#: pages/1_Configs.py:79
+msgid "Modify your brain knowledge base."
+msgstr "這裡修改大腦知識庫..."
+
+#: pages/1_Configs.py:84
+msgid "🔄Refresh"
+msgstr "🔄刷新"
+
+#: pages/1_Configs.py:86
+msgid "📁Select Note Directory"
+msgstr "📁選擇筆記目錄"
+
+#: pages/1_Configs.py:89
+msgid "Note Directory"
+msgstr "筆記目錄"
+
+#: pages/1_Configs.py:90 streamlit_toolkit/tools.py:117
+msgid "Select Note Directory"
+msgstr "請選擇筆記文件目錄"
+
+#: pages/1_Configs.py:95
+msgid "Delimiter"
+msgstr "分界符號"
+
+#: pages/1_Configs.py:98
+msgid "Append Mode"
+msgstr "附加模式"
+
+#: pages/1_Configs.py:99
+msgid "Force Delimiter"
+msgstr "強制分界"
+
+#: pages/1_Configs.py:102
+msgid "Frontmatter Filter"
+msgstr "前置篩選"
+
+#: pages/1_Configs.py:106
+msgid "Directory Filter"
+msgstr "目錄過濾"
+
+#: pages/1_Configs.py:113
+msgid "Add Filter"
+msgstr "增加篩選"
+
+#: pages/1_Configs.py:114
+msgid "Delete Filter"
+msgstr "刪除篩選"
+
+#: pages/1_Configs.py:123
+msgid "#### Directory to Exclude"
+msgstr "#### 目錄過濾"
+
+#: pages/1_Configs.py:124
+msgid "Enter file or directory name to exclude"
+msgstr "輸入需要排除的目錄名"
+
+#: pages/1_Configs.py:150
+msgid "Raw Memory Inputs"
+msgstr "筆記數據內容"
+
+#: pages/1_Configs.py:164
+msgid "Configure your OpenAI API keys."
+msgstr "這裡設置OpenAI API密匙。"
+
+#: pages/1_Configs.py:165
+msgid "API Keys"
+msgstr "API密匙"
+
+#: streamlit_toolkit/tools.py:57
+msgid "💾Save"
+msgstr "💾保存"
+
+#: streamlit_toolkit/tools.py:60
+msgid "✅File saved!"
+msgstr "✅文件以保存！"
+
+#: streamlit_toolkit/tools.py:223 streamlit_toolkit/tools.py:239
+msgid "Thinking on "
+msgstr "正在思考"
+
+#: streamlit_toolkit/tools.py:274
+msgid "Updating Brain..."
+msgstr "更新大腦..."
+
+#: streamlit_toolkit/tools.py:278
+msgid "Brain Updated!"
+msgstr "大腦已更新！"
+
+#: streamlit_toolkit/tools.py:285 streamlit_toolkit/tools.py:314
+msgid "Thinking on Answer"
+msgstr "思考答案中"
+
+#: streamlit_toolkit/tools.py:293 streamlit_toolkit/tools.py:322
+msgid "💬Answer"
+msgstr "💬回答"
+
+#~ msgid "my_info"
+#~ msgstr "我的背景"
+
+#~ msgid "Filter Mode"
+#~ msgstr "篩選模式"
+
+#~ msgid "Processing"
+#~ msgstr "正在处理"
+
+#~ msgid ""
+#~ "This version does not allow for inquiries in languages other than English."
+#~ msgstr "该版本暂不支持英语以外的检索。"
