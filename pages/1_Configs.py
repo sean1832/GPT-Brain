@@ -126,7 +126,6 @@ def main():
                     exclude_dir_user = st_tags.st_tags(value=util.read_json_at(INFO.BRAIN_MEMO, 'exclude_dir_user'),
                                                        label=_('#### Directory to Exclude'),
                                                        text=_('Enter file or directory name to exclude'))
-                    print(exclude_dir_user)
                     if exclude_dir_user:
                         exclude_dir = exclude_dir_official + list(exclude_dir_user)
                         # remove duplicates
