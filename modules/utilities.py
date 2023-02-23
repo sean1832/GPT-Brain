@@ -137,12 +137,12 @@ def write_json(content, filepath, mode='w', encoding='UTF-8'):
         json.dump(content, file, indent=2)
 
 
-def read_json(filepath):
+def read_json(filepath, encoding='UTF-8', default_value={}):
     try:
-        with open(filepath, 'r', encoding='UTF-8') as file:
+        with open(filepath, 'r', encoding=encoding) as file:
             return json.load(file)
     except FileNotFoundError:
-        create_json_not_exist(filepath)
+        create_json_not_exist(filepath, default_value)
         return {}
 
 

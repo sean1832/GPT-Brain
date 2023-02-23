@@ -3,7 +3,7 @@ import streamlit as st
 import modules.utilities as util
 
 
-languages = util.read_json('.locals/languages.json')
+languages = util.read_json('.locals/languages.json', default_value={'SESSION_LANGUAGE': 'en_US'})
 
 
 def select_language():
