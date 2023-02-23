@@ -29,19 +29,22 @@
 - [x] ~~Multilingual support for UI.~~
 - [x] ~~Multilingual search support.~~
 - [ ] Provide detail documentation for users.
-- [ ] Automatic update for new version.
 - [ ] Release for windows.
 
 ## Install
 ### 1. What you need
 - Install **[python 3.11](https://www.python.org/downloads)** | [python installation tutorial (YouTube)](https://youtu.be/HBxCHonP6Ro?t=105)
 - OpenAI **[API keys](https://platform.openai.com/account/api-keys)**
+- **[GitHub Desktop](https://desktop.github.com/)** or **[Git](https://git-scm.com/downloads)** (optional)
+- **[Obsidian](https://obsidian.md/)** (optional)
+
 ### 2. Set up the project for the first time
-1. Run `setup.bat`
-2. Enter your OpenAI API Key
+1. Download the project
+2. Run `SETUP.bat`
+3. Enter your OpenAI API Key
 
 ### 3. Run
-- Execute `run-webUI.bat`
+- Execute `RUN.bat`
 
 ## Demo
 ![](Documentation/images/demo_menu_en.gif)

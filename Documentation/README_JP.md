@@ -29,19 +29,22 @@
 - [x] ~~多言語UI。~~
 - [x] ~~多言語検索に対応。~~
 - [ ] ユーザー向けの詳細なドキュメントを提供する。
-- [ ] 新バージョンの自動アップデート
 - [ ] Windows用をリリース。
 
 ## 設置
 ### 1. 必要なもの
 - **[python 3.11](https://www.python.org/downloads)** をインストール | [Pythonインストール方法解説 (YouTube)](https://youtu.be/HBxCHonP6Ro?t=105)
-- OpenAI **[APIキー](https://platform.openai.com/account/api-keys)**
+- OpenAI **[APIキー](https://platform.openai.com/account/api-keys)** の確保
+- (オプショナル) **[GitHub Desktop](https://desktop.github.com/)** または **[Git](https://git-scm.com/downloads)** をインストール
+- (オプショナル) **[Obsidian](https://obsidian.md/)** をインストール
+
 ### 2. 初めてのセットアップする
-1. `setup.bat`を起動する。
-2. OpenAI API キーを入力る。
+1. このレポジトリをダウンロードする。
+2. `SETUP.bat`を起動する。
+3. OpenAI API キーを入力る。
 
 ### 3. プロジェクトを起動する
-- `run-webUI.bat`を起動する。
+- `RUN.bat`を起動する。
 
 
 ## デモ

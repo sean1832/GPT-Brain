@@ -29,19 +29,23 @@
 - [x] ~~支持多语言UI~~。
 - [x] ~~支持多语言检索。~~
 - [ ] 提供详细操作指南。
-- [ ] 自动更新。
 - [ ] 发布windows版本。
 
 ## 安装
 ### 1. 所需条件
+
 - 安装 **[python 3.11](https://www.python.org/downloads)** | [python 安装教程(Bilibili)](https://www.bilibili.com/video/BV1f3411t73m/?spm_id_from=333.337.search-card.all.click&vd_source=f96c4c534fe9f3ff6591942502d9d3a7)
 - OpenAI **[API 密钥](https://platform.openai.com/account/api-keys)**（需要注册OpenAI账号）
+- (可选) 安装 **[GitHub Desktop](https://desktop.github.com/)** 或者 **[Git](https://git-scm.com/downloads)** | [GitHub Desktop 安装教程(Bilibili)](https://www.bilibili.com/video/BV1Ns411M7dq/?spm_id_from=333.337.search-card.all.click&vd_source=f96c4c534fe9f3ff6591942502d9d3a7)
+- (可选) 安装 **[Obsidian (黑曜石笔记)](https://obsidian.md/)**
+
 ### 2. 首次设置
-1. 运行 `setup.bat`
+1. 下载本仓库
+1. 运行 `SETUP.bat`
 2. 输入您的 OpenAI API 密钥
 
 ### 3. 运行
-- 运行 `run-webUI.bat`
+- 运行 `RUN.bat`
 
 
 ## demo
