@@ -60,9 +60,9 @@ def create_path_not_exist(path):
         os.makedirs(directory)
 
 
-def create_file_not_exist(path):
+def create_file_not_exist(path, content=''):
     if not os.path.exists(path):
-        write_file('', path)
+        write_file(content, path)
 
 
 def read_file(filepath, delimiter='', force=False):
