@@ -27,6 +27,7 @@ xcopy "example_prompt\*.*" ".user\prompt" /s /i
 REM wait 2 tick
 ping 127.0.0.1 -n 2 > NUL
 
+cls
 python initial_file_creator.py
 
 echo Setup complete! Exiting...
