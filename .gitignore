@@ -1,7 +1,7 @@
 # user files
 .user/
 *.temp
-
+.release/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
