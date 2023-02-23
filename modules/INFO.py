@@ -27,7 +27,7 @@ EXCLUDE_DIR_OFFICIAL = ['__pycache__',
 
 # activate session
 if 'SESSION_LANGUAGE' not in st.session_state:
-    st.session_state['SESSION_LANGUAGE'] = util.read_json_at(INIT_LANGUAGE, 'SESSION_LANGUAGE')
+    st.session_state['SESSION_LANGUAGE'] = util.read_json_at(INIT_LANGUAGE, 'SESSION_LANGUAGE', default_value='en_US')
 
 if 'FILTER_ROW_COUNT' not in st.session_state:
     st.session_state['FILTER_ROW_COUNT'] = util.read_json_at(BRAIN_MEMO, 'filter_row_count')
