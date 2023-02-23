@@ -30,7 +30,7 @@ if 'SESSION_LANGUAGE' not in st.session_state:
     st.session_state['SESSION_LANGUAGE'] = util.read_json_at(INIT_LANGUAGE, 'SESSION_LANGUAGE', default_value='en_US')
 
 if 'FILTER_ROW_COUNT' not in st.session_state:
-    st.session_state['FILTER_ROW_COUNT'] = util.read_json_at(BRAIN_MEMO, 'filter_row_count', default_value=0)
+    st.session_state['FILTER_ROW_COUNT'] = util.read_json_at(BRAIN_MEMO, 'filter_row_count', default_value=1)
 
 # models
 MODELS_OPTIONS = ['text-davinci-003', 'text-curie-001', 'text-babbage-001', 'text-ada-001']
