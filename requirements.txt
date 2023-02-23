@@ -5,5 +5,4 @@ sseclient==0.0.27
 sseclient_py==1.7.2
 streamlit==1.18.1
 streamlit_tags==1.2.8
-streamlit_toggle==0.1.3
 streamlit_toggle_switch==1.0.2
