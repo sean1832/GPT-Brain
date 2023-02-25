@@ -1,5 +1,4 @@
 import os
-import time
 
 import streamlit as st
 import streamlit_toggle as st_toggle
