@@ -11,7 +11,6 @@ API_KEY = util.read_file(r'.user\API-KEYS.txt').strip()
 
 openai.api_key = API_KEY
 
-
 SESSION_LANG = st.session_state['SESSION_LANGUAGE']
 _ = language.set_language()
 
@@ -61,21 +60,23 @@ def run(query, model, prompt_file, isQuestion, params, info_file=None):
     return all_response
 
 
-def run_stream(query, model, prompt_file, isQuestion, params, info_file=None):
-    client = None
+def get_stream_prompt(query, prompt_file, isQuestion, info_file=None):
+    openai.api_key = API_KEY
     if isQuestion:
         data = util.read_json(INFO.BRAIN_DATA)
-        results = GPT.toolkit.search_chunks(query, data, count=1)
-        for result in results:
-            my_info = util.read_file(info_file)
-            prompt = util.read_file(prompt_file)
-            prompt = prompt.replace('<<INFO>>', result['content'])
-            prompt = prompt.replace('<<QS>>', query)
-            prompt = prompt.replace('<<MY-INFO>>', my_info)
-            client = GPT.toolkit.gpt3_stream(API_KEY, prompt, model, params)
-
+        result = GPT.toolkit.search_chunks(query, data, count=1)
+        my_info = util.read_file(info_file)
+        prompt = util.read_file(prompt_file)
+        prompt = prompt.replace('<<INFO>>', result[0]['content'])
+        prompt = prompt.replace('<<QS>>', query)
+        prompt = prompt.replace('<<MY-INFO>>', my_info)
     else:
         chunk = textwrap.wrap(query, 10000)[0]
         prompt = util.read_file(prompt_file).replace('<<DATA>>', chunk)
-        client = GPT.toolkit.gpt3_stream(API_KEY, prompt, model, params)
+    return prompt
+
+
+def run_stream(query, model, prompt_file, isQuestion, params, info_file=None):
+    prompt = get_stream_prompt(query, prompt_file, isQuestion, info_file)
+    client = GPT.toolkit.gpt3_stream(API_KEY, prompt, model, params)
     return client

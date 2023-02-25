@@ -4,6 +4,7 @@ import json
 import streamlit as st
 import tkinter as tk
 from tkinter import filedialog
+from langchain.llms import OpenAI
 
 import modules.utilities as util
 import modules.INFO as INFO
@@ -17,6 +18,14 @@ _ = mod.language.set_language()
 SESSION_TIME = st.session_state['SESSION_TIME']
 CURRENT_LOG_FILE = f'{INFO.LOG_PATH}/log_{SESSION_TIME}.log'
 
+
+def predict_token(query: str, prompt_core: GPT.model.prompt_core) -> int:
+    """predict how many tokens to generate"""
+    llm = OpenAI()
+    token = llm.get_num_tokens(GPT.query.get_stream_prompt(query, prompt_file=prompt_core.question,
+                                                           isQuestion=True,
+                                                           info_file=prompt_core.my_info))
+    return token
 
 def create_log():
     if not os.path.exists(CURRENT_LOG_FILE):
