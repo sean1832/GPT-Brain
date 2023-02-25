@@ -6,3 +6,4 @@ sseclient_py==1.7.2
 streamlit==1.18.1
 streamlit_tags==1.2.8
 streamlit_toggle_switch==1.0.2
+langchain==0.0.94
