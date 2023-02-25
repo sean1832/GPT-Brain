@@ -1,5 +1,4 @@
 import os
-import time
 
 import streamlit as st
 import streamlit_toggle as st_toggle
@@ -60,11 +59,16 @@ with st.sidebar:
                      help=_('What sampling temperature to use, between 0 and 1. Higher values like 0.8 will make the '
                             'output more random, while lower values like 0.2 will make it more focused and '
                             'deterministic. \n\nIt is generally recommend altering this or `top_p` but not both.'))
-    max_tokens = st.slider(_('Max Tokens'), 850, 4096, value=util.read_json_at(INFO.BRAIN_MEMO, 'max_tokens', 1000),
+    max_tokens = st.slider(_('Max Tokens'), 10, 4096, value=util.read_json_at(INFO.BRAIN_MEMO, 'max_tokens', 1000),
                            help=_("The maximum number of tokens to generate in the completion.\n\nThe token count of "
                                   "your prompt plus `max_tokens` cannot exceed the model's context length. Most "
                                   "models have a context length of 2048 tokens (except for the newest models, "
                                   "which support 4096)."))
+    chunk_size = st.slider(_('Chunk size'), 1500, 4500,
+                           value=util.read_json_at(INFO.BRAIN_MEMO, 'chunk_size', 4000),
+                           help=_("The number of tokens to consider at each step. The larger this is, the more "
+                                  "context the model has to work with, but the slower generation and expensive "
+                                  "will it be."))
 
     with st.expander(label=_('Advanced Options')):
         top_p = st.slider(_('Top_P'), 0.0, 1.0, value=util.read_json_at(INFO.BRAIN_MEMO, 'top_p', 1.0),
@@ -84,15 +88,9 @@ with st.sidebar:
                                      "new tokens based on their existing frequency in the text so far."
                                      "\n\n[See more information about frequency and presence penalties.]"
                                      "(https://platform.openai.com/docs/api-reference/parameter-details)"))
-
-        chunk_size = st.slider(_('Chunk size'), 1500, 4500,
-                               value=util.read_json_at(INFO.BRAIN_MEMO, 'chunk_size', 4000),
-                               help=_("The number of tokens to consider at each step. The larger this is, the more "
-                                      "context the model has to work with, but the slower generation and expensive "
-                                      "will it be."))
         enable_stream = st_toggle.st_toggle_switch(_('Stream (experimental)'),
                                                    default_value=util.read_json_at(INFO.BRAIN_MEMO, 'enable_stream',
-                                                                                   True))
+                                                                                   False))
 
         if not enable_stream:
             chunk_count = st.slider(_('Answer count'), 1, 5, value=util.read_json_at(INFO.BRAIN_MEMO, 'chunk_count', 1),

@@ -1,6 +1,7 @@
 import os
 import time
 import modules.utilities as util
+import modules as mod
 
 file_path = r'.user\input.txt'
 temp_file = r'.user\input_last-run.temp'
@@ -10,7 +11,7 @@ def compare_time(t1, t2):
     return t1 == t2
 
 
-def isUpdated():
+def is_input_updated():
     if os.path.exists(file_path):
         # get modification time of the file
         mod_time = os.path.getmtime(file_path)
@@ -35,3 +36,9 @@ def isUpdated():
             return True
     else:
         raise FileNotFoundError(f'File: {file_path} does not exist.')
+
+
+def is_param_updated(param_val, param_infile_key):
+    infile_val = util.read_json_at(mod.INFO.BRAIN_MEMO, param_infile_key)
+    if infile_val != param_val:
+        return True
