@@ -59,7 +59,7 @@ with st.sidebar:
                      help=_('What sampling temperature to use, between 0 and 1. Higher values like 0.8 will make the '
                             'output more random, while lower values like 0.2 will make it more focused and '
                             'deterministic. \n\nIt is generally recommend altering this or `top_p` but not both.'))
-    max_tokens = st.slider(_('Max Tokens'), 850, 4096, value=util.read_json_at(INFO.BRAIN_MEMO, 'max_tokens', 1000),
+    max_tokens = st.slider(_('Max Tokens'), 10, 4096, value=util.read_json_at(INFO.BRAIN_MEMO, 'max_tokens', 1000),
                            help=_("The maximum number of tokens to generate in the completion.\n\nThe token count of "
                                   "your prompt plus `max_tokens` cannot exceed the model's context length. Most "
                                   "models have a context length of 2048 tokens (except for the newest models, "
