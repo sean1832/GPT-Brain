@@ -270,7 +270,7 @@ def execute_brain(q, params: GPT.model.param,
     # log question
     log(f'\n\n\n\n[{str(time.ctime())}] - QUESTION: {q}')
 
-    if mod.check_update.isUpdated():
+    if mod.check_update.is_input_updated() or mod.check_update.is_param_updated(params.chunk_size, 'chunk_size'):
         msg = st.warning(_('Updating Brain...'), icon="⏳")
         progress_bar = st.progress(0)
         for idx, chunk_num in GPT.query.build(params.chunk_size):
