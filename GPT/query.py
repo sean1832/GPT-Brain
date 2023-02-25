@@ -16,6 +16,7 @@ _ = language.set_language()
 
 
 def build(chunk_size=4000):
+    openai.api_key = API_KEY
     all_text = util.read_file(r'.user\input.txt')
 
     # split text into smaller chunk of 4000 char each

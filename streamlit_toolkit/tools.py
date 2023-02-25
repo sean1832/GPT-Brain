@@ -27,6 +27,7 @@ def predict_token(query: str, prompt_core: GPT.model.prompt_core) -> int:
                                                            info_file=prompt_core.my_info))
     return token
 
+
 def create_log():
     if not os.path.exists(CURRENT_LOG_FILE):
         util.write_file(f'Session {SESSION_TIME}\n\n', CURRENT_LOG_FILE)
@@ -259,6 +260,15 @@ def process_response_stream(query, target_model, prompt_file: str, params: GPT.m
     log(previous_chars, delimiter=f'{file_name.upper()}')
 
 
+def rebuild_brain(chunk_size: int):
+    msg = st.warning(_('Updating Brain...'), icon="⏳")
+    progress_bar = st.progress(0)
+    for idx, chunk_num in GPT.query.build(chunk_size):
+        progress_bar.progress((idx + 1) / chunk_num)
+    msg.success(_('Brain Updated!'), icon="👍")
+    time.sleep(2)
+
+
 def execute_brain(q, params: GPT.model.param,
                   op: GPT.model.Operation,
                   model: GPT.model.Model,
@@ -272,12 +282,7 @@ def execute_brain(q, params: GPT.model.param,
     log(f'\n\n\n\n[{str(time.ctime())}] - QUESTION: {q}')
 
     if mod.check_update.is_input_updated() or mod.check_update.is_param_updated(params.chunk_size, 'chunk_size'):
-        msg = st.warning(_('Updating Brain...'), icon="⏳")
-        progress_bar = st.progress(0)
-        for idx, chunk_num in GPT.query.build(params.chunk_size):
-            progress_bar.progress((idx + 1) / chunk_num)
-        msg.success(_('Brain Updated!'), icon="👍")
-        time.sleep(2)
+        rebuild_brain(params.chunk_size)
 
     # =================stream=================
     if stream:

@@ -64,12 +64,15 @@ with st.sidebar:
                                   "your prompt plus `max_tokens` cannot exceed the model's context length. Most "
                                   "models have a context length of 2048 tokens (except for the newest models, "
                                   "which support 4096)."))
-    chunk_size = st.slider(_('Chunk size'), 1500, 4500,
-                           value=util.read_json_at(INFO.BRAIN_MEMO, 'chunk_size', 4000),
-                           help=_("The number of tokens to consider at each step. The larger this is, the more "
-                                  "context the model has to work with, but the slower generation and expensive "
-                                  "will it be."))
-
+    col1, col2 = st.columns([3, 1])
+    with col1:
+        chunk_size = st.slider(_('Chunk size'), 1500, 4500,
+                               value=util.read_json_at(INFO.BRAIN_MEMO, 'chunk_size', 4000),
+                               help=_("The number of tokens to consider at each step. The larger this is, the more "
+                                      "context the model has to work with, but the slower generation and expensive "
+                                      "will it be."))
+    with col2:
+        update_brain = st.button(_('Update Brain'))
     with st.expander(label=_('Advanced Options')):
         top_p = st.slider(_('Top_P'), 0.0, 1.0, value=util.read_json_at(INFO.BRAIN_MEMO, 'top_p', 1.0),
                           help=_("An alternative to sampling with temperature, called nucleus sampling, where the "
@@ -144,8 +147,15 @@ with body:
         if os.path.exists(CURRENT_LOG_FILE):
             st_tool.download_as(_("📥download log"))
     # execute brain calculation
+    if update_brain:
+        st_tool.rebuild_brain(chunk_size)
     if not query == '':
-        st.markdown(f'Token estimation: `{st_tool.predict_token(query, prompt_core)}`')
+        if models.question_model == 'text-davinci-003' or 'text-davinci-003' in models.other_models:
+            max_model_token = 4000
+        else:
+            max_model_token = 2048
+
+        st.markdown(f'Token estimation: `{st_tool.predict_token(query, prompt_core)}/{max_model_token}`')
         if send:
             st_tool.execute_brain(query,
                                   param,
