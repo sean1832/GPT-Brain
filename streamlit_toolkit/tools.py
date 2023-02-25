@@ -62,15 +62,7 @@ def save(content, path, page='', json_value: dict = None):
         if page == '💽Brain Memory':
             for key, value in json_value.items():
                 util.update_json(INFO.BRAIN_MEMO, key, value)
-            #
-            #
-            # util.update_json(INFO.BRAIN_MEMO, 'delimiter', json_value['delimiter'])
-            # util.update_json(INFO.BRAIN_MEMO, 'append_mode', json_value['append_mode'])
-            # util.update_json(INFO.BRAIN_MEMO, 'force_mode', json_value['force_mode'])
-            # util.update_json(INFO.BRAIN_MEMO, 'advanced_mode', json_value['advanced_mode'])
-            # util.update_json(INFO.BRAIN_MEMO, 'filter_info', json_value['filter_info'])
-            # util.update_json(INFO.BRAIN_MEMO, 'filter_row_count', json_value['filter_row_count'])
-            # util.update_json(INFO.BRAIN_MEMO, 'exclude_dir', json_value['exclude_dir'])
+
         time.sleep(1)
         # refresh page
         st.experimental_rerun()
