@@ -14,10 +14,6 @@ PROMPT_PATH = f'{INFO.USER_DIR}/prompt/{SESSION_LANG}/'
 
 _ = language.set_language()
 
-# st.set_page_config(
-#     page_title='Configs'
-# )
-
 body = st.container()
 
 
