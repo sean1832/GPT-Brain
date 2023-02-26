@@ -17,8 +17,8 @@ def embedding(content, engine='text-embedding-ada-002'):
     return vector
 
 
-def search_chunks(text, data, count=1):
-    vector = embedding(text)
+def search_chunks(query, data, count=1):
+    vector = embedding(query)
     points = []
 
     for item in data:
