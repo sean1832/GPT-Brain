@@ -1,9 +1,9 @@
 numpy==1.24.2
-openai==0.26.5
+openai==0.27.0
 requests==2.28.2
 sseclient==0.0.27
 sseclient_py==1.7.2
-streamlit==1.18.1
+streamlit==1.19.0
 streamlit_tags==1.2.8
 streamlit_toggle_switch==1.0.2
-langchain==0.0.94
+langchain==0.0.100
