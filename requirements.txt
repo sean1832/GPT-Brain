@@ -7,3 +7,4 @@ streamlit==1.19.0
 streamlit_tags==1.2.8
 streamlit_toggle_switch==1.0.2
 langchain==0.0.100
+tiktoken==0.3.0
