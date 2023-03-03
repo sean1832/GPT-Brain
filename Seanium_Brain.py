@@ -155,7 +155,7 @@ with body:
         else:
             max_model_token = 2048
 
-        st.markdown(f'Token estimation: `{st_tool.predict_token(query, prompt_core)}/{max_model_token}`')
+        st.markdown(f'Prompt token: `{st_tool.predict_token(query, prompt_core)}/{max_model_token}`')
         if send:
             st_tool.execute_brain(query,
                                   param,
