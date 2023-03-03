@@ -151,7 +151,9 @@ with body:
         st_tool.rebuild_brain(chunk_size)
     if not query == '':
         if models.question_model == 'text-davinci-003' or 'text-davinci-003' in models.other_models:
-            max_model_token = 4000
+            max_model_token = 4096
+        elif models.question_model == 'gpt-3.5-turbo' or 'gpt-3.5-turbo' in models.other_models:
+            max_model_token = 4096
         else:
             max_model_token = 2048
 
