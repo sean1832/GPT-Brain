@@ -164,8 +164,7 @@ with body:
                                   prompt_core,
                                   prompt_dictionary,
                                   _('question'),
-                                  enable_stream,
-                                  SESSION_LANG)
+                                  enable_stream)
 
             # convert param to dictionary
             param_dict = vars(param)

@@ -239,22 +239,28 @@ def process_response_stream(query, target_model, prompt_file: str, params: GPT.m
     # check if exclude model is not target model
     file_name = util.get_file_name(prompt_file)
     with st.spinner(_('Thinking on ') + f"{file_name}..."):
-        client = GPT.query.run_stream(query,
-                                      target_model,
-                                      prompt_file,
-                                      isQuestion=False,
-                                      params=params)
+        responses = GPT.query.run_stream(query,
+                                         target_model,
+                                         prompt_file,
+                                         isQuestion=False,
+                                         params=params)
 
     # displaying results
     st.header(f'📃{file_name}')
     response_panel = st.empty()
     previous_chars = ''
-    for event in client.events():
-        if event.data != '[DONE]':
-            char = json.loads(event.data)['choices'][0]['text']
-            response = previous_chars + char
-            response_panel.info(f'{response}')
-            previous_chars += char
+    for response_json in responses:
+        choice = response_json['choices'][0]
+        if choice['finish_reason'] == 'stop':
+            break
+        # error handling
+        if choice['finish_reason'] == 'length':
+            st.warning("⚠️ " + _('Result cut off. max_tokens') + f' ({params.max_tokens}) ' + _('too small. Consider increasing max_tokens.'))
+            break
+        char = choice['text']
+        response = previous_chars + char
+        response_panel.info(f'{response}')
+        previous_chars += char
 
     time.sleep(1)
     log(previous_chars, delimiter=f'{file_name.upper()}')
@@ -275,8 +281,7 @@ def execute_brain(q, params: GPT.model.param,
                   prompt_core: GPT.model.prompt_core,
                   prompt_dictionary: dict,
                   question_prompt: str,
-                  stream: bool,
-                  session_language,
+                  stream: bool
                   ):
     # log question
     log(f'\n\n\n\n[{str(time.ctime())}] - QUESTION: {q}')
@@ -289,23 +294,30 @@ def execute_brain(q, params: GPT.model.param,
         previous_chars = ''
         is_question_selected = util.contains(op.operations, question_prompt)
         with st.spinner(_('Thinking on Answer')):
-            answer_clients = GPT.query.run_stream(q, model.question_model,
-                                                  prompt_file=prompt_core.question,
-                                                  isQuestion=True,
-                                                  params=params,
-                                                  info_file=prompt_core.my_info)
+            responses = GPT.query.run_stream(q, model.question_model,
+                                             prompt_file=prompt_core.question,
+                                             isQuestion=True,
+                                             params=params,
+                                             info_file=prompt_core.my_info)
         if is_question_selected:
             # displaying results
             st.header(_('💬Answer'))
 
         answer_panel = st.empty()
-        for event in answer_clients.events():
-            if event.data != '[DONE]':
-                char = json.loads(event.data)['choices'][0]['text']
-                answer = previous_chars + char
-                if is_question_selected:
-                    answer_panel.info(f'{answer}')
-                previous_chars += char
+        for response_json in responses:
+            choice = response_json['choices'][0]
+            if choice['finish_reason'] == 'stop':
+                break
+            # error handling
+            if choice['finish_reason'] == 'length':
+                st.warning("⚠️ " + _('Result cut off. max_tokens') + f' ({params.max_tokens}) ' + _('too small. Consider increasing max_tokens.'))
+                break
+
+            char = choice['text']
+            answer = previous_chars + char
+            if is_question_selected:
+                answer_panel.info(f'{answer}')
+            previous_chars += char
 
         time.sleep(0.1)
         log(previous_chars, delimiter='ANSWER')
@@ -318,24 +330,24 @@ def execute_brain(q, params: GPT.model.param,
     else:
         # thinking on answer
         with st.spinner(_('Thinking on Answer')):
-            answer = GPT.query.run(q, model.question_model,
-                                   prompt_file=prompt_core.question,
-                                   isQuestion=True,
-                                   params=params,
-                                   info_file=prompt_core.my_info)
+            responses = GPT.query.run(q, model.question_model,
+                                      prompt_file=prompt_core.question,
+                                      isQuestion=True,
+                                      params=params,
+                                      info_file=prompt_core.my_info)
             if util.contains(op.operations, question_prompt):
                 # displaying results
                 st.header(_('💬Answer'))
-                st.info(f'{answer}')
+                st.info(f'{responses}')
                 time.sleep(1.5)
-                log(answer, delimiter='ANSWER')
+                log(responses, delimiter='ANSWER')
 
         # thinking on other outputs
         if len(op.operations_no_question) > 0:
             for i in range(len(op.operations_no_question)):
                 prompt_path = prompt_dictionary[op.operations_no_question[i]]
                 other_model = model.other_models[i]
-                process_response(answer, other_model, prompt_path, params)
+                process_response(responses, other_model, prompt_path, params)
 
 
 def message(msg, condition=None):

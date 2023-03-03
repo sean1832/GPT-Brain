@@ -48,24 +48,31 @@ def gpt3(prompt, model, params):
     return text
 
 
-def gpt3_stream(API_KEY, prompt, model, params):
-    url = 'https://api.openai.com/v1/completions'
-    headers = {
-        'Accept': 'text/event-stream',
-        'Authorization': 'Bearer ' + API_KEY
-    }
-    body = {
-        'model': model,
-        'prompt': prompt,
-        'max_tokens': params.max_tokens,
-        'temperature': params.temp,
-        'top_p': params.top_p,
-        'frequency_penalty': params.frequency_penalty,
-        'presence_penalty': params.present_penalty,
-        'stream': True,
-    }
+def gpt3_stream(prompt, model, params):
+    response = openai.Completion.create(
+        model=model,
+        stream=True,
+        prompt=prompt,
+        temperature=params.temp,
+        max_tokens=params.max_tokens,
+        top_p=params.top_p,
+        frequency_penalty=params.frequency_penalty,
+        presence_penalty=params.present_penalty
+    )
+    return response
 
-    req = requests.post(url, stream=True, headers=headers, json=body)
-    client = sseclient.SSEClient(req)
-    return client
-    # print(json.loads(event.data)['choices'][0]['text'], end='', flush=True)
+
+def gpt35_stream(prompt, params, system_role_content: str = 'You are a helpful assistant.'):
+    completions = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        max_tokens=params.max_tokens,
+        temperature=params.temp,
+        top_p=params.top_p,
+        frequency_penalty=params.frequency_penalty,
+        presence_penalty=params.present_penalty,
+        stream=True,
+        messages=[
+            {"role": "system", "content": system_role_content},
+            {"role": "user", "content": prompt}
+        ])
+    return completions
