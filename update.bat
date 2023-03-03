@@ -31,3 +31,4 @@ if "%mod_date%" neq "%last_mod_date%" (
 
 rem copy example prompt to user folder without overwrite
 xcopy "example_prompt\*.*" ".user\prompt" /I /E /Y /D
+pause
