@@ -77,7 +77,7 @@ def parse_data(data, delimiter='', force=False):
     return data
 
 
-def read_files(file_dir, delimiter='', force=False, single_string=True, exclude_dir: list = None, supported_formats: list = None):
+def read_bind_files(file_dir, delimiter='', force=False, single_string=True, exclude_dir: list = None, supported_formats: list = None):
     contents = []
     if exclude_dir is None:
         exclude_dir = []

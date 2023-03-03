@@ -64,12 +64,15 @@ with st.sidebar:
                                   "your prompt plus `max_tokens` cannot exceed the model's context length. Most "
                                   "models have a context length of 2048 tokens (except for the newest models, "
                                   "which support 4096)."))
-    chunk_size = st.slider(_('Chunk size'), 1500, 4500,
-                           value=util.read_json_at(INFO.BRAIN_MEMO, 'chunk_size', 4000),
-                           help=_("The number of tokens to consider at each step. The larger this is, the more "
-                                  "context the model has to work with, but the slower generation and expensive "
-                                  "will it be."))
-
+    col1, col2 = st.columns([3, 1])
+    with col1:
+        chunk_size = st.slider(_('Chunk size'), 1500, 4500,
+                               value=util.read_json_at(INFO.BRAIN_MEMO, 'chunk_size', 4000),
+                               help=_("The number of tokens to consider at each step. The larger this is, the more "
+                                      "context the model has to work with, but the slower generation and expensive "
+                                      "will it be."))
+    with col2:
+        update_brain = st.button(_('Update Brain'))
     with st.expander(label=_('Advanced Options')):
         top_p = st.slider(_('Top_P'), 0.0, 1.0, value=util.read_json_at(INFO.BRAIN_MEMO, 'top_p', 1.0),
                           help=_("An alternative to sampling with temperature, called nucleus sampling, where the "
@@ -90,7 +93,7 @@ with st.sidebar:
                                      "(https://platform.openai.com/docs/api-reference/parameter-details)"))
         enable_stream = st_toggle.st_toggle_switch(_('Stream (experimental)'),
                                                    default_value=util.read_json_at(INFO.BRAIN_MEMO, 'enable_stream',
-                                                                                   False))
+                                                                                   True))
 
         if not enable_stream:
             chunk_count = st.slider(_('Answer count'), 1, 5, value=util.read_json_at(INFO.BRAIN_MEMO, 'chunk_count', 1),
@@ -136,7 +139,7 @@ with header:
 
 # main
 with body:
-    question = st.text_area(_('Ask Brain: '))
+    query = st.text_area(_('Ask Brain: '))
     col1, col2 = st.columns([1, 3])
     with col1:
         send = st.button(_('📩Send'))
@@ -144,13 +147,49 @@ with body:
         if os.path.exists(CURRENT_LOG_FILE):
             st_tool.download_as(_("📥download log"))
     # execute brain calculation
-    if not question == '' and send:
-        st_tool.execute_brain(question,
-                              param,
-                              op,
-                              models,
-                              prompt_core,
-                              prompt_dictionary,
-                              _('question'),
-                              enable_stream,
-                              SESSION_LANG)
+    if update_brain:
+        st_tool.rebuild_brain(chunk_size)
+    if not query == '':
+        if models.question_model == 'text-davinci-003' or 'text-davinci-003' in models.other_models:
+            max_model_token = 4096
+        elif models.question_model == 'gpt-3.5-turbo' or 'gpt-3.5-turbo' in models.other_models:
+            max_model_token = 4096
+        else:
+            max_model_token = 2048
+
+        tokens, isTokenZero = st_tool.predict_token(query, prompt_core)
+        token_panel = st.empty()
+        if isTokenZero:
+            token_panel.markdown('Prompt token: `Not Available`')
+        else:
+            token_panel.markdown(f'Prompt token: `{tokens}/{max_model_token}`')
+        if send:
+            st_tool.execute_brain(query,
+                                  param,
+                                  op,
+                                  models,
+                                  prompt_core,
+                                  prompt_dictionary,
+                                  _('question'),
+                                  enable_stream)
+
+            # convert param to dictionary
+            param_dict = vars(param)
+
+            # write param to json
+            for key in param_dict:
+                value = param_dict[key]
+                util.update_json(INFO.BRAIN_MEMO, key, value)
+
+            # write operation to json
+            util.update_json(INFO.BRAIN_MEMO, f'operations_{SESSION_LANG}', op.operations)
+
+            # write question model to json
+            util.update_json(INFO.BRAIN_MEMO, 'question_model', models.question_model)
+
+            # write other models to json
+            for i in range(len(op.operations_no_question)):
+                util.update_json(INFO.BRAIN_MEMO, f'{op.operations_no_question[i]}_model', models.other_models[i])
+
+            # write stream to json
+            util.update_json(INFO.BRAIN_MEMO, 'enable_stream', enable_stream)

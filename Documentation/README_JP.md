@@ -9,8 +9,19 @@
 
 *💡私はプロのプログラマーではなく、Pythonにもかなり慣れていないため、このプロジェクトにはバグが含まれているかもしれません。もし何か問題があれば、[Issues section](https://github.com/sean1832/GPT-Brain/issues)で提案してください。*
 
+### 紹介
+このプログラムは、[GPT-3](https://platform.openai.com/docs/models/gpt-3)と[3.5](https://platform.openai.com/docs/models/gpt-3-5)の力を活用して、原子的なノートの内容の要約と、
+特定のノートに関連する質問に回答することを提供します。
+プログラムは、通常、複数のノートを含むvaultとして指定されたディレクトリをスキャンし、
+すべてのノートの内容を単一のファイルに追加します。
+このファイルは、ユーザーのクエリの文脈として機能します。プログラムは、ノートの内容の関係を識別し、
+主要なポイントを要約する洗練された応答を生成できます。
+
+このプログラムは、markdownまたはtxtを使用する他のノート取りソフトウェアでも互換性がありますが、
+主に[Obsidian](https://obsidian.md/)を想定して設計されています。
+
 ### フィーチャー
-- [x] [OpenAI GPT-3](https://platform.openai.com/docs/models/gpt-3)を使って、レスポンスを生成します。
+- [x] [OpenAI GPT-3](https://platform.openai.com/docs/models/gpt-3)と[GPT-3.5 (ChatGPT)](https://platform.openai.com/docs/models/gpt-3-5)を使って、レスポンスを生成します。
 - [x] [OpenAIエンベッディング](https://platform.openai.com/docs/guides/embeddings/what-are-embeddings)を使用して、質問とノートの内容を意味的に比較し、検索を強化します。
 - [x] 設定可能なプロンプト。
 - [x] より正確な回答を得るために、個人の背景情報をカスタマイズすることができます。
@@ -23,13 +34,9 @@
 - [x] OpenAI言語モデルの構成に対する基本的および高度なパラメータースライダー。。
 
 ### Todo
-- [x] ~~ライブラリの更新を行うバッチスクリプト。~~
-- [x]　~~バージョニング。~~
-- [x] ~~パラメータに関するヒント。~~
-- [x] ~~多言語UI。~~
-- [x] ~~多言語検索に対応。~~
-- [ ] ユーザー向けの詳細なドキュメントを提供する。
-- [ ] Windows用をリリース。
+- [ ] PDFサポート。
+- [ ] PDF OCRスキャンをサポート。
+- [ ] Word文書をサポート。
 
 ## 設置
 ### 1. 必要なもの

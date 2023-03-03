@@ -1,3 +1,7 @@
+@echo off
+echo Activating Virtural environment!
+call .\venv\Scripts\activate
+
 echo Checking library updates...
 set "REQUIREMENTS=requirements.txt"
 set "LAST_MODIFIED=requirements.temp"
