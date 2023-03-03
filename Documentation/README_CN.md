@@ -9,8 +9,15 @@
 
 *💡本人并非专业程序猿，并且是一个python小白，此项目可能会出现各种bug。如果你遇到bug，请在[问题栏](https://github.com/sean1832/GPT-Brain/issues)里提出，我会尽可能的进行修补。*
 
+### 简介
+本程序利用[GPT-3](https://platform.openai.com/docs/models/gpt-3)和[3.5](https://platform.openai.com/docs/models/gpt-3-5)的能力，提供对原子笔记内容的概括，以及针对笔记的特定内容的回答。
+该程序扫描指定目录（通常是包含多个笔记的vault），并将所有笔记的内容附加到单个文件中。
+该文件随后用作用户查询的上下文。程序能够识别笔记内容之间的关系，并生成一个精炼的回答，概括关键要点。
+
+尽管该程序与使用markdown或txt的其他笔记软件兼容，但它主要是针对[Obsidian](https://obsidian.md/)设计的。
+
 ### 功能
-- [x] 使用 [OpenAI GPT-3](https://platform.openai.com/docs/models/gpt-3) 生成回答。
+- [x] 使用 [OpenAI GPT-3](https://platform.openai.com/docs/models/gpt-3)和 [GPT-3.5 (ChatGPT)](https://platform.openai.com/docs/models/gpt-3-5) 生成回答。
 - [x] 使用 [OpenAI embedding](https://platform.openai.com/docs/guides/embeddings/what-are-embeddings) 对笔记内容和问题进行对称比较，以增强搜索效果。
 - [x] 可配置prompt。
 - [x] 可个性化的个人背景信息以获得更贴切的答案。
@@ -23,13 +30,9 @@
 - [x] 基本和高级参数滑块，以便于调整OpenAI语言模型配置。
 
 ### 未来计划
-- [x] ~~batch脚本更新库。~~
-- [x] ~~版本控制。~~
-- [x] ~~参数提示。~~
-- [x] ~~支持多语言UI~~。
-- [x] ~~支持多语言检索。~~
-- [ ] 提供详细操作指南。
-- [ ] 发布windows版本。
+- [ ] 支持PDF笔记格式。
+- [ ] 支持PDF OCR扫描。
+- [ ] 支持Word文档格式。
 
 ## 安装
 ### 1. 所需条件

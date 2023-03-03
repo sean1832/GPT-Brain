@@ -9,8 +9,23 @@
 
 *💡As I am not a professional programmer and am fairly new to Python, this project may contain bugs. If you encounter any issues, please suggest them in the [Issues section](https://github.com/sean1832/GPT-Brain/issues).*
 
+### Description
+This program leverages the power of [GPT-3](https://platform.openai.com/docs/models/gpt-3) & [3.5](https://platform.openai.com/docs/models/gpt-3-5) to provide a summary of the content of atomic notes, 
+as well as answer questions related specifically to your notes. 
+The program scans a designated directory, 
+which is typically a vault containing multiple notes, 
+and appends the contents of all the notes to a single file. 
+This file then serves as the context for the user's query. 
+The program is able to identify
+relationships between the contents of the notes, 
+and generate a refined response that summarizes the key points.
+
+Although the program is compatible with other note-taking software that uses
+markdown or txt, 
+it is primarily designed with [Obsidian](https://obsidian.md/) in mind. 
+
 ### Feature
-- [x] Use [OpenAI GPT-3](https://platform.openai.com/docs/models/gpt-3) to generate response.
+- [x] Use [OpenAI GPT-3](https://platform.openai.com/docs/models/gpt-3) and [GPT-3.5 (ChatGPT)](https://platform.openai.com/docs/models/gpt-3-5) to generate response.
 - [x] Use [OpenAI embedding](https://platform.openai.com/docs/guides/embeddings/what-are-embeddings) for semetic comparison of question and note content for enhanced searching.
 - [x] Configurable prompts.
 - [x] Customizable personal background information for more accurate answers.
@@ -23,13 +38,10 @@
 - [x] Basic & Advanced parameter sliders for OpenAI Language model configurations.
 
 ### Todo
-- [x] ~~Batch script to update library.~~
-- [x] ~~Versioning.~~
-- [x] ~~Tooltips for parameters.~~
-- [x] ~~Multilingual support for UI.~~
-- [x] ~~Multilingual search support.~~
-- [ ] Provide detail documentation for users.
-- [ ] Release for windows.
+- [ ] Support PDF format。
+- [ ] Support PDF OCR scan。
+- [ ] Support Word document。
+
 
 ## Install
 ### 1. What you need
