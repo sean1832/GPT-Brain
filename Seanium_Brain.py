@@ -93,7 +93,7 @@ with st.sidebar:
                                      "(https://platform.openai.com/docs/api-reference/parameter-details)"))
         enable_stream = st_toggle.st_toggle_switch(_('Stream (experimental)'),
                                                    default_value=util.read_json_at(INFO.BRAIN_MEMO, 'enable_stream',
-                                                                                   False))
+                                                                                   True))
 
         if not enable_stream:
             chunk_count = st.slider(_('Answer count'), 1, 5, value=util.read_json_at(INFO.BRAIN_MEMO, 'chunk_count', 1),
