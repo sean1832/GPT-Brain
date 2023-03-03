@@ -156,12 +156,8 @@ with body:
             max_model_token = 4096
         else:
             max_model_token = 2048
-        tokens, isTokenZero = st_tool.predict_token(query, prompt_core)
-        token_panel = st.empty()
-        if isTokenZero:
-            token_panel.markdown('Prompt token: `Not Available`')
-        else:
-            token_panel.markdown(f'Prompt token: `{tokens}/{max_model_token}`')
+
+        st.markdown(f'Prompt token: `{st_tool.predict_token(query, prompt_core)}/{max_model_token}`')
         if send:
             st_tool.execute_brain(query,
                                   param,

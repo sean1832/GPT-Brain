@@ -19,14 +19,13 @@ SESSION_TIME = st.session_state['SESSION_TIME']
 CURRENT_LOG_FILE = f'{INFO.LOG_PATH}/log_{SESSION_TIME}.log'
 
 
-def predict_token(query: str, prompt_core: GPT.model.prompt_core) -> (int, bool):
+def predict_token(query: str, prompt_core: GPT.model.prompt_core) -> int:
     """predict how many tokens to generate"""
     llm = OpenAI()
-    prompt = GPT.query.get_stream_prompt(query, prompt_file=prompt_core.question,
-                                         isQuestion=True,
-                                         info_file=prompt_core.my_info)
-    token = llm.get_num_tokens(prompt)
-    return token, token == 0
+    token = llm.get_num_tokens(GPT.query.get_stream_prompt(query, prompt_file=prompt_core.question,
+                                                           isQuestion=True,
+                                                           info_file=prompt_core.my_info))
+    return token
 
 
 def create_log():
@@ -256,8 +255,7 @@ def process_response_stream(query, target_model, prompt_file: str, params: GPT.m
             break
         # error handling
         if choice['finish_reason'] == 'length':
-            st.warning("⚠️ " + _('Result cut off. max_tokens') + f' ({params.max_tokens}) ' + _(
-                'too small. Consider increasing max_tokens.'))
+            st.warning("⚠️ " + _('Result cut off. max_tokens') + f' ({params.max_tokens}) ' + _('too small. Consider increasing max_tokens.'))
             break
 
         if 'gpt-3.5-turbo' in target_model:
@@ -282,7 +280,7 @@ def rebuild_brain(chunk_size: int):
     for idx, chunk_num in GPT.query.build(chunk_size):
         progress_bar.progress((idx + 1) / chunk_num)
     msg.success(_('Brain Updated!'), icon="👍")
-    time.sleep(1)
+    time.sleep(2)
 
 
 def execute_brain(q, params: GPT.model.param,
@@ -320,8 +318,7 @@ def execute_brain(q, params: GPT.model.param,
                 break
             # error handling
             if choice['finish_reason'] == 'length':
-                st.warning("⚠️ " + _('Result cut off. max_tokens') + f' ({params.max_tokens}) ' + _(
-                    'too small. Consider increasing max_tokens.'))
+                st.warning("⚠️ " + _('Result cut off. max_tokens') + f' ({params.max_tokens}) ' + _('too small. Consider increasing max_tokens.'))
                 break
             if 'gpt-3.5-turbo' in model.question_model:
                 delta = choice['delta']
