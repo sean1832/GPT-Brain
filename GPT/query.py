@@ -79,11 +79,8 @@ def get_stream_prompt(query, prompt_file, isQuestion, info_file=None):
 
 def run_stream(query, model, prompt_file, isQuestion, params, info_file=None):
     prompt = get_stream_prompt(query, prompt_file, isQuestion, info_file)
-    client = GPT.gpt_tools.gpt3_stream(prompt, model, params)
-    return client
-
-
-def run_35_Stream(query, prompt_file, isQuestion, params, info_file=None):
-    prompt = get_stream_prompt(query, prompt_file, isQuestion, info_file)
-    client = GPT.gpt_tools.gpt35_stream(prompt, params)
+    if model == 'gpt-3.5-turbo':
+        client = GPT.gpt_tools.gpt35_stream(prompt, params)
+    else:
+        client = GPT.gpt_tools.gpt3_stream(prompt, model, params)
     return client

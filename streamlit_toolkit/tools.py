@@ -257,7 +257,15 @@ def process_response_stream(query, target_model, prompt_file: str, params: GPT.m
         if choice['finish_reason'] == 'length':
             st.warning("⚠️ " + _('Result cut off. max_tokens') + f' ({params.max_tokens}) ' + _('too small. Consider increasing max_tokens.'))
             break
-        char = choice['text']
+
+        if 'gpt-3.5-turbo' in target_model:
+            delta = choice['delta']
+            if "role" in delta or delta == {}:
+                char = ''
+            else:
+                char = delta['content']
+        else:
+            char = choice['text']
         response = previous_chars + char
         response_panel.info(f'{response}')
         previous_chars += char
@@ -312,8 +320,14 @@ def execute_brain(q, params: GPT.model.param,
             if choice['finish_reason'] == 'length':
                 st.warning("⚠️ " + _('Result cut off. max_tokens') + f' ({params.max_tokens}) ' + _('too small. Consider increasing max_tokens.'))
                 break
-
-            char = choice['text']
+            if 'gpt-3.5-turbo' in model.question_model:
+                delta = choice['delta']
+                if "role" in delta or delta == {}:
+                    char = ''
+                else:
+                    char = delta['content']
+            else:
+                char = choice['text']
             answer = previous_chars + char
             if is_question_selected:
                 answer_panel.info(f'{answer}')
