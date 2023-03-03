@@ -47,7 +47,10 @@ def run(query, model, prompt_file, isQuestion, params, info_file=None):
             prompt = prompt.replace('<<QS>>', query)
             prompt = prompt.replace('<<MY-INFO>>', my_info)
 
-            answer = GPT.gpt_tools.gpt3(prompt, model, params)
+            if model == 'gpt-3.5-turbo':
+                answer = GPT.gpt_tools.gpt35(prompt, params)
+            else:
+                answer = GPT.gpt_tools.gpt3(prompt, model, params)
             answers.append(answer)
         all_response = '\n\n'.join(answers)
     else:
@@ -55,7 +58,10 @@ def run(query, model, prompt_file, isQuestion, params, info_file=None):
         responses = []
         for chunk in chunks:
             prompt = util.read_file(prompt_file).replace('<<DATA>>', chunk)
-            response = GPT.gpt_tools.gpt3(prompt, model, params)
+            if model == 'gpt-3.5-turbo':
+                response = GPT.gpt_tools.gpt35(prompt, params)
+            else:
+                response = GPT.gpt_tools.gpt3(prompt, model, params)
             responses.append(response)
         all_response = '\n\n'.join(responses)
     return all_response

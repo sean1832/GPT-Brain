@@ -48,6 +48,22 @@ def gpt3(prompt, model, params):
     return text
 
 
+def gpt35(prompt, params, system_role_content: str = 'You are a helpful assistant.'):
+    completions = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        max_tokens=params.max_tokens,
+        temperature=params.temp,
+        top_p=params.top_p,
+        frequency_penalty=params.frequency_penalty,
+        presence_penalty=params.present_penalty,
+        messages=[
+            {"role": "system", "content": system_role_content},
+            {"role": "user", "content": prompt}
+        ])
+    text = completions['choices'][0]['message']['content']
+    return text
+
+
 def gpt3_stream(prompt, model, params):
     response = openai.Completion.create(
         model=model,
