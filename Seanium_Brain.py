@@ -166,3 +166,24 @@ with body:
                                   _('question'),
                                   enable_stream,
                                   SESSION_LANG)
+
+            # convert param to dictionary
+            param_dict = vars(param)
+
+            # write param to json
+            for key in param_dict:
+                value = param_dict[key]
+                util.update_json(INFO.BRAIN_MEMO, key, value)
+
+            # write operation to json
+            util.update_json(INFO.BRAIN_MEMO, f'operations_{SESSION_LANG}', op.operations)
+
+            # write question model to json
+            util.update_json(INFO.BRAIN_MEMO, 'question_model', models.question_model)
+
+            # write other models to json
+            for i in range(len(op.operations_no_question)):
+                util.update_json(INFO.BRAIN_MEMO, f'{op.operations_no_question[i]}_model', models.other_models[i])
+
+            # write stream to json
+            util.update_json(INFO.BRAIN_MEMO, 'enable_stream', enable_stream)

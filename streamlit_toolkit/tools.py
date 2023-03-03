@@ -337,24 +337,6 @@ def execute_brain(q, params: GPT.model.param,
                 other_model = model.other_models[i]
                 process_response(answer, other_model, prompt_path, params)
 
-    # convert param to dictionary
-    param_dict = vars(params)
-
-    # write param to json
-    for key in param_dict:
-        value = param_dict[key]
-        util.update_json(INFO.BRAIN_MEMO, key, value)
-
-    # write operation to json
-    util.update_json(INFO.BRAIN_MEMO, f'operations_{session_language}', op.operations)
-
-    # write question model to json
-    util.update_json(INFO.BRAIN_MEMO, 'question_model', model.question_model)
-
-    # write other models to json
-    for i in range(len(op.operations_no_question)):
-        util.update_json(INFO.BRAIN_MEMO, f'{op.operations_no_question[i]}_model', model.other_models[i])
-
 
 def message(msg, condition=None):
     if condition is not None:
