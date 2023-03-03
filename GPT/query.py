@@ -6,7 +6,6 @@ import modules.utilities as util
 import modules.language as language
 import GPT
 import modules.INFO as INFO
-import streamlit_toolkit.tools as st_tools
 
 API_KEY = util.read_file(r'.user\API-KEYS.txt').strip()
 
@@ -66,15 +65,12 @@ def get_stream_prompt(query, prompt_file, isQuestion, info_file=None):
     openai.api_key = API_KEY
     if isQuestion:
         data = util.read_json(INFO.BRAIN_DATA)
-        if data:
-            result = GPT.gpt_tools.search_chunks(query, data, count=1)
-            my_info = util.read_file(info_file)
-            prompt = util.read_file(prompt_file)
-            prompt = prompt.replace('<<INFO>>', result[0]['content'])
-            prompt = prompt.replace('<<QS>>', query)
-            prompt = prompt.replace('<<MY-INFO>>', my_info)
-        else:
-            prompt = ''
+        result = GPT.gpt_tools.search_chunks(query, data, count=1)
+        my_info = util.read_file(info_file)
+        prompt = util.read_file(prompt_file)
+        prompt = prompt.replace('<<INFO>>', result[0]['content'])
+        prompt = prompt.replace('<<QS>>', query)
+        prompt = prompt.replace('<<MY-INFO>>', my_info)
     else:
         chunk = textwrap.wrap(query, 10000)[0]
         prompt = util.read_file(prompt_file).replace('<<DATA>>', chunk)

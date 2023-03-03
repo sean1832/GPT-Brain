@@ -11,19 +11,6 @@ def compare_time(t1, t2):
     return t1 == t2
 
 
-def update_time():
-    if os.path.exists(file_path):
-        # get modification time of the file
-        mod_time = os.path.getmtime(file_path)
-
-        # convert the modification time to readable format
-        read_mod_time = time.ctime(mod_time)
-
-        util.write_file(read_mod_time, temp_file)
-    else:
-        raise FileNotFoundError(f'File: {file_path} does not exist.')
-
-
 def is_input_updated():
     if os.path.exists(file_path):
         # get modification time of the file
