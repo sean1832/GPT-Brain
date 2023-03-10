@@ -10,7 +10,7 @@ import modules.utilities as util
 import modules.INFO as INFO
 import modules as mod
 import GPT
-
+API_KEY = util.read_file(r'.user\API-KEYS.txt').strip()
 if 'SESSION_TIME' not in st.session_state:
     st.session_state['SESSION_TIME'] = time.strftime("%Y%m%d-%H%H%S")
 
@@ -21,6 +21,7 @@ CURRENT_LOG_FILE = f'{INFO.LOG_PATH}/log_{SESSION_TIME}.log'
 
 def predict_token(query: str, prompt_core: GPT.model.prompt_core) -> (int, bool):
     """predict how many tokens to generate"""
+    os.environ['OPENAI_API_KEY'] = API_KEY
     llm = OpenAI()
     prompt = GPT.query.get_stream_prompt(query, prompt_file=prompt_core.question,
                                          isQuestion=True,
